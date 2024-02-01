@@ -10,6 +10,7 @@ export default function Header() {
 
             <span className='text-slate-500'>Car</span>
             <span className='text-slate-700'>Car</span>
+            
 
         </h1>
         </Link>
