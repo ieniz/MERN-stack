@@ -32,7 +32,7 @@ export default function Header() {
         />
       </form>
       
-      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
+      <Button className='w-12 h-10 mr-5 lg:hidden' color='gray' pill>
         <AiOutlineSearch />
       </Button>
       
