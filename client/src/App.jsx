@@ -6,8 +6,9 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
-import Footer from './components/Footer';
 import CreateListing from './pages/CreateListing';
+import Footer from './components/Footer';
+
 
 export default function App() {
   return (

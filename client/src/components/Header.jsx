@@ -17,13 +17,13 @@ export default function Header() {
 
     
         <Link to='/'>          
-<h1 className="flex items-center text-sm sm:text-4xl font-extrabold dark:text-white">Mobile<img class="h-auto max-w-lg transition-all duration-300 rounded-lg cursor-pointer filter grayscale hover:grayscale-0 dark:grayscale:-0" src="/slike/auto.png" width="100" 
+<h1 className="flex items-center text-sm sm:text-4xl font-extrabold ml-5 dark:text-white">Mobile<img class="h-auto max-w-lg transition-all duration-300 rounded-lg cursor-pointer filter grayscale hover:grayscale-0 dark:grayscale:-0" src="/slike/auto.png" width="100" 
      height="100" ></img>    
 <span className="bg-sky-100 text-blue-500  sm:text-2xl font-semibold  px-2.5 py-0.5 rounded dark:bg-amber-500 dark:text-black ">Rent&Sell</span></h1>
         </Link>
         
        
-        <form className='mr-40'>
+        <form className='mr-32'>
         <TextInput
           type='text'
           placeholder='Search...'
@@ -38,7 +38,7 @@ export default function Header() {
       
         <ul className='flex gap-4'>
           <Link to='/'>
-            <li className='hidden sm:inline text-slate-700 hover:underline  dark:text-white'>
+            <li className='hidden sm:inline ml-5 text-slate-700 hover:underline  dark:text-white'>
               Home
             </li>
           </Link>
@@ -57,14 +57,14 @@ export default function Header() {
             
                
           </Link>
-          <Button className='w-12 h-10 hidden sm:inline' color='gray' pill onClick={() => dispatch(toggleTheme())} >
+          <Button className='w-12 h-10 hidden sm:inline mr-5' color='gray' pill onClick={() => dispatch(toggleTheme())} >
           {theme === 'light' ? <FaSun /> : <FaMoon />}
           
         </Button>
         </ul>
        
       
-    
+        
     </Navbar>
     
   );
