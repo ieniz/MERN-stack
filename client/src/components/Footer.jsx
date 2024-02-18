@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { BsInstagram, BsGithub,  BsGooglePlay, BsApp, BsApple, } from 'react-icons/bs';
 export default function FooterCom() {
   return (
-    <Footer container className='border border-t-4 border-sky-600 dark:border-amber-700'>
+    <Footer container className='border border-t-2 border-sky-600 dark:border-amber-700'>
       <div className='w-full max-w-7xl mx-auto'>
      
-        <div className ='flex justify-between hiden sm:flex'>
+        <div className ='flex justify-between hidden sm:flex'>
 
 
 <div>        <Footer.Title title="Company" />

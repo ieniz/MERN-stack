@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; //dodan useeffect
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom'; //useParams
 import {
   getDownloadURL,
   getStorage,
@@ -14,6 +14,7 @@ export default function CreateListing() {
 
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const params = useParams(); //inicijalizacija
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
 
@@ -35,8 +36,22 @@ export default function CreateListing() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+// umjesto console.log(formData); ide sljedece
+  useEffect(() => {
+    const fetchListing = async () => {
+      const listingId = params.listingId;
+      const res = await fetch(`/api/listing/get/${listingId}`);
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+      setFormData(data);
+    };
 
-  console.log(formData);
+    fetchListing();
+  }, []);
+// dohvati podatke i setuj na podatke od listinga
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -137,7 +152,7 @@ export default function CreateListing() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const res = await fetch('/api/listing/create', {
+      const res = await fetch(`/api/listing/update/${params.listingId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -310,9 +325,7 @@ export default function CreateListing() {
              disabled={uploading}
              onClick={handleImageSubmit}
              className='p-3 text-sky-700 border border-sky-700 rounded uppercase hover:shadow-lg disabled:opacity-80 dark:border-amber-400 dark:text-amber-700'
-             
              >{uploading ? 'Uploading...' : 'Upload'}
-             
               
               </button>
               <p className='text-red-700 text-sm'>
@@ -341,7 +354,6 @@ export default function CreateListing() {
         <button
          disabled={loading || uploading}
          className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
-          
           {loading ? 'Creating...' : 'Create listing'}</button>
           {error && <p className='text-red-700 text-sm'>{error}</p>}
         </div>
