@@ -1,6 +1,5 @@
 import { Footer, FooterTitle } from 'flowbite-react';
-import { Link } from 'react-router-dom';
-import { BsInstagram, BsGithub,  BsGooglePlay, BsApp, BsApple, } from 'react-icons/bs';
+import { BsInstagram, BsGithub,  BsGooglePlay, BsApple, } from 'react-icons/bs';
 export default function FooterCom() {
   return (
     <Footer container className='border border-t-2 border-sky-600 dark:border-amber-700'>

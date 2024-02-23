@@ -161,7 +161,7 @@ export default function Profile() {
     }
   };
   return (
-    <div className='p-3 max-w-lg mx-auto'>
+    <div className='p-3 max-w-lg mx-auto mb-20'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input
@@ -215,31 +215,43 @@ export default function Profile() {
         />
         <button
           disabled={loading}
-          className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
+          className='border-2 font-extralight text-black dark:text-white border-sky-500 dark:border-amber-600 rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
         >
-          {loading ? 'Loading...' : 'Update'}
+          {loading ? 'Loading...' : 'Update profile'}
         </button>
-        <Link className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95' to={'/create-listing'}>
+        <Link className='border-2 font-extralight text-black dark:text-white border-sky-500 dark:border-amber-600 p-3 rounded-lg uppercase text-center hover:opacity-95' to={'/create-listing'}>
           Create Listing
         </Link>
       </form>
+      <button onClick={handleShowListings} className='border-2 font-extralight border-sky-500 dark:border-amber-500 p-2 rounded-xl dark:text-white w-full mt-5'>
+        Show Listings
+      </button>
       <div className='flex justify-between mt-5'>
-        <span
-          onClick={handleDeleteUser}
-          className='text-red-700 cursor-pointer'
-        >
-          Delete account
-        </span>
-        <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>Sign out</span>
+      <div 
+      onClick={handleDeleteUser}
+      class="relative inline-flex items-center justify-center px-2 overflow-hidden font-medium text-sky-500 transition duration-300 ease-out border-2 border-sky-500 dark:border-amber-500 rounded-lg shadow-md group">
+      <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-sky-500 dark:bg-amber-500 group-hover:translate-x-0 ease">
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      </span>
+      <span className="absolute flex items-center justify-center w-full h-full text-sky-500 dark:text-white transition-all duration-300 transform group-hover:translate-x-full ease">Delete account</span>
+      <span className="relative invisible">Delete account</span>
+      </div>
+      <div 
+      onClick={handleSignOut}
+      className="relative inline-flex items-center justify-center px-2 overflow-hidden font-medium text-sky-500 transition duration-300 ease-out border-2 border-sky-500 dark:border-amber-500 rounded-lg shadow-md group">
+      <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-sky-500 dark:bg-amber-500 group-hover:translate-x-0 ease">
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      </span>
+      <span className="absolute flex items-center justify-center w-full h-full text-sky-500 dark:text-white transition-all duration-300 transform group-hover:translate-x-full ease">Sign out</span>
+      <span className="relative invisible">Sign out</span>
+      </div>
       </div>
 
       <p className='text-red-700 mt-5'>{error ? error : ''}</p>
       <p className='text-green-700 mt-5'>
         {updateSuccess ? 'User is updated successfully!' : ''}
       </p>
-      <button onClick={handleShowListings} className='text-green-700 w-full'>
-        Show Listings
-      </button>
+     
       <p className='text-red-700 mt-5'>
         {showListingsError ? 'Error showing listings' : ''}
       </p>
