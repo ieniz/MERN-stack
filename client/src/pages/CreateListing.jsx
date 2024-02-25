@@ -6,7 +6,8 @@ import { FaCar } from "react-icons/fa";
 import { GiKeyCard , GiCarSeat, GiCardboardBox} from "react-icons/gi";
 import { FaScrewdriverWrench } from "react-icons/fa6";
 
-
+import RADIO_BUTTON_IDS from "../constants/RADIO_BUTTON_IDS.jsx";
+import INITIAL_FORM_STATE from "../constants/INITIAL_FORM_STATE.jsx";
 
 
 import {
@@ -23,87 +24,12 @@ export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [files, setFiles] = useState([]);
-  const [formData, setFormData] = useState({
-
-    imageUrls: [],
-    name: '',
-    description: '',
-    city:'',
-    address: '',
-    type: 'rent',
-    seats: 1,
-    doors: 4,
-    kW: 1,
-    mileage: 1,
-    regularPrice: 10,
-    discountPrice: 0,
-    offer: false,
-    registered: false,
-    airconditioner: false,
-    model:'',
-    brand:'',
-    engine:'',
-    year:'',
-    capacity:'',
-    transmission:'',
-    wheeldrive:'',
-    emission:'',
-    cartype:'',
-    interior:'',
-    metallic: false,
-    alloywheels: false,
-    digitalairconditioning: false,
-    steeringwheelcontrols: false,
-    navigation: false,
-    touchscreen: false,
-    headupdisplay: false,
-    usbport: false,
-    cruisecontrol: false,
-    bluetooth: false,
-    carplay: false,
-    rainsensor: false,
-    parkassist: false,
-    lightsensor: false,
-    blindspotsensor: false,
-    startstopsystem: false,
-    hillassist: false,
-    seatmemory: false,
-    seatmassage: false,
-    seatheating: false,
-    seatcooling: false,
-    powerwindows: false,
-    powerseatadjustment: false,
-    armrest: false,
-    panoramicroof: false,
-    sunroof: false,
-    foglights: false,
-    electricmirrors: false,
-    alarm: false,
-    centrallocking: false,
-    remoteunlocking: false,
-    airbag: false,
-    abs: false,
-    esp: false,
-    dpffapfilter: false,
-    powersteering: false,
-    turbo: false,
-    isofix: false,
-    towbar: false,
-    customscleared: false,
-    foreignplates: false,
-    leasing: false,
-    servicebook: false,
-    damaged: false,
-    adaptedforthedisabled: false,
-    oldtimer: false,
-
-  });
+  const [formData, setFormData] = useState( INITIAL_FORM_STATE );
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log(formData);
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -172,60 +98,7 @@ export default function CreateListing() {
       });
     }
 
-    if (
-      
-      e.target.id === 'registered' ||
-      e.target.id === 'airconditioner' ||
-      e.target.id === 'offer' ||
-      e.target.id === 'metallic' ||
-      e.target.id === 'alloywheels' ||
-      e.target.id === 'digitalairconditioning' ||
-      e.target.id === 'steeringwheelcontrols' ||
-      e.target.id === 'navigation' ||
-      e.target.id === 'touchscreen' ||
-      e.target.id === 'headupdisplay' ||
-      e.target.id === 'usbport' ||
-      e.target.id === 'cruisecontrol' ||
-      e.target.id === 'bluetooth' ||
-      e.target.id === 'carplay' ||
-      e.target.id === 'rainsensor' ||
-      e.target.id === 'parkassist' ||
-      e.target.id === 'lightsensor' ||
-      e.target.id === 'blindspotsensor' ||
-      e.target.id === 'startstopsystem' ||
-      e.target.id === 'hillassist' ||
-      e.target.id === 'seatmemory' ||
-      e.target.id === 'seatmassage' ||
-      e.target.id === 'seatheating' ||
-      e.target.id === 'seatcooling' ||
-      e.target.id === 'powerwindows' ||
-      e.target.id === 'powerseatadjustment' ||
-      e.target.id === 'armrest' ||
-      e.target.id === 'panoramicroof' ||
-      e.target.id === 'sunroof' ||
-      e.target.id === 'foglights' ||
-      e.target.id === 'electricmirrors' ||
-      e.target.id === 'alarm' ||
-      e.target.id === 'centrallocking' ||
-      e.target.id === 'remoteunlocking' ||
-      e.target.id === 'airbag' ||
-      e.target.id === 'abs' ||
-      e.target.id === 'esp' ||
-      e.target.id === 'dpffapfilter' ||
-      e.target.id === 'powersteering' ||
-      e.target.id === 'turbo' ||
-      e.target.id === 'isofix' ||
-      e.target.id === 'towbar' ||
-      e.target.id === 'customscleared' ||
-      e.target.id === 'foreignplates' ||
-      e.target.id === 'leasing' ||
-      e.target.id === 'servicebook' ||
-      e.target.id === 'damaged' ||
-      e.target.id === 'adaptedforthedisabled' ||
-      e.target.id === 'oldtimer'
-          
-      
-    ) {
+    if (  RADIO_BUTTON_IDS.includes(e.target.id ) ) {
       setFormData({
         ...formData,
         [e.target.id]: e.target.checked,
