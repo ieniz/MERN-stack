@@ -1,10 +1,10 @@
 import { FaCar } from "react-icons/fa";
 import { GiKeyCard , GiCarSeat, GiCardboardBox} from "react-icons/gi";
 import { FaScrewdriverWrench } from "react-icons/fa6";
-import { useFormHandlers } from "../functions/formHandlers.js";
+import { useFormHandlers } from "../functions/formHandlers.jsx";
 
 import { CITIES } from '../constants/CITIES.js';
-import { brandModelData } from '../constants/BrandModelData.js';
+import brandModelData from '../constants/BrandModelData.js';
 
 export default function CreateListing() {
     const {
@@ -257,6 +257,7 @@ export default function CreateListing() {
                       <option>Euro 5</option>
                       <option>Euro 6</option>
                   </select>
+
                   <select
                       type="text"
                       className={selectClasses}

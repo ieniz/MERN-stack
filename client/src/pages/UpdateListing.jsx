@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'; //dodan useeffect
 import { useSelector } from 'react-redux';
 import { useNavigate,useParams } from 'react-router-dom'; //useParams
-import brandModelData from '../BrandModelData.js';
+import brandModelData from '../constants/BrandModelData.js';
 import { FaCar } from "react-icons/fa";
 import { GiKeyCard , GiCarSeat, GiCardboardBox} from "react-icons/gi";
 import { FaScrewdriverWrench } from "react-icons/fa6";
