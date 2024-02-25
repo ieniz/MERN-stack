@@ -195,7 +195,7 @@ export default function Profile() {
           placeholder='username'
           defaultValue={currentUser.username}
           id='username'
-          className='border p-3 rounded-lg'
+          className='border-sky-500  dark:border-amber-500  p-3 rounded-3xl dark:bg-transparent bg-gradient-to-b from-transparent via-transparent dark:to-gray-800'
           onChange={handleChange}
         />
         <input
@@ -203,7 +203,7 @@ export default function Profile() {
           placeholder='email'
           id='email'
           defaultValue={currentUser.email}
-          className='border p-3 rounded-lg'
+          className='border-sky-500 dark:border-amber-500  p-3 rounded-3xl dark:bg-transparent bg-gradient-to-b from-transparent via-transparent dark:to-gray-800'
           onChange={handleChange}
         />
         <input
@@ -211,7 +211,7 @@ export default function Profile() {
           placeholder='password'
           onChange={handleChange}
           id='password'
-          className='border p-3 rounded-lg'
+          className='border-sky-500  dark:border-amber-500 p-3 rounded-3xl dark:bg-transparent bg-gradient-to-b from-transparent via-transparent dark:to-gray-800'
         />
         <button
           disabled={loading}
