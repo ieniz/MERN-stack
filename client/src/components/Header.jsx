@@ -13,7 +13,7 @@ export default function Header() {
   const { theme } = useSelector((state) => state.theme);
   return (
    
-    <Navbar  className='border-2  shadow-xl rounded-none  xl:rounded-b-full  border-sky-600 dark:border-amber-700'> 
+    <Navbar  className='border-2  shadow-xl rounded-none  xl:rounded-b-full  border-sky-600 dark:border-amber-700  bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'> 
 
     
   
@@ -43,7 +43,7 @@ export default function Header() {
       
         <ul className='flex gap-4 mr-10 '>
           <Link to='/'>
-            <li className='relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white bg-sky-200 dark:bg-gray-800 rounded-lg group'>
+            <li className='relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white dark:bg-gray-800 rounded-lg group'>
             <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-sky-500 dark:bg-amber-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
 <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
 <span class="relative">Home</span>
@@ -51,7 +51,7 @@ export default function Header() {
           </Link>
          
           <Link to='/about'>
-          <li className='relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white bg-sky-200 dark:bg-gray-800 rounded-lg group'>
+          <li className='relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white dark:bg-gray-800 rounded-lg group'>
             <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-sky-500 dark:bg-amber-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
 <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
 <span class="relative">About</span>
@@ -62,7 +62,7 @@ export default function Header() {
             {currentUser ? (
               <img className='rounded-full h-10 w-10 object-cover' src={currentUser.avatar} alt='profile' />
             ) : (
-              <li className='relative inline-flex items-center justify-center px-2 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white bg-sky-200 dark:bg-gray-800 rounded-lg group'>
+              <li className='relative inline-flex items-center justify-center px-2 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white dark:bg-gray-800 rounded-lg group'>
               <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-sky-500 dark:bg-amber-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
   <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
   <span class="relative">Sign In</span>
