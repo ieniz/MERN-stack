@@ -5,7 +5,7 @@ export default function FooterCom() {
     <Footer container className='border border-t-2 border-sky-600 dark:border-amber-700'>
       <div className='w-full max-w-7xl mx-auto'>
      
-        <div className ='flex justify-between hidden sm:flex'>
+        <div className ='hidden justify-between  sm:flex'>
 
 
 <div>        <Footer.Title title="Company" />

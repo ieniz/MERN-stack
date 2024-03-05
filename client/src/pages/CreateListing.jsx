@@ -165,7 +165,7 @@ export default function CreateListing() {
   };
 
   const handleChange = (e) => {
-    if (e.target.id === 'sale' || e.target.id === 'rent') {
+    if (e.target.id === 'sale' || e.target.id === 'rent' || e.target.id === 'parts') {
       setFormData({
         ...formData,
         type: e.target.id,
@@ -326,8 +326,13 @@ const handleCityChange = (e) => {
         return setError('You must upload at least one image');
       if (+formData.regularPrice < +formData.discountPrice)
         return setError('Discount price must be lower than regular price');
+        if (!formData.requiredField) {
+          alert('Please fill in the required field');
+          return;
+      }
       setLoading(true);
       setError(false);
+     
       const res = await fetch('/api/listing/create', {
         method: 'POST',
         headers: {
@@ -386,8 +391,10 @@ const handleCityChange = (e) => {
         </label>
     </li>
     <li>
-        <input type="checkbox" id="angular-option" value="" className="hidden peer"/>
-        <label for="angular-option" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <input type="checkbox" id="parts" value="" className="hidden peer"
+        onChange={handleChange}
+        checked={formData.type === 'parts'}/>
+        <label for="parts" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
             <div class="block">
               <div className='flex gap-7'><GiCardboardBox style={{ fontSize: '2em'}}/><GiCarSeat style={{ fontSize: '2em'}}/><FaScrewdriverWrench style={{ fontSize: '2em'}}/></div>
             
@@ -404,6 +411,7 @@ const handleCityChange = (e) => {
         <div className='flex flex-col gap-4 '>
         <select
             type='text'
+           
             className='block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
             dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
             id='cartype'
@@ -411,6 +419,7 @@ const handleCityChange = (e) => {
             onChange={handleCarTypeChange}
             value={formData.cartype}
           >
+            <option value="" disabled hidden>Select type</option>
              <option >
             Limousine
             </option> 
@@ -474,7 +483,8 @@ const handleCityChange = (e) => {
             required
             onChange={handleEngineTypeChange}
             value={formData.engine}
-          >
+          >  
+          <option value="" disabled hidden>Type of engine</option>
             <option >
               E-V
             </option>  
@@ -533,6 +543,7 @@ const handleCityChange = (e) => {
             onChange={handleTransmissionChange}
             value={formData.transmission}
           >
+             <option value="" disabled hidden>Select transmission</option>
             <option >
             Automatic
             </option>  
@@ -549,6 +560,7 @@ const handleCityChange = (e) => {
             onChange={handleWheelDriveChange}
             value={formData.wheeldrive}
           >
+             <option value="" disabled hidden>Drive train</option>
              <option >
             RWD
             </option> 
@@ -571,6 +583,7 @@ const handleCityChange = (e) => {
             onChange={handleEmissionChange}
             value={formData.emission}
           >
+             <option value="" disabled hidden>Emission standard</option>
              <option >
             Euro 1
             </option> 
@@ -598,6 +611,7 @@ const handleCityChange = (e) => {
             onChange={handleInteriorChange}
             value={formData.interiortype}
           >
+             <option value="" disabled hidden>Interior type</option>
              <option >
             Leather
             </option> 
@@ -646,6 +660,7 @@ const handleCityChange = (e) => {
             placeholder='Address (Optional)'
             className='border p-3 rounded-lg  border-sky-500 dark:border-amber-600 dark:bg-transparent dark:text-white'
             id='address'
+            required
             onChange={handleChange}
             value={formData.address}
           />
@@ -660,6 +675,7 @@ const handleCityChange = (e) => {
             onChange={handleCityChange}
             value={formData.city}
           >
+             <option value="" disabled hidden>Select city</option>
             <option value="banjaluka">Banja Luka</option><option value="bileca">Bileća</option><option value="bijeljina">Bijeljina</option>
             <option value="bogojno">Bogojno</option><option value="bratunac">Bratunac</option><option value="brcko">Brčko</option><option value="buzim">Bužim</option>
             <option value="bihac">Bihać</option><option value="bosanskakrupa">Bosanska Krupa</option><option value="cacak">Cacak</option>
@@ -715,7 +731,6 @@ const handleCityChange = (e) => {
                 id='seats'
                 min='1'
                 max='100'
-                required
                 className='p-3 border bg-transparent  border-gray-600 rounded-lg'
                 onChange={handleChange}
                 value={formData.seats}
@@ -744,7 +759,6 @@ const handleCityChange = (e) => {
                 id='kW'
                 min='1'
                 max='50'
-                required
                 className='p-3 border bg-transparent border-gray-600 rounded-lg'
                 onChange={handleChange}
                 value={formData.kW}
@@ -773,7 +787,6 @@ const handleCityChange = (e) => {
                 id='regularPrice'
                 min='1'
                 max='10'
-                required
                 className='p-3 border bg-transparent border-gray-600 rounded-lg'
                 onChange={handleChange}
                 value={formData.regularPrice}
@@ -794,7 +807,6 @@ const handleCityChange = (e) => {
                 id='discountPrice'
                 min='1'
                 max='10'
-                required
                 className='p-3 border bg-transparent border-gray-600 rounded-lg'
                 onChange={handleChange}
                 value={formData.discountPrice}
@@ -809,8 +821,10 @@ const handleCityChange = (e) => {
             )}
           </div> 
           </div>
+          {(formData.type ==='rent' || formData.type === 'sale') && (
+            <>
           <h2 className='font-mono text-gray-500 dark:text-zinc-300 '>Legal:</h2>
-        
+         
           <div className='flex-wrap sm:flex gap-7 border-2 border-sky-500 dark:border-amber-700 rounded-md p-2  '>
             <div>
 {/* Registered */}
@@ -1518,10 +1532,11 @@ const handleCityChange = (e) => {
 </div></div>
 
     </div>
-                        
+    </>
+)}             
     </div>
 
-       
+
         
        
       </form>
@@ -1579,10 +1594,11 @@ const handleCityChange = (e) => {
          className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
           
           {loading ? 'Creating...' : 'Create listing'}</button>
-          {error && <p className='text-red-700 text-sm'>{error}</p>}
+          {error && <p className='text-red-500 text-sm'>{error}</p>}
           
         </div>
         </form>
+        
     </main>
   );
 }
