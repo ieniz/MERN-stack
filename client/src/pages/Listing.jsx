@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import SellerContact from '../components/SellerContact';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
 
-import { GiCarDoor, GiCarSeat, GiArchiveRegister, GiGearStickPattern, GiSmokeBomb, GiCarWheel} from "react-icons/gi";
-import { FaMapMarkerAlt, FaRegistered, FaRoad, FaCar, FaRegCalendarAlt } from 'react-icons/fa';
+import { GiCarDoor, GiCarSeat, GiArchiveRegister, GiGearStickPattern, GiSmokeBomb, GiCarWheel, GiFullFolder} from "react-icons/gi";
+import { FaMapMarkerAlt, FaRegistered, FaRoad, FaCar, FaRegCalendarAlt, FaCarSide, FaCarCrash, FaRegCreditCard } from 'react-icons/fa';
 import { SiPagespeedinsights } from "react-icons/si";
 import { TbDisabled, TbEngine } from "react-icons/tb";
 import { BsFuelPump } from "react-icons/bs";
@@ -20,7 +22,9 @@ export default function Listing() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [contact, setContact] = useState(false);
   const params = useParams();
+  const {currentUser} = useSelector((state) => state.user);
   useEffect(() => {
     const fetchListing = async () => {
       try {
@@ -96,10 +100,7 @@ export default function Listing() {
   'turbo',
   'isofix',
   'towbar',
-  'customscleared',
-  'foreignplates',
-  'damaged',
-  'oldtimer'];
+   ];
   
   // Component to render the list of attributes
   const AttributeList = () => (
@@ -123,12 +124,15 @@ export default function Listing() {
             <p className='text-2xl font-extrabold'>
               {listing.name} 
             </p>
-           
+            
             <p className='flex items-center mt-1 gap-2 text-sm'>
               <FaMapMarkerAlt className='text-xl' />
-              <span className='uppercase'>{listing.city},</span>  
-             {listing.address} 
-            </p>
+              <span className='uppercase'>{listing.city}</span> 
+              </p> 
+              {listing.address &&(
+             <p>{listing.address} </p>             
+            
+            )}
             <div className='flex gap-4 mb-2 '>
               <p className=' w-full max-w-[200px] text-center border-2 border-sky-500 dark:border-amber-700 p-1 rounded-md'>
               {listing.type === 'rent' ? 'For Rent' : (listing.type === 'parts' ? 'Part' : 'For Sale')}
@@ -222,6 +226,30 @@ export default function Listing() {
                 Registered
               </li>
               )}
+                {listing.customscleared && (
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+                <GiFullFolder className='text-2xl' />
+                Customs cleared
+              </li>
+              )}
+                {listing.oldtimer && (
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+                <FaCarSide  className='text-2xl' />
+                Oldtimer
+              </li>
+              )}
+                {listing.foreignplates && (
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+                <FaRegCreditCard className='text-2xl' />
+                Foreign plates
+              </li>
+              )}
+                {listing.damaged && (
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+                <FaCarCrash className='text-2xl' />
+                Car is damaged
+              </li>
+              )}
                           
             </ul>
              
@@ -247,12 +275,17 @@ export default function Listing() {
             </p>
 
 
-            <div className='flex gap-10'>
+            <div className='flex gap-10 p-5 rounded-xl bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'>
             <h1 className='font-bold '>Other:</h1>
-            <AttributeList />
-            
+            <AttributeList />            
             </div>
 
+            {currentUser && listing.userRef !== currentUser._id && !contact && (
+              <button onClick={()=>setContact(true)} className='bg-sky-600 dark:bg-amber-700 text-white rounded-lg uppercase hover:opacity-95 p-3 mt-10'>
+                Contact landlord
+              </button>
+            )}
+            {contact && <SellerContact listing={listing}/>}
           </div>
         </div>
       )}

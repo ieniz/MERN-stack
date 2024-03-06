@@ -1,6 +1,7 @@
 
 import { Button, Navbar, TextInput } from 'flowbite-react';
-import { Link, } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,12 +12,31 @@ export default function Header() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
+
+
+
   return (
    
     <Navbar  className='border-2  shadow-xl rounded-none  xl:rounded-b-full  border-sky-600 dark:border-amber-700  bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'> 
-
     
-  
       
           <Link to='/' className='lg:ml-10'>          
 <h1 className="text-xl sm:text-4xl flex  items-center  font-extrabold  dark:text-white">Mobile<img class="h-auto max-w-lg transition-all duration-300 rounded-lg cursor-pointer filter grayscale hover:grayscale-0 dark:grayscale:-0" src="/slike/auto.png" width="100" 
@@ -26,13 +46,20 @@ export default function Header() {
        
        
      
-         <form className='mr-10 '>
+         <form 
+         onSubmit={handleSubmit}
+         className='mr-10 '
+         >
+
         <TextInput
           type='text'
           placeholder='Search...'
           rightIcon={AiOutlineSearch}
           className='hidden lg:inline'
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
+
          </form>
       
       <Button className='w-12 h-10 mr-10  lg:hidden' color='gray' pill>
