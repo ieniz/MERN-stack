@@ -151,6 +151,9 @@ export default function Listing() {
               )}
               <p className='font-bold flex'>{listing.leasing && 'Leasing Possible'}</p>
             </div>
+            
+            {listing.type ==='parts'  && (
+            <h2>Parts suits best:</h2>)}
 
             <ul className=' font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
             
@@ -162,10 +165,12 @@ export default function Listing() {
                                
               </p>
               </li>
-              <li className='flex items-center gap-1 whitespace-nowrap'>
+              <li className='flex items-center gap-3 whitespace-nowrap '>
               <FaRegCalendarAlt className='text-2xl' />
               {`${listing.year}`}
               </li>
+              {(listing.type === 'sale' || listing.type === 'rent') && ( 
+                <>
               <li className='flex items-center gap-1 whitespace-nowrap '>
                 <GiCarSeat className='text-2xl' />
                 {listing.seats > 1
@@ -185,11 +190,14 @@ export default function Listing() {
                   ? `${listing.doors} Doors `
                   : `${listing.doors} Door `}
               </li>
-                           
+
+                        
               <li className='flex items-center gap-1 whitespace-nowrap '>
                 <FaRoad className='text-2xl' />
                 {`${listing.mileage} Km`}
               </li>
+              </>)}
+
               <li className='flex items-center gap-1 whitespace-nowrap '>
                 <GiCarWheel className='text-2xl' />
                 {`${listing.wheeldrive}`}
@@ -206,6 +214,7 @@ export default function Listing() {
               <BsFuelPump className='text-2xl' />
               {`${listing.engine}`}
               </li>
+              
               <li className='flex items-center gap-1 whitespace-nowrap'>
               <GiSmokeBomb className='text-2xl' />
               {`${listing.emission}`}
@@ -252,7 +261,7 @@ export default function Listing() {
               )}
                           
             </ul>
-             
+            
             <div>
                <Swiper navigation>
             {listing.imageUrls.map((url) => (
@@ -274,12 +283,12 @@ export default function Listing() {
               {listing.description}
             </p>
 
-
+            {(listing.type ==='rent' || listing.type === 'sale') && (
             <div className='flex gap-10 p-5 rounded-xl bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'>
             <h1 className='font-bold '>Other:</h1>
             <AttributeList />            
             </div>
-
+            )}
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button onClick={()=>setContact(true)} className='bg-sky-600 dark:bg-amber-700 text-white rounded-lg uppercase hover:opacity-95 p-3 mt-10'>
                 Contact landlord

@@ -6,7 +6,7 @@ const brandModelData = {
     Ford: ['Bronco', 'Edge', 'Escape', 'Expedition', 'Explorer', 'F-150', 'Mustang', 'Ranger'],
     Chevrolet: ['Blazer', 'Camaro', 'Equinox', 'Malibu', 'Silverado', 'Suburban', 'Tahoe', 'Traverse'],
     BMW: ['1 Series', '2 Series', '3 Series', '4 Series', '5 Series', '6 Series', '7 Series', 'X1', 'X3', 'X5', 'X7', 'Z4', 'i3', 'i4', 'i8'],
-    Mercedes: ['A-Class', 'C-Class', 'E-Class', 'GLA', 'GLC', 'GLE', 'S-Class','CLA','CLS'],
+    Mercedes: ['A-Class', 'C-Class', 'E-Class', 'GLA', 'GLC', 'GLE', 'S-Class','CLA','CLS','D-Class'],
     Audi: ['A3', 'A4', 'A6', 'Q3', 'Q5', 'Q7', 'TT'],
     Nissan: ['Altima', 'Armada', 'Frontier', 'Maxima', 'Murano', 'Rogue', 'Titan', 'Versa'],
     Subaru: ['Ascent', 'Crosstrek', 'Forester', 'Impreza', 'Legacy', 'Outback'],

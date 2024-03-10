@@ -432,6 +432,41 @@ const handleCityChange = (e) => {
             value={formData.cartype}
           >
             <option value="" disabled hidden>Select type</option>
+            {formData.type === 'parts' && (
+              <>
+                <option>Mali servis - Filteri</option>
+                <option>Kaišni prenos/ Remenje / Veliki servis</option>
+                <option>Senzori</option>
+                <option>Delovi za servisiranje/pregled/održavanje</option>
+                <option>Karoserija</option>
+                <option>Hlađenje/Grijanje/ventilacija/elektronika klime</option>
+                <option>Kvačilo/Zamajac/priključni dijelovi kvačila</option>
+                <option>Motor</option>
+                <option>Pogon točkova/Poluosovina</option>
+                <option>Sigurnosni sistemi</option>
+                <option>Unutrašnja oprema</option>
+                <option>Elektrika</option>
+                <option>Informacioni/komunikacioni sistemi</option>
+                <option>Luksuzna oprema</option>
+                <option>Sistem upravljanja</option>
+                <option>Sistem zaključavanja</option>
+                <option>Izduvni sistem</option>
+                <option>Kočioni sistem, diskovi i plocice</option>                
+                <option>Opruge/ Amortizeri</option>
+                <option>Sistem za dovod goriva/Priprema goriva</option>
+                <option>Hibridni/električni pogon</option>
+                <option>Kompresorski agregat</option>
+                <option>Mjenjač/dijelovi za mjenjač</option>
+                <option>Osovinski pogon</option>
+                <option>Sistem za paljenje/bobina,svjećice,grijači</option>
+                <option>Točkovi/Pneumatici</option>
+                <option>Vješanje/Seleni/ Glavčina točka/ Ležajevi</option>
+                                
+                
+              </>
+            )}
+            {(formData.type === 'sale' || formData.type ==='rent') && (
+              <>
              <option >
             Limousine
             </option> 
@@ -450,6 +485,9 @@ const handleCityChange = (e) => {
             <option >
             Station wagon
             </option>
+            </>
+            )}
+          
           </select>
           <select
             className='block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
@@ -737,6 +775,8 @@ const handleCityChange = (e) => {
            
           <div className='gap-6 flex flex-wrap'>
           <div className='flex flex-wrap gap-6'>
+          {(formData.type === 'sale' || formData.type === 'rent') && (
+           <>
             <div className='flex items-center gap-2'>
               <input
                 type='number'
@@ -791,8 +831,10 @@ const handleCityChange = (e) => {
                 <p>Mileage</p>                             
               
               </div>
-              
+             
             </div>
+            </>
+              )}
             <div className='flex items-center gap-2'>
               <input
                 type='number'
@@ -804,7 +846,7 @@ const handleCityChange = (e) => {
                 value={formData.regularPrice}
               />
               <div className='flex flex-col items-center'>
-                <p>Regular price</p>
+                <p>Price</p>
                 {formData.type === 'rent' && (
                   <span className='text-xs'>($ / day)</span>
                 )}
