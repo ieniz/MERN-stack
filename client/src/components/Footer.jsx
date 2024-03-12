@@ -2,7 +2,7 @@ import { Footer, FooterTitle } from 'flowbite-react';
 import { BsInstagram, BsGithub,  BsGooglePlay, BsApple, } from 'react-icons/bs';
 export default function FooterCom() {
   return (
-    <Footer container className='border border-t-2 border-sky-600 dark:border-amber-700'>
+    <Footer container className='shadow-2xl rounded-2xl bg-gradient-to-b from-transparent via-transparent dark:to-gray-950'>
       <div className='w-full max-w-7xl mx-auto'>
      
         <div className ='hidden justify-between  sm:flex'>

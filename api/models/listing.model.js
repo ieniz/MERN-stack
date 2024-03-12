@@ -101,7 +101,7 @@ const listingSchema = new mongoose.Schema(
     },
     emission:{
       type: String,
-      required: true,
+      required: false,
 
     },
     cartype:{
@@ -111,7 +111,7 @@ const listingSchema = new mongoose.Schema(
     },
     interior:{
       type: String,
-      required: true,
+      required: false,
 
     },
     metallic: {
@@ -299,7 +299,13 @@ const listingSchema = new mongoose.Schema(
       required: false,
     },
     
-
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    
+   
     
     
   

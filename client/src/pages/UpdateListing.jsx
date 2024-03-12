@@ -97,6 +97,7 @@ export default function CreateListing() {
     damaged: false,
     adaptedforthedisabled: false,
     oldtimer: false,
+    createdBy:currentUser._id,
 
   });
   const [imageUploadError, setImageUploadError] = useState(false);
@@ -500,6 +501,11 @@ const handleCityChange = (e) => {
             <option value='' disabled>
               Select Brand
             </option>
+            {formData.type ==='parts' && (
+              <option>
+                Any brand
+              </option>
+            )}
             {Object.keys(brandModelData).map((brand) => (
               <option key={brand} value={brand}>
                 {brand}
@@ -518,6 +524,11 @@ const handleCityChange = (e) => {
             <option value='' disabled>
               {formData.brand ? 'Select Model' : 'Select Brand First'}
             </option>
+            {formData.type ==='parts' && (
+              <option>
+                Any model
+              </option>
+            )}
             {brandModelData[formData.brand] &&
               brandModelData[formData.brand].map((model) => (
                 <option key={model} value={model}>
@@ -535,6 +546,11 @@ const handleCityChange = (e) => {
             value={formData.engine}
           >  
           <option value="" disabled hidden>Type of engine</option>
+          {formData.type ==='parts' && (
+              <option>
+                Any type of engine
+              </option>
+            )}
             <option >
               E-V
             </option>  
@@ -578,9 +594,14 @@ const handleCityChange = (e) => {
             value={formData.capacity}
           >
               
-            <option >
-              Electric or pick size below
+            <option value='' disabled >
+              Engine size
             </option>  
+            {formData.type ==='parts' && (
+              <option>
+                Any engine size
+              </option>
+            )}
             {generateEngineSizeOptions()}
           </select>
         
@@ -594,6 +615,11 @@ const handleCityChange = (e) => {
             value={formData.transmission}
           >
              <option value="" disabled hidden>Select transmission</option>
+             {formData.type ==='parts' && (
+              <option>
+                Any transmission
+              </option>
+            )}
             <option >
             Automatic
             </option>  
@@ -611,6 +637,11 @@ const handleCityChange = (e) => {
             value={formData.wheeldrive}
           >
              <option value="" disabled hidden>Drive train</option>
+             {formData.type ==='parts' && (
+              <option>
+                Any drive train
+              </option>
+            )}
              <option >
             RWD
             </option> 
@@ -624,16 +655,20 @@ const handleCityChange = (e) => {
             4WD
             </option>
           </select>
+          
+          {(formData.type === 'sale' || formData.type === 'rent' ) && (<>
           <select
             type='text'
             className='block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
             dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
             id='emission'
-            required
+           
             onChange={handleEmissionChange}
             value={formData.emission}
           >
+           
              <option value="" disabled hidden>Emission standard</option>
+             
              <option >
             Euro 1
             </option> 
@@ -653,6 +688,8 @@ const handleCityChange = (e) => {
             Euro 6
             </option>
           </select>
+            </>)}
+          {(formData.type === 'sale' || formData.type === 'rent' || formData.cartype === 'Unutrašnja oprema') && (<>
           <select
             type='text'
             className='block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
@@ -680,7 +717,7 @@ const handleCityChange = (e) => {
             
           </select>
          
-          
+          </>)}
           
           </div>  
           <div className='flex-col flex-1'>

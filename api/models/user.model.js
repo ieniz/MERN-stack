@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    phonenumber: {
+      type: String,
+      required: false,
+    },
     avatar:{
       type: String,
       default: "https://campussafetyconference.com/wp-content/uploads/2020/08/iStock-476085198.jpg"

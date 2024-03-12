@@ -35,13 +35,13 @@ export default function Header() {
 
   return (
    
-    <Navbar  className='border-2  shadow-xl rounded-none  xl:rounded-b-3xl  border-sky-600 dark:border-amber-700  bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'> 
+    <Navbar  className=' shadow-xl rounded-none  xl:rounded-b-3xl border-b  border-sky-600 dark:border-amber-700  bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'> 
     
       
           <Link to='/' className='lg:ml-10'>          
 <h1 className="text-xl sm:text-4xl flex  items-center  font-extrabold  dark:text-white">Mobile<img class="h-auto max-w-lg transition-all duration-300 rounded-lg cursor-pointer filter grayscale hover:grayscale-0 dark:grayscale:-0" src="/slike/auto.png" width="100" 
      height="100" ></img>    
-<span className="bg-sky-100  text-blue-500  sm:text-2xl font-semibold  px-2.5 py-0.5 rounded dark:bg-amber-600 dark:text-black ">Rent&Sell</span></h1>
+<span className="bg-sky-300  text-blue-800  sm:text-2xl font-semibold  px-2.5 py-0.5 rounded dark:bg-amber-600 dark:text-black ">Rent&Sell</span></h1>
         </Link>
        
        

@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useRef, useState, useEffect } from 'react';
+import { FaPhoneAlt } from "react-icons/fa";
 import {
   getDownloadURL,
   getStorage,
@@ -161,7 +162,7 @@ export default function Profile() {
     }
   };
   return (
-    <><div className='p-3 max-w-lg mx-auto '>
+    <><div className='p-3 max-w-lg mx-auto mb-7 '>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input
@@ -193,21 +194,32 @@ export default function Profile() {
           placeholder='username'
           defaultValue={currentUser.username}
           id='username'
-          className='border-sky-500  dark:border-amber-500  p-3 rounded-2xl dark:bg-transparent bg-gradient-to-b from-transparent via-transparent dark:to-gray-800'
+          className='dark:border-none border-sky-500  text-gray-400 p-3 rounded-lg dark:bg-transparent bg-gradient-to-b from-transparent via-transparent dark:to-gray-800'
           onChange={handleChange} />
         <input
           type='email'
           placeholder='email'
           id='email'
           defaultValue={currentUser.email}
-          className='border-sky-500 dark:border-amber-500  p-3 rounded-2xl dark:bg-transparent bg-gradient-to-b from-transparent via-transparent dark:to-gray-800'
+          className='dark:border-none border-sky-500 text-gray-400  p-3 rounded-lg dark:bg-transparent bg-gradient-to-b from-transparent via-transparent dark:to-gray-800'
           onChange={handleChange} />
         <input
           type='password'
           placeholder='password'
           onChange={handleChange}
           id='password'
-          className='border-sky-500  dark:border-amber-500 p-3 rounded-2xl dark:bg-transparent bg-gradient-to-b from-transparent via-transparent dark:to-gray-800 ' />
+          className='dark:border-none border-sky-500  p-3 rounded-lg dark:bg-transparent bg-gradient-to-b from-transparent via-transparent dark:to-gray-800 ' />
+          
+        <div class="relative">
+        <span class="absolute start-0 bottom-3 text-gray-500 dark:text-gray-400">
+        <FaPhoneAlt />
+        </span>
+        <input 
+        onChange={handleChange}
+        type="text" id="phonenumber" className="block py-2.5 ps-6 pe-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2
+         border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-amber-500 focus:outline-none focus:ring-0
+         focus:border-blue-600 peer"  placeholder="Phone number " />
+        </div>
         <button
           disabled={loading}
           className='border-2 font-extralight text-black dark:text-white border-sky-500 dark:border-amber-600 rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80  hover:bg-sky-500 dark:hover:bg-amber-600'

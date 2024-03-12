@@ -7,7 +7,7 @@ import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
 
-import { GiCarDoor, GiCarSeat, GiArchiveRegister, GiGearStickPattern, GiSmokeBomb, GiCarWheel, GiFullFolder} from "react-icons/gi";
+import { GiCarDoor, GiCarSeat, GiArchiveRegister, GiGearStickPattern, GiSmokeBomb, GiCarWheel, GiFullFolder,GiCardboardBox} from "react-icons/gi";
 import { FaMapMarkerAlt, FaRegistered, FaRoad, FaCar, FaRegCalendarAlt, FaCarSide, FaCarCrash, FaRegCreditCard } from 'react-icons/fa';
 import { SiPagespeedinsights } from "react-icons/si";
 import { TbDisabled, TbEngine } from "react-icons/tb";
@@ -21,7 +21,6 @@ export default function Listing() {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
   const params = useParams();
   const {currentUser} = useSelector((state) => state.user);
@@ -121,9 +120,33 @@ export default function Listing() {
         <div >        
        
           <div className='flex flex-col max-w-4xl  mx-auto p-3 my-7 gap-4'>
-            <p className='text-2xl font-extrabold'>
+
+            
+            <p className='text-2xl font-extrabold flex-1'>
               {listing.name} 
+            </p>         
+                             
+            <div className='flex  p-3 max-w-56 rounded-2xl  bg-gradient-to-t from-transparent  to-sky-50 dark:to-gray-950'>
+            <img          
+            src={listing.createdBy.avatar}
+            alt='profile'
+            className='rounded-full h-14 w-14 mr-2 object-cover cursor-pointer self-center mt-2'
+            />          
+            <p className='mt-2 font-extrabold text-slate-500'>
+
+            {listing.createdBy.username} <br />  
+                    
+            {listing.createdBy.phonenumber}
+            
             </p>
+
+            </div>
+           
+            
+                     
+                          
+            
+        
             
             <p className='flex items-center mt-1 gap-2 text-sm'>
               <FaMapMarkerAlt className='text-xl' />
@@ -152,6 +175,14 @@ export default function Listing() {
               <p className='font-bold flex'>{listing.leasing && 'Leasing Possible'}</p>
             </div>
             
+            {listing.type ==='parts' && (
+        
+            <div className=' flex font-bold text-sm items-center gap-1'>
+            <GiCardboardBox/>
+                Type of part : {`${listing.cartype}`}
+            </div>
+            )}
+
             {listing.type ==='parts'  && (
             <h2>Parts suits best:</h2>)}
 
@@ -202,23 +233,25 @@ export default function Listing() {
                 <GiCarWheel className='text-2xl' />
                 {`${listing.wheeldrive}`}
               </li>
-              <li className='flex items-center gap-1 whitespace-nowrap'>
-              <SiPagespeedinsights className='text-2xl' />
-              {`${listing.kW} KW (${(listing.kW * 1.34).toFixed(2)} bhp)`}
-              </li>
+              
               <li className='flex items-center gap-1 whitespace-nowrap'>
               <GiGearStickPattern className='text-2xl' />
               {`${listing.transmission}`}
               </li>
               <li className='flex items-center gap-1 whitespace-nowrap'>
+              <SiPagespeedinsights className='text-2xl' />
+              {`${listing.kW} KW (${(listing.kW * 1.34).toFixed(2)} bhp)`}
+              </li>
+              <li className='flex items-center gap-1 whitespace-nowrap'>
               <BsFuelPump className='text-2xl' />
               {`${listing.engine}`}
               </li>
-              
+              {(listing.type === 'sale' || listing.type === 'rent' ) && (
               <li className='flex items-center gap-1 whitespace-nowrap'>
               <GiSmokeBomb className='text-2xl' />
               {`${listing.emission}`}
               </li>
+              )}
               <li className='flex items-center gap-1 whitespace-nowrap'>
               <TbEngine className='text-2xl' />
               {`${listing.capacity} Engine`}
@@ -291,7 +324,7 @@ export default function Listing() {
             )}
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button onClick={()=>setContact(true)} className='bg-sky-600 dark:bg-amber-700 text-white rounded-lg uppercase hover:opacity-95 p-3 mt-10'>
-                Contact landlord
+                Contact seller
               </button>
             )}
             {contact && <SellerContact listing={listing}/>}
