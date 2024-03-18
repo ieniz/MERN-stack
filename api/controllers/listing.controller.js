@@ -3,6 +3,7 @@ import { errorHandler } from '../utils/error.js';
 
 export const createListing = async (req, res, next) => {
   try {
+    console.log(req.body)
     const listing = await Listing.create(req.body);
     return res.status(201).json(listing);
   } catch (error) {
@@ -72,10 +73,28 @@ export const getListing = async (req, res, next) => {
         offer = { $in: [false, true] };
       }
   
-      let airconditioner = req.query.airconditioner;
+      let customscleared = req.query.customscleared;
   
-      if (airconditioner === undefined || airconditioner === 'false') {
-        airconditioner = { $in: [false, true] };
+      if (customscleared === undefined || customscleared === 'false') {
+        customscleared = { $in: [false, true] };
+      }
+
+      let foreignplates = req.query.foreignplates;
+  
+      if (foreignplates === undefined || foreignplates === 'false') {
+        foreignplates = { $in: [false, true] };
+      }
+
+      let servicebook = req.query.servicebook;
+  
+      if (servicebook === undefined || servicebook === 'false') {
+        servicebook = { $in: [false, true] };
+      }
+      
+      let leasing = req.query.leasing;
+  
+      if (leasing === undefined || leasing === 'false') {
+        leasing= { $in: [false, true] };
       }
   
       let registered = req.query.registered;
@@ -99,7 +118,10 @@ export const getListing = async (req, res, next) => {
       const listings = await Listing.find({
         name: { $regex: searchTerm, $options: 'i' },
         offer,
-        airconditioner,
+        customscleared,
+        leasing,
+        servicebook,
+        foreignplates,
         registered,
         type,
       })

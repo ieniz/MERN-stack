@@ -12,7 +12,10 @@ export default function Search() {
     searchTerm: '',
     type: 'all',
     registered: false,
-    airconditioner: false,
+    leasing: false,
+    servicebook: false,
+    foreignplates: false,
+    customscleared: false,
     offer: false,
     sort: 'created_at',
     order: 'desc',
@@ -28,7 +31,10 @@ export default function Search() {
     const searchTermFromUrl = urlParams.get('searchTerm');
     const typeFromUrl = urlParams.get('type');
     const registeredFromUrl = urlParams.get('registered');
-    const airconditionerFromUrl = urlParams.get('airconditioner');
+    const leasingFromUrl = urlParams.get('leasing');
+    const foreignplatesFromUrl = urlParams.get('leasing');
+    const servicebookFromUrl = urlParams.get('leasing');
+    const customsclearedFromUrl = urlParams.get('customscleared');
     const offerFromUrl = urlParams.get('offer');
     const sortFromUrl = urlParams.get('sort');
     const orderFromUrl = urlParams.get('order');
@@ -37,7 +43,10 @@ export default function Search() {
       searchTermFromUrl ||
       typeFromUrl ||
       registeredFromUrl ||
-      airconditionerFromUrl ||
+      leasingFromUrl ||
+      foreignplatesFromUrl ||
+      servicebookFromUrl ||
+      customsclearedFromUrl ||
       offerFromUrl ||
       sortFromUrl ||
       orderFromUrl
@@ -46,7 +55,10 @@ export default function Search() {
         searchTerm: searchTermFromUrl || '',
         type: typeFromUrl || 'all',
         registered: registeredFromUrl === 'true' ? true : false,
-        airconditioner: airconditionerFromUrl === 'true' ? true : false,
+        leasing: leasingFromUrl === 'true' ? true : false,
+        customscleared: customsclearedFromUrl === 'true' ? true : false,
+        foreignplates: customsclearedFromUrl === 'true' ? true : false,
+        servicebook: customsclearedFromUrl === 'true' ? true : false,
         offer: offerFromUrl === 'true' ? true : false,
         sort: sortFromUrl || 'created_at',
         order: orderFromUrl || 'desc',
@@ -87,7 +99,10 @@ export default function Search() {
 
     if (
       e.target.id === 'registered' ||
-      e.target.id === 'airconditioner' ||
+      e.target.id === 'leasing' ||
+      e.target.id === 'foreignplates' ||
+      e.target.id === 'servicebook' ||
+      e.target.id === 'customscleared' ||
       e.target.id === 'offer'
     ) {
       setSidebardata({
@@ -112,7 +127,10 @@ export default function Search() {
     urlParams.set('searchTerm', sidebardata.searchTerm);
     urlParams.set('type', sidebardata.type);
     urlParams.set('registered', sidebardata.registered);
-    urlParams.set('airconditioner', sidebardata.airconditioner);
+    urlParams.set('leasing', sidebardata.leasing);
+    urlParams.set('foreignplates', sidebardata.foreignplates);
+    urlParams.set('servicebook', sidebardata.servicebook);
+    urlParams.set('customscleared', sidebardata.customscleared);
     urlParams.set('offer', sidebardata.offer);
     urlParams.set('sort', sidebardata.sort);
     urlParams.set('order', sidebardata.order);
@@ -145,7 +163,7 @@ export default function Search() {
             <input
               type='text'
               id='searchTerm'
-              placeholder='Search...'
+              placeholder='Search term...'
               className='border border-sky-500 dark:border-amber-600 bg-transparent rounded-lg p-3 w-full'
               value={sidebardata.searchTerm}
               onChange={handleChange}
@@ -234,9 +252,9 @@ export default function Search() {
             </label>
             </div>)}
 
-
-          <div className='flex gap-2 flex-wrap items-center'>
-            <label className='font-semibold'>Amenities:</label>
+            {sidebardata.type === 'sale' && (
+          <div className='flex gap-2 flex-wrap items-center max-w-10'>
+            <label className='font-semibold'>Legal:</label>
             <div className='flex gap-2 items-center'>
               <input
                 type='checkbox'
@@ -247,18 +265,51 @@ export default function Search() {
               />
               <span>registered</span>
             </div>
+            <div className='flex gap-2 items-center'>
+              <input
+                type='checkbox'
+                id='leasing'
+                className='rounded-full bg-transparent'
+                onChange={handleChange}
+                checked={sidebardata.leasing}
+              />
+              <span>leasing</span>
+            </div>
             <div className='flex gap-2 items-center '>
               <input
                 type='checkbox'
-                id='airconditioner'
+                id='customscleared'
                 className='rounded-full bg-transparent '
                 onChange={handleChange}
-                checked={sidebardata.airconditioner}
+                checked={sidebardata.customscleared}
               />
-              <span>airconditioner</span>
+              <span>customscleared</span>
+              
+            </div>
+            <div className='flex gap-2 items-center '>
+              <input
+                type='checkbox'
+                id='foreignplates'
+                className='rounded-full bg-transparent '
+                onChange={handleChange}
+                checked={sidebardata.foreignplates}
+              />
+              <span>foreignplates</span>
+              
+            </div>
+            <div className='flex gap-2 items-center '>
+              <input
+                type='checkbox'
+                id='servicebook'
+                className='rounded-full bg-transparent '
+                onChange={handleChange}
+                checked={sidebardata.servicebook}
+              />
+              <span>servicebook</span>
               
             </div>
           </div>
+          )}
           <div className='flex items-center gap-2'>
             <label className='font-semibold'>Sort:</label>
             <select

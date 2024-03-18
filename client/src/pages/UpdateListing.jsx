@@ -5,6 +5,10 @@ import brandModelData from '../BrandModelData.js';
 import { FaCar } from "react-icons/fa";
 import { GiKeyCard , GiCarSeat, GiCardboardBox} from "react-icons/gi";
 import { FaScrewdriverWrench } from "react-icons/fa6";
+import DatePicker from "react-multi-date-picker"
+import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
+import "react-multi-date-picker/styles/colors/red.css"
+import "react-multi-date-picker/styles/layouts/mobile.css"
 
 
 
@@ -98,12 +102,22 @@ export default function CreateListing() {
     adaptedforthedisabled: false,
     oldtimer: false,
     createdBy:currentUser._id,
+    reservations:[],
 
   });
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+
+
+  const convertGetReservations= reservationsdates=>{
+    return reservationsdates.map(r=>new Date(r) )
+  }
+  
+
+  
 
   // umjesto console.log(formData); ide sljedece
   useEffect(() => {
@@ -283,6 +297,14 @@ export default function CreateListing() {
       [fieldName]: selectedValue,
     });
 };
+  const handleDatesChange = dates => {
+    setFormData({
+      ...formData,
+      reservations: dates,
+    
+    });
+  }
+
 const handleEngineTypeChange = (e) => {
   handleInputChange('engine', e);
 };
@@ -805,10 +827,27 @@ const handleCityChange = (e) => {
         rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
         after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
         after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-        <span class="ms-3 flex-wrap text-sm font-mono text-gray-700 dark:text-gray-300">Attract more guests by adding discount on longer rents)</span>
+        <span class="ms-3 flex-wrap text-sm font-mono text-gray-700 dark:text-gray-300 mr-10">Discount on longer rents</span>
+        <p className=' font-mono text-gray-700 dark:text-gray-300 mr-5'>Choose which dates are not available:</p>
         </label>
+        
+        <DatePicker 
+        className="bg-dark red rmdp-mobile"
+        style={{
+          backgroundColor: "transparent",
+          height: "24px",
+          borderRadius: "8px",
+          fontSize: "14px",
+          
+        }}
+            multiple
+            value={convertGetReservations(formData.reservations)} 
+            onChange={handleDatesChange}
+            
+          />
         </div>
-            )}
+           
+           )}
            
           <div className='gap-6 flex flex-wrap'>
           <div className='flex flex-wrap gap-6'>

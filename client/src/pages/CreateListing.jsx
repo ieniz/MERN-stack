@@ -5,6 +5,10 @@ import brandModelData from '../BrandModelData.js';
 import { FaCar } from "react-icons/fa";
 import { GiKeyCard , GiCarSeat, GiCardboardBox} from "react-icons/gi";
 import { FaScrewdriverWrench } from "react-icons/fa6";
+import DatePicker from "react-multi-date-picker"
+import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
+import "react-multi-date-picker/styles/colors/red.css"
+import "react-multi-date-picker/styles/layouts/mobile.css"
 
 
 
@@ -97,14 +101,21 @@ export default function CreateListing() {
     adaptedforthedisabled: false,
     oldtimer: false,
     createdBy:currentUser._id,
+    reservations:[],
 
   });
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const today = new Date()
+  const tomorrow = new Date()
 
-  console.log(formData);
+  tomorrow.setDate(tomorrow.getDate() + 1)
+
+  const [values, setValues] = useState([today, tomorrow])
+
+  
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -294,6 +305,14 @@ const handleInteriorChange = (e) => {
 const handleCityChange = (e) => {
   handleInputChange('city', e);
 };
+const handleDatesChange = dates => {
+  setFormData({
+    ...formData,
+    reservations: dates,
+  
+  });
+
+}
 
   const generateYearOptions = () => {
     const currentYear = new Date().getFullYear();
@@ -349,7 +368,7 @@ if (
         else
       setLoading(true);
       setError(false);
-     
+     console.log(formData)
       const res = await fetch('/api/listing/create', {
         method: 'POST',
         headers: {
@@ -371,6 +390,7 @@ if (
       setLoading(false);
       return;
     }
+
    
   };
   return (
@@ -380,10 +400,11 @@ if (
         Create a Listing
       </h1>
       
-      
+     
 <h3 class="mb-5 text-lg font-mono font-medium text-gray-900 dark:text-white">Choose type of your listing</h3>
 
 <ul onSubmit={handleSubmit} class="grid w-full gap-6 md:grid-cols-3 mb-5">
+
     <li>
         <input type="checkbox" id="sale" value="" className="hidden peer  border-amber-700" required=""
          onChange={handleChange}
@@ -702,7 +723,7 @@ if (
             dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
             id='interior'
             onChange={handleInteriorChange}
-            value={formData.interiortype}
+            value={formData.interior}
             
           >
              <option value="" disabled hidden>Interior type</option>
@@ -812,10 +833,27 @@ if (
         rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
         after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
         after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-        <span class="ms-3 flex-wrap text-sm font-mono text-gray-700 dark:text-gray-300">Attract more guests by adding discount on longer rents)</span>
+        <span class="ms-3 flex-wrap text-sm font-mono text-gray-700 dark:text-gray-300 mr-10">Discount on longer rents</span>
+        <p className=' font-mono text-gray-700 dark:text-gray-300 mr-5'>Choose which dates are not available:</p>
         </label>
+        
+        <DatePicker 
+        className="bg-dark red rmdp-mobile"
+        style={{
+          backgroundColor: "transparent",
+          height: "24px",
+          borderRadius: "8px",
+          fontSize: "14px",
+          
+        }}
+            multiple
+            value={values} 
+            onChange={handleDatesChange}
+            
+          />
         </div>
-            )}
+           
+           )}
 
           
           <div className='gap-6 flex flex-wrap'>
@@ -911,7 +949,7 @@ if (
                 value={formData.discountPrice}
               />
               <div className='flex flex-col items-center'>
-                <p>Discount</p>
+                <p>Price for longer rents</p>
                 {formData.type === 'rent' && (
                     <span className='text-xs'>($ / day)</span>
                   )}

@@ -162,7 +162,8 @@ export default function Profile() {
     }
   };
   return (
-    <><div className='p-3 max-w-lg mx-auto mb-7 '>
+    <>
+    <div className='p-3 max-w-lg mx-auto mb-7 '>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input
@@ -216,7 +217,10 @@ export default function Profile() {
         </span>
         <input 
         onChange={handleChange}
-        type="text" id="phonenumber" className="block py-2.5 ps-6 pe-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2
+        defaultValue={currentUser.phonenumber}
+        type="text" 
+        id="phonenumber" 
+        className="block py-2.5 ps-6 pe-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2
          border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-amber-500 focus:outline-none focus:ring-0
          focus:border-blue-600 peer"  placeholder="Phone number " />
         </div>
@@ -266,48 +270,39 @@ export default function Profile() {
 
     </div>
 
-    <div >
-    
-      {userListings &&
-        userListings.length > 0 &&
+         
         
-        <div className="flex-1 sm:flex gap-4">
-          
-          
+                
+          <div className='flex justify-center max-w mx-auto flex-wrap gap-4'>
           {userListings.map((listing) => (
             <div
               key={listing._id}
-              className=' rounded-lg p-10 justify-between  gap-4 '
+              className='rounded-lg p-5 justify-between gap-4 '
             >
-              
-              
-                  <div class="max-w-sm bg-white border border-sky-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-amber-700">
+                            
+                  <div class=" border-2 dark:border-amber-600 border-sky-500 bg-white dark:bg-slate-800 dark:text-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px] ">
                   <a href="#">
-                      <img class="rounded-t-lg" src={listing.imageUrls[0]} alt="" />
+                      <img class="h-[320px] sm:h-[220px] w-full object-cover hover:scale-105 transition-scale duration-300 rounded-lg" src={listing.imageUrls[0]} alt="" />
                   </a>
                   <div class="p-5">
                   <Link to={`/listing/${listing._id}`}>
                       <a href="#">
-                          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{listing.name}</h5>
+                          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white truncate">{listing.name}</h5>
                       </a>
                       </Link>
                       <p class="mb-3 font-normal text-gray-700 uppercase dark:text-gray-400">{listing.type}-{listing.regularPrice}$</p>
                       <button onClick={() => handleListingDelete(listing._id)} href="#" class="inline-flex items-center px-5 py-2.5 mr-5 text-sm font-medium text-center text-white bg-sky-700 rounded-lg hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-blue-800">
                           DELETE LISTING
-                          <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                          </svg>
+                         
                       </button>
                       <button href="#" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-sky-700 rounded-lg hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800">
                       <Link to={`/update-listing/${listing._id}`}>
                   <button className='uppercase hover:opacity-50'>Edit</button>
                 </Link>
-                          <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                          </svg>
+                          
                       </button>
                   </div>
-              </div>
+                  </div>
               
               
 
@@ -317,6 +312,7 @@ export default function Profile() {
               </div>
             
           ))}
-        </div>}</div></>
+        </div>
+        </>
   );
 }

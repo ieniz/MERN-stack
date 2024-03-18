@@ -7,6 +7,9 @@ import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
 
+import { Calendar } from "react-multi-date-picker";
+
+
 import { GiCarDoor, GiCarSeat, GiArchiveRegister, GiGearStickPattern, GiSmokeBomb, GiCarWheel, GiFullFolder,GiCardboardBox} from "react-icons/gi";
 import { FaMapMarkerAlt, FaRegistered, FaRoad, FaCar, FaRegCalendarAlt, FaCarSide, FaCarCrash, FaRegCreditCard } from 'react-icons/fa';
 import { SiPagespeedinsights } from "react-icons/si";
@@ -19,6 +22,7 @@ import { GoCheck } from "react-icons/go";
 export default function Listing() {
   SwiperCore.use([Navigation]);
   const [listing, setListing] = useState(null);
+  const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [contact, setContact] = useState(false);
@@ -109,6 +113,9 @@ export default function Listing() {
       ))}
     </ul>
   );
+  const convertGetReservations= reservations=>{
+    return reservations.map(r=>new Date(r) )
+  }
   
   return (
     <main>
@@ -117,16 +124,16 @@ export default function Listing() {
         <p className='text-center my-7 text-2xl'>Something went wrong!</p>
       )}
       {listing && !loading && !error && (
-        <div >        
-       
-          <div className='flex flex-col max-w-4xl  mx-auto p-3 my-7 gap-4'>
 
-            
+        <div >        
+           <div className='flex flex-col max-w-4xl  mx-auto p-3 my-7 gap-4'>
+
+            <div></div>
             <p className='text-2xl font-extrabold flex-1'>
               {listing.name} 
             </p>         
                              
-            <div className='flex  p-3 max-w-56 rounded-2xl  bg-gradient-to-t from-transparent  to-sky-50 dark:to-gray-950'>
+            <div className='flex  p-3 max-w-56 rounded-2xl  bg-gradient-to-b from-transparent  to-sky-300 dark:to-gray-950'>
             <img          
             src={listing.createdBy.avatar}
             alt='profile'
@@ -139,15 +146,9 @@ export default function Listing() {
             {listing.createdBy.phonenumber}
             
             </p>
-
-            </div>
-           
             
-                     
-                          
-            
-        
-            
+            </div>                             
+             
             <p className='flex items-center mt-1 gap-2 text-sm'>
               <FaMapMarkerAlt className='text-xl' />
               <span className='uppercase'>{listing.city}</span> 
@@ -169,11 +170,20 @@ export default function Listing() {
               {listing.offer && (
                 <p className=' w-full max-w-[250px]  text-center p-1 rounded-md text-slate-400 underline'>
                   Longer rent price:
-                  ${+listing.regularPrice - +listing.discountPrice }/day 
+                  ${listing.discountPrice }/day 
                 </p>
               )}
               <p className='font-bold flex'>{listing.leasing && 'Leasing Possible'}</p>
-            </div>
+            
+            </div> {listing.type ==='rent' && (
+              <div>
+                
+              <Calendar
+              className='  '
+              value={convertGetReservations(listing.reservations)}
+              readOnly={true}  
+              />   </div>
+                            )}
             
             {listing.type ==='parts' && (
         
@@ -238,10 +248,7 @@ export default function Listing() {
               <GiGearStickPattern className='text-2xl' />
               {`${listing.transmission}`}
               </li>
-              <li className='flex items-center gap-1 whitespace-nowrap'>
-              <SiPagespeedinsights className='text-2xl' />
-              {`${listing.kW} KW (${(listing.kW * 1.34).toFixed(2)} bhp)`}
-              </li>
+             
               <li className='flex items-center gap-1 whitespace-nowrap'>
               <BsFuelPump className='text-2xl' />
               {`${listing.engine}`}
@@ -252,9 +259,15 @@ export default function Listing() {
               {`${listing.emission}`}
               </li>
               )}
+             {listing.kW > 1 ? (
+              <li className='flex items-center gap-1 whitespace-nowrap'>
+                <SiPagespeedinsights className='text-2xl' />
+                {`${listing.kW} KW (${(listing.kW * 1.34).toFixed(2)} bhp)`}
+              </li>
+             ) : null}
               <li className='flex items-center gap-1 whitespace-nowrap'>
               <TbEngine className='text-2xl' />
-              {`${listing.capacity} Engine`}
+              {`${listing.capacity} `}
               </li>
               {listing.servicebook && (
               <li className='flex items-center gap-1 whitespace-nowrap '>

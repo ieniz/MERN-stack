@@ -304,9 +304,12 @@ const listingSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    
-   
-    
+
+    reservations:
+    {
+      type: Array,
+      required:false,
+    }
     
   
   },
