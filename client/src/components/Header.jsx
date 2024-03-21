@@ -35,7 +35,7 @@ export default function Header() {
 
   return (
    
-    <Navbar  className=' shadow-xl rounded-none  xl:rounded-b-3xl border-b  border-sky-600 dark:border-amber-700  bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'> 
+    <Navbar  className=' shadow-xl rounded-none  xl:rounded-b-3xl   bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'> 
     
       
           <Link to='/' className='lg:ml-10'>          
@@ -58,6 +58,7 @@ export default function Header() {
           className='hidden lg:inline'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          
         />
 
          </form>

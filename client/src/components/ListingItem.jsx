@@ -9,7 +9,7 @@ import { BsFuelPump } from "react-icons/bs";
 
 export default function ListingItem({ listing }) {
   return (
-    <div className=' border-2 dark:border-amber-600 border-sky-500 bg-white dark:bg-slate-800 dark:text-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px]'>
+    <div className=' border dark:border-amber-600 border-sky-500 bg-white dark:bg-slate-800 dark:text-white shadow-xl hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px]'>
       <Link to={`/listing/${listing._id}`}>
         <img
           src={
@@ -74,7 +74,7 @@ export default function ListingItem({ listing }) {
           </div>
           <div className=' flex font-bold text-sm items-center gap-1'>
             <GiCarWheel/>
-                {`${listing.wheeldrive}`}
+                {`${listing.wheeldrive}`}-{`${listing.cartype}`}
             </div>
             
           </div>

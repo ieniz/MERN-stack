@@ -1,5 +1,7 @@
 import Listing from '../models/listing.model.js';
 import { errorHandler } from '../utils/error.js';
+import brandModelData from '../../client/src/BrandModelData.js';
+
 
 export const createListing = async (req, res, next) => {
   try {
@@ -65,10 +67,12 @@ export const getListing = async (req, res, next) => {
 
   export const getListings = async (req, res, next) => {
     try {
+      
       const limit = parseInt(req.query.limit) || 9;
       const startIndex = parseInt(req.query.startIndex) || 0;
-      let offer = req.query.offer;
-  
+
+      let offer = req.query.offer;      
+      
       if (offer === undefined || offer === 'false') {
         offer = { $in: [false, true] };
       }
@@ -108,7 +112,72 @@ export const getListing = async (req, res, next) => {
       if (type === undefined || type === 'all') {
         type = { $in: ['sale', 'rent', 'parts'] };
       }
+      
+      let cartype = req.query.cartype;
   
+      if (cartype === '' || cartype === undefined) {
+        cartype = { $in: [ 
+        'SUV' ,'Hatchback','Limousine','Pickup','Station wagon','Sedan',
+        'Mali servis - Filteri',
+        'Kaišni prenos/ Remenje / Veliki servis',
+        'Senzori',
+        'Delovi za servisiranje/pregled/održavanje',
+        'Karoserija',
+        'Hlađenje/Grijanje/ventilacija/elektronika klime',
+        'Kvačilo/Zamajac/priključni dijelovi kvačila',
+        'Motor',
+        'Pogon točkova/Poluosovina',
+        'Sigurnosni sistemi',
+        'Unutrašnja oprema',
+        'Elektrika',
+        'Informacioni/komunikacioni sistemi',
+        'Luksuzna oprema',
+        'Sistem upravljanja',
+        'Sistem zaključavanja',
+        'Izduvni sistem',
+        'Kočioni sistem, diskovi i plocice',
+        'Opruge/ Amortizeri',
+        'Sistem za dovod goriva/Priprema goriva',
+        'Hibridni/električni pogon',
+        'Kompresorski agregat',
+        'Mjenjač/dijelovi za mjenjač',
+        'Osovinski pogon',
+        'Sistem za paljenje/bobina,svjećice,grijači',
+        'Točkovi/Pneumatici',
+        'Vješanje/Seleni/ Glavčina točka/ Ležajevi'] };
+      }
+
+      let brand = req.query.brand;
+      let model = req.query.model;
+      
+      // Check if brand is not provided or is empty
+      if (!brand) {
+        // If not provided or empty, set brand to an array of brands
+        brand = Object.keys(brandModelData);
+      } else {
+        // If provided, split brand string by comma and trim whitespace
+        brand = brand.split(',').map(item => item.trim());
+      }
+      
+      // Check if model is not provided or is empty
+      if (!model) {
+        // If not provided or empty, set model to an array of models from all brands
+        model = Object.values(brandModelData).flat();
+      } else {
+        // If provided, split model string by comma and trim whitespace
+        model = model.split(',').map(item => item.trim());
+      }
+      
+      // Log the extracted brand and model for debugging (optional)
+      console.log('Extracted brand:', brand);
+      console.log('Extracted model:', model);
+    
+    
+    
+   
+      
+    
+
       const searchTerm = req.query.searchTerm || '';
   
       const sort = req.query.sort || 'createdAt';
@@ -124,6 +193,10 @@ export const getListing = async (req, res, next) => {
         foreignplates,
         registered,
         type,
+        cartype,
+        brand,
+        model,
+        
       })
         .sort({ [sort]: order })
         .limit(limit)

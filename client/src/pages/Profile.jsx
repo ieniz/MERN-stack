@@ -226,15 +226,15 @@ export default function Profile() {
         </div>
         <button
           disabled={loading}
-          className='border-2 font-extralight text-black dark:text-white border-sky-500 dark:border-amber-600 rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80  hover:bg-sky-500 dark:hover:bg-amber-600'
+          className='border font-extralight text-black dark:text-white border-sky-500 dark:border-amber-600 rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80  hover:bg-sky-500 dark:hover:bg-amber-600'
         >
           {loading ? 'Loading...' : 'Update profile'}
         </button>
-        <Link className='border-2 font-extralight text-black dark:text-white border-sky-500 dark:border-amber-600 p-3 rounded-lg uppercase text-center hover:opacity-95 hover:bg-sky-500 dark:hover:bg-amber-600' to={'/create-listing'}>
+        <Link className='border font-extralight text-black dark:text-white border-sky-500 dark:border-amber-600 p-3 rounded-lg uppercase text-center hover:opacity-95 hover:bg-sky-500 dark:hover:bg-amber-600' to={'/create-listing'}>
           Create Listing
         </Link>
       </form>
-      <button onClick={handleShowListings} className='border-2 font-extralight border-sky-500 dark:border-amber-500 p-2 rounded-xl dark:text-white w-full mt-5 hover:bg-sky-500 dark:hover:bg-amber-600'>
+      <button onClick={handleShowListings} className='border font-extralight border-sky-500 dark:border-amber-500 p-2 rounded-xl dark:text-white w-full mt-5 hover:bg-sky-500 dark:hover:bg-amber-600'>
         Show Your Listings
       </button>
       <div className='flex justify-between mt-5'>

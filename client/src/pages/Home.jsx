@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ListingItem from '../components/ListingItem';
+import { FaCar } from "react-icons/fa";
+import { GiKeyCard , GiCarSeat, GiCardboardBox,GiCardboardBoxClosed,GiCarWheel,GiCarBattery} from "react-icons/gi";
+import { FaScrewdriverWrench } from "react-icons/fa6";
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
@@ -54,18 +57,14 @@ export default function Home() {
   }, []);
   return (
     
-      
-    
-    
     <div>
      
-     
-      
-
+<Link to="/search">
       <div
-    class="rounded-3xl mt-1 overflow-hidden bg-cover bg-no-repeat bg-[50%] bg-[url('/slike/bg.jpg')] h-[500px] ">
+    className=" rounded-3xl mt-1 overflow-hidden bg-cover bg-no-repeat bg-[50%] bg-[url('/slike/bg.jpg')] h-[400px]  transition-all duration-300  cursor-pointer filter grayscale hover:grayscale-0">
+       <span className='flex text-sky-500 dark:text-amber-600 mt-24 text-9xl mx-96 gap-12'><FaCar/><GiCardboardBoxClosed/> <GiCarWheel/><GiCarBattery/>  <GiKeyCard/>  <GiCarSeat/>  <GiCardboardBox/> <FaScrewdriverWrench/> </span>
   </div>
-
+  </Link>
   <div class="w-100 mx-auto px-6 sm:max-w-2xl md:max-w-3xl md:px-12 lg:max-w-5xl xl:max-w-7xl xl:px-32">
     <div class="text-center">
       <div
@@ -88,13 +87,13 @@ export default function Home() {
         </h1>       
       
       </div>
-      <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 my-10'>
+      <div className='max-w-max mx-auto p-3 flex flex-col gap-8 my-10'>
        
         {rentListings && rentListings.length > 0 && (
           <div className=''>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-slate-600'>Recent cars for rent</h2>
-              <Link className='text-sm text-sky-700 dark:text:amber-600 hover:underline' to={'/search?type=rent'}>Show more cars for rent</Link>
+              <h2 className='text-2xl font-semibold text-gray-400'>Recent cars for rent</h2>
+              <Link className='text-sm text-sky-700 dark:text-amber-600 hover:underline' to={'/search?type=rent'}>Show more cars for rent</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {rentListings.map((listing) => (
@@ -106,8 +105,8 @@ export default function Home() {
          {offerListings && offerListings.length > 0 && (
           <div className=''>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-slate-600'>Recent rent offers</h2>
-              <Link className='text-sm text-sky-700 dark:text:amber-600 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
+              <h2 className='text-2xl font-semibold text-gray-400'>Recent rent offers</h2>
+              <Link className='text-sm text-sky-700 dark:text-amber-600 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {offerListings.map((listing) => (

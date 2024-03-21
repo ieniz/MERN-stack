@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ListingItem from '../components/ListingItem';
-
+import brandModelData from '../BrandModelData.js';
 import { FaCar } from "react-icons/fa";
 import { GiKeyCard , GiCarSeat, GiCardboardBox} from "react-icons/gi";
 import { FaScrewdriverWrench } from "react-icons/fa6";
@@ -11,6 +11,9 @@ export default function Search() {
   const [sidebardata, setSidebardata] = useState({
     searchTerm: '',
     type: 'all',
+    cartype: '',
+    brand:'',
+    model:'',
     registered: false,
     leasing: false,
     servicebook: false,
@@ -30,10 +33,13 @@ export default function Search() {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get('searchTerm');
     const typeFromUrl = urlParams.get('type');
+    const cartypeFromUrl = urlParams.get('cartype');
+    const brandFromUrl = urlParams.get('brand');
+    const modelFromUrl = urlParams.get('model');
     const registeredFromUrl = urlParams.get('registered');
     const leasingFromUrl = urlParams.get('leasing');
-    const foreignplatesFromUrl = urlParams.get('leasing');
-    const servicebookFromUrl = urlParams.get('leasing');
+    const foreignplatesFromUrl = urlParams.get('foreignplates');
+    const servicebookFromUrl = urlParams.get('servicebook');
     const customsclearedFromUrl = urlParams.get('customscleared');
     const offerFromUrl = urlParams.get('offer');
     const sortFromUrl = urlParams.get('sort');
@@ -42,6 +48,9 @@ export default function Search() {
     if (
       searchTermFromUrl ||
       typeFromUrl ||
+      cartypeFromUrl ||
+      brandFromUrl ||
+      modelFromUrl ||
       registeredFromUrl ||
       leasingFromUrl ||
       foreignplatesFromUrl ||
@@ -54,11 +63,14 @@ export default function Search() {
       setSidebardata({
         searchTerm: searchTermFromUrl || '',
         type: typeFromUrl || 'all',
+        cartype: cartypeFromUrl || '',
+        brand: brandFromUrl || '',
+        model: modelFromUrl || '',
         registered: registeredFromUrl === 'true' ? true : false,
         leasing: leasingFromUrl === 'true' ? true : false,
         customscleared: customsclearedFromUrl === 'true' ? true : false,
-        foreignplates: customsclearedFromUrl === 'true' ? true : false,
-        servicebook: customsclearedFromUrl === 'true' ? true : false,
+        foreignplates: foreignplatesFromUrl === 'true' ? true : false,
+        servicebook: servicebookFromUrl === 'true' ? true : false,
         offer: offerFromUrl === 'true' ? true : false,
         sort: sortFromUrl || 'created_at',
         order: orderFromUrl || 'desc',
@@ -82,6 +94,33 @@ export default function Search() {
 
     fetchListings();
   }, [location.search]);
+
+
+  const handleChangeType = (e) => {
+  const selectedType = e.target.value; 
+
+  if (selectedType !== undefined) {
+      // set cartype to the selected type
+      setSidebardata({ ...sidebardata, cartype: selectedType });
+    }
+  }
+  const handleBrandChange = (e) => {
+    const selectedBrand = e.target.value;
+    setSidebardata({
+      ...sidebardata,
+      brand: selectedBrand,
+      model: '', // Reset model when the brand changes
+    });
+   };
+
+  const handleModelChange = (e) => {
+    const selectedModel = e.target.value;
+    setSidebardata({
+      ...sidebardata,
+      model: selectedModel,
+    });
+   };
+
 
   const handleChange = (e) => {
     if (
@@ -126,6 +165,9 @@ export default function Search() {
     const urlParams = new URLSearchParams();
     urlParams.set('searchTerm', sidebardata.searchTerm);
     urlParams.set('type', sidebardata.type);
+    urlParams.set('cartype', sidebardata.cartype);
+    urlParams.set('brand',sidebardata.brand);
+    urlParams.set('model',sidebardata.model);
     urlParams.set('registered', sidebardata.registered);
     urlParams.set('leasing', sidebardata.leasing);
     urlParams.set('foreignplates', sidebardata.foreignplates);
@@ -157,14 +199,12 @@ export default function Search() {
       <div className='p-7 rounded-3xl border-b-2 md:border-r  border-sky-500 dark:border-amber-700 md:min-h-screen'>
         <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
           <div className='flex items-center gap-2'>
-            <label className='whitespace-nowrap font-mono '>
-              Search Term:
-            </label>
+            
             <input
               type='text'
               id='searchTerm'
               placeholder='Search term...'
-              className='border border-sky-500 dark:border-amber-600 bg-transparent rounded-lg p-3 w-full'
+              className='border border-sky-500 dark:border-amber-600  bg-transparent rounded-lg p-3 w-full'
               value={sidebardata.searchTerm}
               onChange={handleChange}
             />
@@ -174,7 +214,7 @@ export default function Search() {
         <input type="checkbox" id="all" value="" className="sr-only peer  border-amber-700" 
          onChange={handleChange}
          checked={sidebardata.type === 'all'}/>
-        <label for="all" class="inline-flex items-center justify-between w-80 p-5 text-gray-500 bg-white border-2
+        <label for="all" class="inline-flex items-center justify-between w-80 p-5 text-gray-500 bg-white border-2 
          border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600
           dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50
            dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
@@ -310,6 +350,119 @@ export default function Search() {
             </div>
           </div>
           )}
+          {sidebardata.type !== 'all' && (
+          <select
+            type='text'
+           
+            className='block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+            id='cartype'
+            onChange={handleChangeType}
+            value={sidebardata.cartype}
+          >           
+
+            {sidebardata.type === 'parts' && (
+              <>
+                <option>Mali servis - Filteri</option>
+                <option>Kaišni prenos/ Remenje / Veliki servis</option>
+                <option>Senzori</option>
+                <option>Delovi za servisiranje/pregled/održavanje</option>
+                <option>Karoserija</option>
+                <option>Hlađenje/Grijanje/ventilacija/elektronika klime</option>
+                <option>Kvačilo/Zamajac/priključni dijelovi kvačila</option>
+                <option>Motor</option>
+                <option>Pogon točkova/Poluosovina</option>
+                <option>Sigurnosni sistemi</option>
+                <option>Unutrašnja oprema</option>
+                <option>Elektrika</option>
+                <option>Informacioni/komunikacioni sistemi</option>
+                <option>Luksuzna oprema</option>
+                <option>Sistem upravljanja</option>
+                <option>Sistem zaključavanja</option>
+                <option>Izduvni sistem</option>
+                <option>Kočioni sistem, diskovi i plocice</option>                
+                <option>Opruge/ Amortizeri</option>
+                <option>Sistem za dovod goriva/Priprema goriva</option>
+                <option>Hibridni/električni pogon</option>
+                <option>Kompresorski agregat</option>
+                <option>Mjenjač/dijelovi za mjenjač</option>
+                <option>Osovinski pogon</option>
+                <option>Sistem za paljenje/bobina,svjećice,grijači</option>
+                <option>Točkovi/Pneumatici</option>
+                <option>Vješanje/Seleni/ Glavčina točka/ Ležajevi</option>
+                                
+                
+              </>
+            )}
+            {(sidebardata.type === 'sale' || sidebardata.type ==='rent') && (
+              <>
+             <option >
+            Limousine
+            </option> 
+            <option >
+            Hatchback
+            </option>  
+            <option >
+            Pickup
+            </option>  
+            <option >
+            Sedan
+            </option>
+            <option >
+            SUV
+            </option>  
+            <option >
+            Station wagon
+            </option>
+            </>
+            )}
+          
+          </select>)}
+          
+          <select
+            className='block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+             dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+            id='brand'
+            onChange={handleBrandChange}
+            value={sidebardata.brand}
+          >
+            <option value='' disabled>
+              Select Brand
+            </option>
+            {sidebardata.type ==='parts' && (
+              <option>
+                Any brand
+              </option>
+            )}
+            {Object.keys(brandModelData).map((brand) => (
+              <option key={brand} value={brand}>
+                {brand}
+              </option>
+            ))}
+          </select>
+          <select
+            className='block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+            id='model'
+            onChange={handleModelChange}
+            value={sidebardata.model}
+            disabled={!sidebardata.brand} //This disables model dropdown if no brand is selected
+          >
+            <option value='' disabled>
+              {sidebardata.brand ? 'Select Model' : 'Select Brand First'}
+            </option>
+            {sidebardata.type ==='parts' && (
+              <option>
+                Any model
+              </option>
+            )}
+            {brandModelData[sidebardata.brand] &&
+              brandModelData[sidebardata.brand].map((model) => (
+                <option key={model} value={model}>
+                  {model}
+                </option>
+              ))}
+          </select>
           <div className='flex items-center gap-2'>
             <label className='font-semibold'>Sort:</label>
             <select
