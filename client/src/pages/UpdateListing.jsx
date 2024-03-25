@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'; //dodan useeffect
 import { useSelector } from 'react-redux';
 import { useNavigate,useParams } from 'react-router-dom'; //useParams
 import brandModelData from '../BrandModelData.js';
+import cities  from '../CitiesModelData.js';
 import { FaCar } from "react-icons/fa";
 import { GiKeyCard , GiCarSeat, GiCardboardBox} from "react-icons/gi";
 import { FaScrewdriverWrench } from "react-icons/fa6";
@@ -776,36 +777,19 @@ const handleCityChange = (e) => {
           </div>
           <div >
           <select
-            type='text'
-            className='block mt-3 py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+          type="text"
+          className='mt-3.5 block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
             dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
-            id='city'
-            required
-            onChange={handleCityChange}
-            value={formData.city}
-          >
-             <option value="" disabled hidden>Select city</option>
-            <option value="banjaluka">Banja Luka</option><option value="bileca">Bileća</option><option value="bijeljina">Bijeljina</option>
-            <option value="bogojno">Bogojno</option><option value="bratunac">Bratunac</option><option value="brcko">Brčko</option><option value="buzim">Bužim</option>
-            <option value="bihac">Bihać</option><option value="bosanskakrupa">Bosanska Krupa</option><option value="cacak">Cacak</option>
-            <option value="capljina">Čapljina</option><option value="cazin">Cazin</option><option value="doboj">Doboj</option><option value="foca">Foča</option><option value="fojnica">Fojnica</option>
-            <option value="gorazde">Goražde</option><option value="gradacac">Gradačac</option><option value="gradiska">Gradiška</option><option value="hadzici">Hadžići</option>
-            <option value="jajce">Jajce</option><option value="kakanj">Kakanj</option><option value="kalesija">Kalesija</option><option value="kljuc">Ključ</option>
-            <option value="kostajnica">Kostajnica</option><option value="kotor_varos">Kotor Varoš</option><option value="ljubinje">Ljubinje</option><option value="ljubuski">Ljubuški</option>
-            <option value="livno">Livno</option><option value="mostar">Mostar</option><option value="mogila">Mogila</option><option value="neum">Neum</option><option value="nevesinje">Nevesinje</option>
-            <option value="novi_travnik">Novi Travnik</option><option value="orasje">Orašje</option><option value="ornes">Orneš</option><option value="pale">Pale</option>
-            <option value="pale">Pale</option><option value="pale">Pale</option><option value="pale">Pale</option><option value="pale">Pale</option><option value="prijedor">Prijedor</option>
-            <option value="ribnik">Ribnik</option><option value="samač">Samač</option><option value="sanskimost">Sanski Most</option><option value="sarajevo">Sarajevo</option>
-            <option value="sipovo">Sipovo</option><option value="sokolac">Sokolac</option><option value="srebrenik">Srebrenik</option><option value="srebrenica">Srebrenica</option>
-            <option value="stolac">Stolac</option><option value="teocak">Teočak</option><option value="tesanj">Tešanj</option><option value="tomislavgrad">Tomislavgrad</option>
-            <option value="travnik">Travnik</option><option value="trnovo">Trnovo</option><option value="trebinje">Trebinje</option><option value="usce">Uskoplje</option>
-            <option value="valjevo">Valjevo</option><option value="vares">Vareš</option><option value="velika_kladusa">Velika Kladuša</option><option value="vitez">Vitez</option>
-            <option value="vogosca">Vogošća</option><option value="zavidovici">Zavidovići</option><option value="zenica">Zenica</option><option value="zepce">Žepče</option>
-            <option value="zeljeznopolje">Željezno Polje</option><option value="zivinice">Živinice</option>
-
-
-
-          </select>
+          id="city"
+          onChange={handleCityChange}
+          value={formData.city}
+        >
+          {cities.CITIES.map((city) => (
+            <option key={city} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
           </div>
           </div>
           </form>

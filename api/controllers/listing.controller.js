@@ -1,6 +1,8 @@
 import Listing from '../models/listing.model.js';
 import { errorHandler } from '../utils/error.js';
 import brandModelData from '../../client/src/BrandModelData.js';
+import cities from '../../client/src/CitiesModelData.js';
+
 
 
 export const createListing = async (req, res, next) => {
@@ -150,31 +152,81 @@ export const getListing = async (req, res, next) => {
       let brand = req.query.brand;
       let model = req.query.model;
       
-      // Check if brand is not provided or is empty
+      
       if (!brand) {
-        // If not provided or empty, set brand to an array of brands
+        // setting brand to an array of brands
         brand = Object.keys(brandModelData);
       } else {
-        // If provided, split brand string by comma and trim whitespace
-        brand = brand.split(',').map(item => item.trim());
+        //spliting brand string by comma and trim whitespace
+        brand = ['Any brand', ...Object.keys(brandModelData)];
       }
       
-      // Check if model is not provided or is empty
+      
       if (!model) {
-        // If not provided or empty, set model to an array of models from all brands
-        model = Object.values(brandModelData).flat();
+        //  setting model to an array of models from all brands
+        model = ['Any model', ...Object.values(brandModelData).flat()];
       } else {
-        // If provided, split model string by comma and trim whitespace
+        //spliting model string by comma and trim whitespace
         model = model.split(',').map(item => item.trim());
       }
+
+      let city = req.query.city;
+      if (!city) {
+          city = Object.values(cities).flat();
+      } else {
+          // Splitting model string by comma and trim whitespace
+          city = city.split(',').map(item => item.trim());
+      }
       
-      // Log the extracted brand and model for debugging (optional)
-      console.log('Extracted brand:', brand);
-      console.log('Extracted model:', model);
+      let year = req.query.year;
+      const startYear = 1896;
+      const endYear = 2024; 
+
+      
+      const allYears = Array.from({ length: endYear - startYear + 1 }, (_, index) => (startYear + index).toString());
+
+      
+      if (year === undefined || year === '') {
+        year = { $in: allYears};
+      }
+
+      let engine = req.query.engine;
+  
+      if (engine === undefined || engine === '') {
+        engine = { $in: ['E-V', 'Diesel', 'Petrol','Hybrid','Any type of engine'] };
+      }
     
+
+      const startSize = 0.6;
+      const endSize = 7.5;
+      const increment = 0.1;
+      const enginesizes = ['Any engine size'];
+      
+      for (let i = startSize; i <= endSize; i += increment) {
+          enginesizes.push(i.toFixed(1));
+      }
+      
+
+      let capacity = req.query.capacity;
+  
+      if (capacity === undefined || capacity === '') {
+        capacity = { $in: enginesizes };
+      }
+      
+      let transmission = req.query.transmission;
+  
+      if (transmission === undefined || transmission === '') {
+        transmission = { $in: ['Automatic', 'Manual','Any transmission'] };
+      }
+
+      let wheeldrive = req.query.wheeldrive;
+  
+      if (wheeldrive=== undefined || wheeldrive === '') {
+        wheeldrive = { $in: ['AWD', '4WD', 'RWD','FWD','Any drive train'] };
+      }
+     
+     
     
-    
-   
       
     
 
@@ -196,6 +248,14 @@ export const getListing = async (req, res, next) => {
         cartype,
         brand,
         model,
+        year,
+        city,
+        engine,
+        capacity,
+        transmission,
+        wheeldrive,
+        
+       
         
       })
         .sort({ [sort]: order })

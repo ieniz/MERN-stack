@@ -5,6 +5,7 @@ import brandModelData from '../BrandModelData.js';
 import { FaCar } from "react-icons/fa";
 import { GiKeyCard , GiCarSeat, GiCardboardBox} from "react-icons/gi";
 import { FaScrewdriverWrench } from "react-icons/fa6";
+import cities  from '../CitiesModelData.js';
 
 export default function Search() {
   const navigate = useNavigate();
@@ -14,6 +15,13 @@ export default function Search() {
     cartype: '',
     brand:'',
     model:'',
+    year:'',
+    city:'',
+    engine:'',
+    capacity:'',
+    transmission:'',
+    wheeldrive:'',
+    interior:'',
     registered: false,
     leasing: false,
     servicebook: false,
@@ -36,7 +44,14 @@ export default function Search() {
     const cartypeFromUrl = urlParams.get('cartype');
     const brandFromUrl = urlParams.get('brand');
     const modelFromUrl = urlParams.get('model');
+    const yearFromUrl = urlParams.get('year');
+    const cityFromUrl = urlParams.get('city');
+    const engineFromUrl = urlParams.get('engine');
+    const capacityFromUrl = urlParams.get('capacity');
+    const transmissionFromUrl = urlParams.get('transmission');
+    const wheeldriveFromUrl = urlParams.get('wheeldrive');
     const registeredFromUrl = urlParams.get('registered');
+    const interiorFromUrl = urlParams.get('interior');
     const leasingFromUrl = urlParams.get('leasing');
     const foreignplatesFromUrl = urlParams.get('foreignplates');
     const servicebookFromUrl = urlParams.get('servicebook');
@@ -51,6 +66,13 @@ export default function Search() {
       cartypeFromUrl ||
       brandFromUrl ||
       modelFromUrl ||
+      yearFromUrl ||
+      cityFromUrl ||
+      engineFromUrl ||
+      capacityFromUrl ||
+      transmissionFromUrl ||
+      wheeldriveFromUrl ||
+      interiorFromUrl ||
       registeredFromUrl ||
       leasingFromUrl ||
       foreignplatesFromUrl ||
@@ -66,6 +88,13 @@ export default function Search() {
         cartype: cartypeFromUrl || '',
         brand: brandFromUrl || '',
         model: modelFromUrl || '',
+        year: yearFromUrl || '',
+        city: cityFromUrl || '',
+        engine:engineFromUrl ||'',
+        capacity:capacityFromUrl ||'',
+        transmission:transmissionFromUrl ||'',
+        wheeldrive:wheeldriveFromUrl || '',  
+        interior:interiorFromUrl || '',
         registered: registeredFromUrl === 'true' ? true : false,
         leasing: leasingFromUrl === 'true' ? true : false,
         customscleared: customsclearedFromUrl === 'true' ? true : false,
@@ -104,6 +133,7 @@ export default function Search() {
       setSidebardata({ ...sidebardata, cartype: selectedType });
     }
   }
+
   const handleBrandChange = (e) => {
     const selectedBrand = e.target.value;
     setSidebardata({
@@ -121,6 +151,61 @@ export default function Search() {
     });
    };
 
+   const generateYearOptions = () => {
+    const currentYear = new Date().getFullYear();
+    const startYear = 1886; 
+    const years = [];
+
+    for (let year = currentYear; year >= startYear; year--) {
+      years.push(<option key={year} value={year}>{year}</option>);
+    }
+
+    return years;
+    
+  };
+  
+  function generateEngineSizeOptions() {
+    const options = [];
+    for (let i = 0.6; i <= 7.5; i += 0.1) {
+      options.push(
+        <option key={i.toFixed(1)} value={i.toFixed(1)}>
+          {i.toFixed(1)}
+        </option>
+      );
+    }
+    return options;
+  }
+
+  const handleInputChange = (fieldName, e) => {
+    const selectedValue = e.target.value;
+    setSidebardata({
+      ...sidebardata,
+      [fieldName]: selectedValue,
+    });
+};
+
+const handleEngineTypeChange = (e) => {
+  handleInputChange('engine', e);
+};
+const handleDateChange = (e) => {
+  handleInputChange('year', e);
+};
+const handleCapacityChange = (e) => {
+  handleInputChange('capacity', e);
+};
+const handleTransmissionChange = (e) => {
+  handleInputChange('transmission', e);
+};
+const handleWheelDriveChange = (e) => {
+  handleInputChange('wheeldrive', e);
+};
+
+const handleInteriorChange = (e) => {
+  handleInputChange('interior', e);
+};
+const handleCityChange = (e) => {
+  handleInputChange('city', e);
+};
 
   const handleChange = (e) => {
     if (
@@ -168,6 +253,13 @@ export default function Search() {
     urlParams.set('cartype', sidebardata.cartype);
     urlParams.set('brand',sidebardata.brand);
     urlParams.set('model',sidebardata.model);
+    urlParams.set('year',sidebardata.year);
+    urlParams.set('city',sidebardata.city);
+    urlParams.set('engine', sidebardata.engine);
+    urlParams.set('capacity', sidebardata.capacity);
+    urlParams.set('transmission', sidebardata.transmission);
+    urlParams.set('wheeldrive', sidebardata.wheeldrive);
+    urlParams.set('interior', sidebardata.interior);
     urlParams.set('registered', sidebardata.registered);
     urlParams.set('leasing', sidebardata.leasing);
     urlParams.set('foreignplates', sidebardata.foreignplates);
@@ -193,7 +285,7 @@ export default function Search() {
     }
     setListings([...listings, ...data]);
   };
-
+  
   return (
     <div className='flex flex-col md:flex-row'>
       <div className='p-7 rounded-3xl border-b-2 md:border-r  border-sky-500 dark:border-amber-700 md:min-h-screen'>
@@ -463,29 +555,182 @@ export default function Search() {
                 </option>
               ))}
           </select>
-          <div className='flex items-center gap-2'>
-            <label className='font-semibold'>Sort:</label>
-            <select
-              onChange={handleChange}
-              defaultValue={'created_at_desc'}
-              id='sort_order'
-              className='rounded-lg p-3 bg-transparent'
-            >
-              <option class="bg-slate-700" value='regularPrice_desc'>Price high to low</option>
-              <option class="bg-slate-700" value='regularPrice_asc'>Price low to hight</option>
-              <option class="bg-slate-700"value='createdAt_desc'>Latest</option>
-              <option class="bg-slate-700" value='createdAt_asc'>Oldest</option>
-            </select>
-          </div>
+          <select
+            type='number'        
+            className='block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+            id='year'
+            onChange={handleDateChange}
+            value={sidebardata.year}
+      >
+            <option  disabled>
+             Select Year
+            </option>
+           {generateYearOptions()}
+           </select>
+
+           <select
+            type="text"
+            className='mt-3.5 block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+            id="city"
+            onChange={handleCityChange}
+            value={sidebardata.city}
+        >
+            {cities.CITIES.map((city) => (
+                <option key={city} value={city}>
+                    {city}
+                </option>
+            ))}
+        </select>
+        <select
+            type='text'
+            className='block py-2.5 px-0 max-w-36 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+            id='engine'
+            onChange={handleEngineTypeChange}
+            value={sidebardata.engine}
+          >  
+          <option value="" disabled hidden>Type of engine</option>
+          {sidebardata.type ==='parts' && (
+              <option>
+                Any type of engine
+              </option>
+            )}
+            <option >
+              E-V
+            </option>  
+            <option >
+              Diesel
+            </option>  
+            <option >
+              Petrol
+            </option>  
+            <option >
+              Hybrid
+            </option>  
+          </select>
+          <select
+            type='text'
+            className='block py-2.5 px-0 max-w-36 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+            id='capacity'
+            onChange={handleCapacityChange}
+            value={sidebardata.capacity}
+          >
+              
+            <option >
+              Electric or pick size below
+            </option>  
+            {sidebardata.type ==='parts' && (
+              <option>
+                Any engine size
+              </option>
+            )}
+            {generateEngineSizeOptions()}
+          </select>
+
+          <select
+            type='text'
+            className='block py-2.5 px-0 max-w-36 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+            id='transmission'
+            onChange={handleTransmissionChange}
+            value={sidebardata.transmission}
+          >
+             <option value="" disabled hidden>Select transmission</option>
+             {sidebardata.type ==='parts' && (
+              <option>
+                Any transmission
+              </option>
+            )}
+            <option >
+            Automatic
+            </option>  
+            <option >
+             Manual
+            </option>  
+          </select>
+
+          <select
+            type='text'
+            className='block py-2.5 px-0 max-w-36 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+            id='wheeldrive'
+            onChange={handleWheelDriveChange}
+            value={sidebardata.wheeldrive}
+          >
+             <option value="" disabled hidden>Drive train</option>
+             
+             {sidebardata.type ==='parts' && (
+              <option>
+                Any drive train
+              </option>
+            )}
+             <option >
+            RWD
+            </option> 
+            <option >
+            FWD
+            </option>  
+            <option >
+            AWD
+            </option>  
+            <option >
+            4WD
+            </option>
+          </select>
+          
+          <select
+            type='text'
+            className='block py-2.5 px-0 max-w-36 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
+            id='interior'
+            onChange={handleInteriorChange}
+            value={sidebardata.interior}
+            
+          >
+             <option value="" disabled hidden>Interior type</option>
+             <option >
+            Leather
+            </option> 
+            <option >
+            Vinyl
+            </option>  
+            <option >
+            Alcantra
+            </option>  
+            <option >
+            Polyester
+            </option>
+            <option >
+            Faux Leather
+            </option> 
+            
+          </select>
+          
           <button className='bg-sky-500 dark:bg-amber-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
             Search
           </button>
         </form>
       </div>
       <div className='flex-1'>
-        <h1 className='text-3xl font-bold border-b border-sky-500 dark:border-amber-700 p-3 dark:text-white mt-2'>
+        <h1 className='text-3xl font-bold border-b border-sky-500 dark:border-amber-700 p-3 dark:text-white mt-2  '>
           Listing results:
+          <select
+              onChange={handleChange}
+              defaultValue={'created_at_desc'}
+              id='sort_order'
+              className='ml-5 border-sky-500 dark:border-amber-600 rounded-lg p-3 bg-transparent'
+            >
+              <option class="bg-slate-700" value='regularPrice_desc'>Price high to low</option>
+              <option class="bg-slate-700" value='regularPrice_asc'>Price low to hight</option>
+              <option class="bg-slate-700"value='createdAt_desc'>Latest</option>
+              <option class="bg-slate-700" value='createdAt_asc'>Oldest</option>
+            </select>
         </h1>
+            
+           
+          
         <div className='p-7 flex flex-wrap gap-4'>
           {!loading && listings.length === 0 && (
             <p className='text-xl text-slate-700'>No listing found!</p>

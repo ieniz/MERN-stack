@@ -188,18 +188,19 @@ export default function Listing() {
               
              
               </div>
-              
-              <div className='m-5 md:m-0'>
-              <p className='font-extralight text-sky-500 dark:text-amber-600 mb-2'>Reserved dates :</p>
               {listing.type ==='rent' && (
+              <div className='m-5 md:m-0'>
+              
+              <p className='font-extralight text-sky-500 dark:text-amber-600 mb-2'>Reserved dates :</p>
+              
                               
-                              <Calendar
-                              className=' '
-                              value={convertGetReservations(listing.reservations)}
-                              readOnly={true}  
-                              />   
-                                            )}
-              </div>
+                  <Calendar
+                  className=' '
+                  value={convertGetReservations(listing.reservations)}
+                  readOnly={true}  
+                  />   
+                                            
+              </div>)}
             </div> 
             <hr className='border-sky-500 dark:border-amber-600'/>
             {listing.type ==='parts' && (
@@ -223,26 +224,20 @@ export default function Listing() {
                                
               </p>
               </li>
-              <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
-              <FaRegCalendarAlt className='text-6xl' />
-              {`${listing.year}`}
-              </li>
-              {(listing.type === 'sale' || listing.type === 'rent') && ( 
-                <>
-              <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
+               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <GiCarSeat className='text-6xl' />
                 {listing.seats > 1
                   ? `${listing.seats} Seats - `
                   : `${listing.seats} Seat - `}
                   {`${listing.interior}`}
               </li>
-              {listing.adaptedforthedisabled && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
-                <TbDisabled  className='text-6xl' />
-                Adapted for disabled
+              <FaRegCalendarAlt className='text-6xl' />
+              {`${listing.year}`}
               </li>
-              )}
-              <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
+              {(listing.type === 'sale' || listing.type === 'rent') && ( 
+                <>
+                <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <GiCarDoor className='text-6xl' />
                 {listing.doors > 1
                   ? `${listing.doors} Doors `
@@ -254,6 +249,14 @@ export default function Listing() {
                 <FaRoad className='text-6xl' />
                 {`${listing.mileage} Km`}
               </li>
+             
+              {listing.adaptedforthedisabled && (
+              <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
+                <TbDisabled  className='text-6xl' />
+                Adapted for disabled
+              </li>
+              )}
+              
               </>)}
 
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl '>
