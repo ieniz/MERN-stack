@@ -344,9 +344,9 @@ const handleDatesChange = dates => {
     e.preventDefault();
     try {
       if (formData.imageUrls.length < 1)
-        return setError('You must upload at least one image');
+        return setError('Objavite sliku oglasa');
       if (+formData.regularPrice < +formData.discountPrice)
-        return setError('Discount price must be lower than regular price');
+        return setError('Cijena sa popustom mora biti niža od redovne cijene');
        
 
 if (
@@ -362,9 +362,9 @@ if (
     formData.city
   )
 ) {
-  return setError('Please fill in all required fields.');
+  return setError('Molimo popunite prazna mjesta.');
 } else if (!formData.name || !formData.description) {
-  return setError('Please provide both name and description.');
+  return setError('Unesite naziv i opis oglasa.');
 }
         else
       setLoading(true);
@@ -398,11 +398,11 @@ if (
     
     <main className='p-3 max-w-4xl mx-auto my-20'>
       <h1 className='text-3xl font-extrabold text-center my-7'>
-        Create a Listing
+        Objavite oglas
       </h1>
       
      
-<h3 class="mb-5 text-lg font-mono font-medium text-gray-900 dark:text-white">Choose type of your listing</h3>
+
 
 <ul onSubmit={handleSubmit} class="grid w-full gap-6 md:grid-cols-3 mb-5">
 
@@ -413,8 +413,8 @@ if (
         <label for="sale" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
             <div class="block">
                 <FaCar style={{ fontSize: '2em'}}/>
-                <div class="w-full text-lg font-semibold mt-1">Sell</div>
-                <div class="w-full text-sm">Sell your car</div>
+                <div class="w-full text-lg font-semibold mt-1">Prodaja</div>
+                <div class="w-full text-sm">Objavite Vaš automobil</div>
             </div>
         </label>
     </li>
@@ -425,8 +425,8 @@ if (
         <label for="rent" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
             <div class="block">
             <GiKeyCard style={{ fontSize: '2em'}}/>
-                <div class="w-full text-lg font-semibold mt-1">Rent</div>
-                <div class="w-full text-sm">Rent your car</div>
+                <div class="w-full text-lg font-semibold mt-1">Rentanje</div>
+                <div class="w-full text-sm">Rentanje Vašeg automobila</div>
             </div>
         </label>
     </li>
@@ -438,8 +438,8 @@ if (
             <div class="block">
               <div className='flex gap-7'><GiCardboardBox style={{ fontSize: '2em'}}/><GiCarSeat style={{ fontSize: '2em'}}/><FaScrewdriverWrench style={{ fontSize: '2em'}}/></div>
             
-                <div class="w-full text-lg font-semibold mt-1">Part</div>
-                <div class="w-full text-sm">Sell accessories and parts of your car</div>
+                <div class="w-full text-lg font-semibold mt-1">Dijelovi</div>
+                <div class="w-full text-sm"> Dijelovi automobila i ostalo </div>
             </div>
         </label>
     </li>
@@ -459,7 +459,7 @@ if (
             onChange={handleCarTypeChange}
             value={formData.cartype}
           >
-            <option value="" disabled hidden>Select type</option>
+            <option value="" disabled hidden>Odaberite tip</option>
 
             {formData.type === 'parts' && (
               <>
@@ -496,24 +496,25 @@ if (
             )}
             {(formData.type === 'sale' || formData.type ==='rent') && (
               <>
-             <option >
-            Limousine
-            </option> 
-            <option >
-            Hatchback
-            </option>  
-            <option >
-            Pickup
-            </option>  
-            <option >
-            Sedan
+            <option>
+                Limuzina
             </option>
-            <option >
-            SUV
-            </option>  
-            <option >
-            Station wagon
+            <option>
+                Hečbek
             </option>
+            <option>
+                Pickup
+            </option>
+            <option>
+                Sedan
+            </option>
+            <option>
+                SUV
+            </option>
+            <option>
+                Karavan
+            </option>
+
             </>
             )}
           
@@ -527,11 +528,11 @@ if (
             value={formData.brand}
           >
             <option value='' disabled>
-              Select Brand
+              Odaberite brend
             </option>
             {formData.type ==='parts' && (
               <option>
-                Any brand
+                Svi brendovi
               </option>
             )}
             {Object.keys(brandModelData).map((brand) => (
@@ -550,11 +551,11 @@ if (
             disabled={!formData.brand} //This disables model dropdown if no brand is selected
           >
             <option value='' disabled>
-              {formData.brand ? 'Select Model' : 'Select Brand First'}
+              {formData.brand ? 'Odaberite model' : 'Odaberite brend'}
             </option>
             {formData.type ==='parts' && (
               <option>
-                Any model
+                Svi modeli
               </option>
             )}
             {brandModelData[formData.brand] &&
@@ -573,23 +574,23 @@ if (
             onChange={handleEngineTypeChange}
             value={formData.engine}
           >  
-          <option value="" disabled hidden>Type of engine</option>
+          <option value="" disabled hidden>Tip motora</option>
           {formData.type ==='parts' && (
               <option>
-                Any type of engine
+                Svi tipovi motora
               </option>
             )}
             <option >
               E-V
             </option>  
             <option >
-              Diesel
+              Dizel
             </option>  
             <option >
-              Petrol
+              Benzin
             </option>  
             <option >
-              Hybrid
+              Hibrid
             </option>  
           </select>
           <select
@@ -602,7 +603,7 @@ if (
             value={formData.year}
       >
             <option value='' disabled>
-             Select Year
+            Godište
             </option>
            {generateYearOptions()}
            </select>
@@ -622,12 +623,12 @@ if (
             value={formData.capacity}
           >
               
-            <option >
-              Electric or pick size below
+            <option value='' disabled >
+              Zapremina motora
             </option>  
             {formData.type ==='parts' && (
               <option>
-                Any engine size
+              Sve zapremine
               </option>
             )}
             {generateEngineSizeOptions()}
@@ -642,17 +643,17 @@ if (
             onChange={handleTransmissionChange}
             value={formData.transmission}
           >
-             <option value="" disabled hidden>Select transmission</option>
+             <option value="" disabled hidden>Tip mjenjača</option>
              {formData.type ==='parts' && (
               <option>
-                Any transmission
+                Svi tipovi
               </option>
             )}
             <option >
-            Automatic
+            Automatik
             </option>  
             <option >
-             Manual
+             Manuelni
             </option>  
           </select>
           <select
@@ -664,11 +665,11 @@ if (
             onChange={handleWheelDriveChange}
             value={formData.wheeldrive}
           >
-             <option value="" disabled hidden>Drive train</option>
-             <option value="" disabled hidden>Drive train</option>
+             
+             <option value="" disabled hidden>Pogon</option>
              {formData.type ==='parts' && (
               <option>
-                Any drive train
+                Svi pogoni
               </option>
             )}
              <option >
@@ -695,7 +696,7 @@ if (
             value={formData.emission}
           >
            
-             <option value="" disabled hidden>Emission standard</option>
+             <option value="" disabled hidden>Emisioni standard</option>
              
              <option >
             Euro 1
@@ -727,21 +728,21 @@ if (
             value={formData.interior}
             
           >
-             <option value="" disabled hidden>Interior type</option>
-             <option >
-            Leather
-            </option> 
-            <option >
-            Vinyl
-            </option>  
-            <option >
-            Alcantra
-            </option>  
-            <option >
-            Polyester
+             <option value="" disabled hidden>Tip interijera</option>
+             <option>
+                Koža
             </option>
-            <option >
-            Faux Leather
+            <option>
+                Vinil
+            </option>
+            <option>
+                Alkantara
+            </option>
+            <option>
+                Poliester
+            </option>
+            <option>
+                Imitacija kože
             </option> 
             
           </select>
@@ -753,7 +754,7 @@ if (
           <div className='flex flex-col flex-1 gap-3 mt-5'>
           <input
             type='text'
-            placeholder='Name'
+            placeholder='Naziv oglasa'
             className='border p-3 rounded-lg border-sky-500 dark:border-amber-600 dark:bg-transparent dark:text-white '
             id='name'
             maxLength='200'
@@ -764,16 +765,18 @@ if (
           />
           <textarea
             type='text'
-            placeholder='Description'
-            className='border p-3 rounded-lg  border-sky-500 dark:border-amber-600 dark:bg-transparent dark:text-white'
+            placeholder='Opis oglasa'
+            className='border p-3 rounded-lg  border-sky-500 dark:border-amber-600 dark:bg-transparent dark:text-white whitespace-nowrap'
             id='description'
             required
+            
             onChange={handleChange}
             value={formData.description}
           />
+          
           <input
             type='text'
-            placeholder='Address (Optional)'
+            placeholder='Adresa(Opcionalno)'
             className='border p-3 rounded-lg  border-sky-500 dark:border-amber-600 dark:bg-transparent dark:text-white'
             id='address'
             required
@@ -817,8 +820,8 @@ if (
         rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
         after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
         after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-        <span class="ms-3 flex-wrap text-sm font-mono text-gray-700 dark:text-gray-300 mr-10">Discount on longer rents</span>
-        <p className=' font-mono text-gray-700 dark:text-gray-300 mr-5'>Choose which dates are not available:</p>
+        <span class="ms-3 flex-wrap text-sm font-mono text-gray-700 dark:text-gray-300 mr-10">Popust na duže rentanje</span>
+        <p className=' font-mono text-gray-700 dark:text-gray-300 mr-5'>Odaberite koji datumi nisu dostupni:</p>
         </label>
         
         <DatePicker 
@@ -854,7 +857,7 @@ if (
                 onChange={handleChange}
                 value={formData.seats}
               />
-              <p>Seats</p>
+              <p>Sjedišta</p>
             </div>
             <div className='flex items-center gap-2'>
               <input
@@ -867,7 +870,7 @@ if (
                 value={formData.doors}
               />
               <div className='flex flex-col items-center'>
-                <p>Doors</p>                             
+                <p>Vrata</p>                             
               
               </div>
               
@@ -895,7 +898,7 @@ if (
                 value={formData.mileage}
               />
               <div className='flex flex-col items-center'>
-                <p>Mileage</p>                             
+                <p>Kilometraža</p>                             
               
               </div>
              
@@ -913,9 +916,9 @@ if (
                 value={formData.regularPrice}
               />
               <div className='flex flex-col items-center'>
-                <p>Price</p>
+                <p>Cijena</p>
                 {formData.type === 'rent' && (
-                  <span className='text-xs'>($ / day)</span>
+                  <span className='text-xs'>($ / dan)</span>
                 )}
               </div>
               
@@ -933,9 +936,9 @@ if (
                 value={formData.discountPrice}
               />
               <div className='flex flex-col items-center'>
-                <p>Price for longer rents</p>
+                <p>Cijena popusta</p>
                 {formData.type === 'rent' && (
-                    <span className='text-xs'>($ / day)</span>
+                    <span className='text-xs'>($ / dan)</span>
                   )}
               </div>
             </div>
@@ -944,7 +947,7 @@ if (
           </div>
           { formData.type === 'sale' && (
             <>
-          <h2 className='font-mono text-gray-500 dark:text-zinc-300 '>Legal:</h2>
+          <h2 className='font-mono text-gray-500 dark:text-zinc-300 '>Legalno:</h2>
          
           <div className='flex-wrap sm:flex gap-7 border-2 border-sky-500 dark:border-amber-700 rounded-md p-2  '>
             <div>
@@ -958,7 +961,7 @@ if (
             rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
             after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
             after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Registered</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Registrovan</span>
             </label>
             </div>
 {/* Customs cleared */}
@@ -972,7 +975,7 @@ if (
             rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
             after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
             after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Customs cleared</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Ocarinjen</span>
             </label>
             </div>
 {/* Foreign plates */}
@@ -986,7 +989,7 @@ if (
             rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
             after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
             after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Foreign plates</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Strane table</span>
             </label>
             </div>
 {/* Leasing */}
@@ -1000,7 +1003,7 @@ if (
             rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
             after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
             after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Leasing</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Lizing</span>
             </label>
             </div>
 {/* Service book */}
@@ -1014,7 +1017,7 @@ if (
             rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
             after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
             after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Service book</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Servisna knjiga</span>
             </label>
             </div>
             </div>
@@ -1023,636 +1026,636 @@ if (
 
             {(formData.type === 'sale' || formData.type === 'rent') && (<>
 
-            <h2 className='font-mono text-gray-500 dark:text-zinc-300 '>Other:</h2>
 
- <div className='flex-wrap sm:flex gap-16 border-2 border-sky-500 dark:border-amber-700 rounded-lg p-8 '>
+              <h2 className='font-mono text-gray-500 dark:text-zinc-300 '>Ostalo:</h2>
 
-            <div>
+<div className='flex-wrap sm:flex gap-16 border-2 border-sky-500 dark:border-amber-700 rounded-lg p-8 '>
+
+           <div>
              
-              
 {/* airconditioner */}
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='airconditioner' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.airconditioner}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Airconditioner</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='airconditioner' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.airconditioner}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Klima</span>
+ </label>
 </div>
 
 {/* metallic */}
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='metallic' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.metallic}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Metallic</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='metallic' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.metallic}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Metalik</span>
+ </label>
 </div>
 
 {/* alloywheels */}
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='alloywheels' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.alloywheels}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Alloy wheels</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='alloywheels' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.alloywheels}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Alu felge</span>
+ </label>
 </div>
 
 {/* digitalairconditioning */}
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='digitalairconditioning' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.digitalairconditioning}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Digital air conditioner</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='digitalairconditioning' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.digitalairconditioning}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Digitalna klima</span>
+ </label>
 </div>
-         
+        
 {/* steeringwheelcontrols */}
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='steeringwheelcontrols' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.steeringwheelcontrols}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Steering wheel controls</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='steeringwheelcontrols' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.steeringwheelcontrols}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Komande na volanu</span>
+ </label>
 </div>
 
 
 {/* navigation */}
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='navigation' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.navigation}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Navigation</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='navigation' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.navigation}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Navigacija</span>
+ </label>
 </div>
 
 {/* touchscreen */}
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='touchscreen' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.touchscreen}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Touchscreen</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='touchscreen' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.touchscreen}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Touchscreen</span>
+ </label>
 </div>
 
 {/* head-up display */}
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='headupdisplay' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.headupdisplay}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Head up display</span>
-  </label>
-</div>
- 
-
-<div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='usbport' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.usbport}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">USB port</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='headupdisplay' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.headupdisplay}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Head-up displej</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='cruisecontrol' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.cruisecontrol}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Cruise Control</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='usbport' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.usbport}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">USB port</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='bluetooth' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.bluetooth}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Bluetooth</span>
-  </label>
-</div>
-
-<div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='carplay' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.carplay}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">CarPlay</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='cruisecontrol' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.cruisecontrol}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Tempomat</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='rainsensor' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.rainsensor}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Rain Sensor</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='bluetooth' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.bluetooth}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Bluetooth</span>
+ </label>
+</div>
+
+<div>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='carplay' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.carplay}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">CarPlay</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='parkassist' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.parkassist}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Park Assist</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='rainsensor' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.rainsensor}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Senzor kiše</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='lightsensor' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.lightsensor}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Light Sensor</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='parkassist' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.parkassist}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Park Assist</span>
+ </label>
+</div>
+
+
+<div>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='lightsensor' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.lightsensor}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Senzor auto svijetla</span>
+ </label>
 </div>
 </div>  
 <div>
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='blindspotsensor' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.blindspotsensor}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Blind Spot Sensor</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='blindspotsensor' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.blindspotsensor}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Senzor mrtvog ugla</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='startstopsystem' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.startstopsystem}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Start-Stop System</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='startstopsystem' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.startstopsystem}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Start-Stop Sistem</span>
+ </label>
 </div>
 
-            
+           
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='hillassist' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.hillassist}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Hill Assist</span>
-  </label>
-</div>
-
-
-<div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='seatmemory' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.seatmemory}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Seat Memory</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='hillassist' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.hillassist}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Hill Assist</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='seatmassage' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.seatmassage}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Seat Massage</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='seatmemory' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.seatmemory}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Memorija sjedišta</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='seatheating' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.seatheating}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Seat Heating</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='seatmassage' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.seatmassage}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Masaža sjedišta</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='seatcooling' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.seatcooling}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Seat Cooling</span>
-  </label>
-</div>
-
-<div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='powerwindows' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.powerwindows}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Power Windows</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='seatheating' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.seatheating}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Grijanje siceva</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='powerseatadjustment' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.powerseatadjustment}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Power Seat Adjustment</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='seatcooling' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.seatcooling}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Hlađenje siceva</span>
+ </label>
+</div>
+
+<div>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='powerwindows' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.powerwindows}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">El. podizači stakala</span>
+ </label>
 </div>
 
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='armrest' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.armrest}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Armrest</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='powerseatadjustment' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.powerseatadjustment}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">El. pomjeranje sjedišta</span>
+ </label>
+</div>
+
+
+<div>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='armrest' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.armrest}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Naslon za ruku</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='panoramicroof' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.panoramicroof}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Panoramic Roof</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='panoramicroof' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.panoramicroof}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Šiber</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='sunroof' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.sunroof}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Sunroof</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='sunroof' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.sunroof}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Panorama krov</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='foglights' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.foglights}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Fog Lights</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='foglights' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.foglights}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Maglenke</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='electricmirrors' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.electricmirrors}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Electric Mirrors</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='electricmirrors' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.electricmirrors}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Električni retrovizori</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='alarm' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.alarm}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Alarm</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='alarm' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.alarm}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Alarm</span>
+ </label>
 </div>
 </div>
 <div>
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='centrallocking' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.centrallocking}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Central Locking</span>
-  </label>
-</div>
-
-<div>
-  <label class="inline-flex items-center cursor-pointer">
-   <input type="checkbox" id='remoteunlocking' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.remoteunlocking}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Remote Unlocking</span>
-  </label>
-</div>
-<div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='airbag' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.airbag}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Airbag</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='centrallocking' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.centrallocking}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Centralna brava</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='abs' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.abs}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">ABS</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+  <input type="checkbox" id='remoteunlocking' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.remoteunlocking}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Daljinsko otključavanje</span>
+ </label>
+</div>
+<div>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='airbag' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.airbag}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Airbag</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='esp' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.esp}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">ESP</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='abs' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.abs}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">ABS</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='dpffapfilter' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.dpffapfilter}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">DPF/FAP Filter</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='esp' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.esp}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">ESP</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='powersteering' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.powersteering}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Power Steering</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='dpffapfilter' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.dpffapfilter}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">DPF/FAP Filter</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='turbo' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.turbo}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Turbo</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='powersteering' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.powersteering}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Servo volan</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='isofix' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.isofix}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">ISOFIX</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='turbo' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.turbo}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Turbo</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='towbar' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.towbar}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Tow Bar</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='isofix' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.isofix}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">ISOFIX</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='damaged' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.damaged}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Damaged</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='towbar' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.towbar}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Kuka</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='adaptedforthedisabled' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.adaptedforthedisabled}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Adapted for the</span>
-  </label>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='damaged' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.damaged}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Oštećen</span>
+ </label>
 </div>
 
 <div>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" id='oldtimer' className="sr-only peer"
-      onChange={handleChange}
-      checked={formData.oldtimer}/>
-    
-    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
-      rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
-      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Oldtimer</span>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='adaptedforthedisabled' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.adaptedforthedisabled}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Prilagođen invalidima</span>
+ </label>
+</div>
+
+<div>
+ <label class="inline-flex items-center cursor-pointer">
+   <input type="checkbox" id='oldtimer' className="sr-only peer"
+     onChange={handleChange}
+     checked={formData.oldtimer}/>
+   
+   <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-amber-600 
+     rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+     after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
+     after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
+   <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Oldtimer</span>
   </label>
 </div></div>
 
@@ -1667,8 +1670,8 @@ if (
       </form>
       <form onSubmit={handleSubmit} className='mt-5'>
       <div className="flex flex-col flex-1 gap-4">
-          <p className='font-semibold'>Images:
-          <span className='font-normal text-gray-600 ml-2'>The first image will be the cover (max 6)</span>
+          <p className='font-semibold'>Slike:
+          <span className='font-normal text-gray-600 ml-2'>Prva slika je naslovna (max 6)</span>
           </p>
                 
             <input 
@@ -1679,6 +1682,7 @@ if (
               id="images" 
               accept='image/*' 
               multiple
+              
              />
 
             <button 
@@ -1687,7 +1691,7 @@ if (
              onClick={handleImageSubmit}
              className='p-3 text-sky-700 border border-sky-700 rounded uppercase hover:shadow-lg disabled:opacity-80 dark:border-amber-400 dark:text-amber-700'
              
-             >{uploading ? 'Uploading...' : 'Upload'}
+             >{uploading ? 'Postavljanje...' : 'Dodaj slike'}
              
               
               </button>
@@ -1710,7 +1714,7 @@ if (
                   onClick={() => handleRemoveImage(index)}
                   className='p-3 text-red-700 rounded-lg uppercase hover:opacity-75'
                 >
-                  Delete
+                  Obriši
                 </button>
               </div>
             ))}
@@ -1718,7 +1722,7 @@ if (
          disabled={loading || uploading}
          className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
           
-          {loading ? 'Creating...' : 'Create listing'}</button>
+          {loading ? 'Kreiranje...' : 'Kreiraj oglas'}</button>
           {error && <p className='text-red-500 text-sm'>{error}</p>}
           
         </div>

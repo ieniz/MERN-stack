@@ -108,7 +108,19 @@ export const getListing = async (req, res, next) => {
       if (registered === undefined || registered === 'false') {
         registered = { $in: [false, true] };
       }
+
+      let oldtimer= req.query.oldtimer;
   
+      if (oldtimer === undefined || oldtimer === 'false') {
+        oldtimer = { $in: [false, true] };
+      }
+
+      let damaged = req.query.damaged;
+  
+      if (damaged === undefined || damaged === 'false') {
+        damaged = { $in: [false, true] };
+      }
+
       let type = req.query.type;
   
       if (type === undefined || type === 'all') {
@@ -119,7 +131,7 @@ export const getListing = async (req, res, next) => {
   
       if (cartype === '' || cartype === undefined) {
         cartype = { $in: [ 
-        'SUV' ,'Hatchback','Limousine','Pickup','Station wagon','Sedan',
+        'SUV', 'Hečbek', 'Limuzina', 'Pickup', 'Karavan', 'Sedan',
         'Mali servis - Filteri',
         'Kaišni prenos/ Remenje / Veliki servis',
         'Senzori',
@@ -151,24 +163,23 @@ export const getListing = async (req, res, next) => {
 
       let brand = req.query.brand;
       let model = req.query.model;
-      
-      
-      if (!brand) {
-        // setting brand to an array of brands
-        brand = Object.keys(brandModelData);
+
+      if (!brand || brand === 'Svi brendovi') {
+        // If brand is not provided or "Any brand" is selected
+        brand = ['Svi brendovi', ...Object.keys(brandModelData)];
       } else {
-        //spliting brand string by comma and trim whitespace
-        brand = ['Any brand', ...Object.keys(brandModelData)];
+        // Splitting brand string by comma and trim whitespace
+        brand = brand.split(',').map(item => item.trim());
       }
-      
-      
-      if (!model) {
-        //  setting model to an array of models from all brands
-        model = ['Any model', ...Object.values(brandModelData).flat()];
+
+      if (!model || model === 'Svi modeli') {
+        // If model is not provided or "Any model" is selected
+        model = ['Svi modeli', ...Object.values(brandModelData).flat()];
       } else {
-        //spliting model string by comma and trim whitespace
+        // Splitting model string by comma and trim whitespace
         model = model.split(',').map(item => item.trim());
       }
+      
 
       let city = req.query.city;
       if (!city) {
@@ -193,14 +204,14 @@ export const getListing = async (req, res, next) => {
       let engine = req.query.engine;
   
       if (engine === undefined || engine === '') {
-        engine = { $in: ['E-V', 'Diesel', 'Petrol','Hybrid','Any type of engine'] };
+        engine = { $in: ['E-V', 'Dizel', 'Benzin','Hibrid','Svi tipovi motora'] };
       }
     
 
       const startSize = 0.6;
       const endSize = 7.5;
       const increment = 0.1;
-      const enginesizes = ['Any engine size'];
+      const enginesizes = ['Sve zapremine'];
       
       for (let i = startSize; i <= endSize; i += increment) {
           enginesizes.push(i.toFixed(1));
@@ -216,19 +227,32 @@ export const getListing = async (req, res, next) => {
       let transmission = req.query.transmission;
   
       if (transmission === undefined || transmission === '') {
-        transmission = { $in: ['Automatic', 'Manual','Any transmission'] };
+        transmission = { $in: ['Automatik', 'Manuelni','Svi tipovi'] };
       }
 
       let wheeldrive = req.query.wheeldrive;
   
       if (wheeldrive=== undefined || wheeldrive === '') {
-        wheeldrive = { $in: ['AWD', '4WD', 'RWD','FWD','Any drive train'] };
+        wheeldrive = { $in: ['AWD', '4WD', 'RWD','FWD','Svi pogoni'] };
+      }
+
+      let interior = req.query.interior;
+
+      if (interior === undefined || interior === '') {
+        interior = { $exists: true }; // Include listings where the interior is defined
+      } else {
+        interior = { $in: ['Alkantara', 'Poliester', 'Imitacija kože', 'Vinil', 'Koža'] };
       }
      
      
-    
+      const minPrice = parseFloat(req.query.minPrice) || 0;
+      const maxPrice = parseFloat(req.query.maxPrice) || Number.MAX_SAFE_INTEGER;
       
-    
+      const minMileage = parseFloat(req.query.minMileage) || 0;
+      const maxMileage = parseFloat(req.query.maxMileage) || Number.MAX_SAFE_INTEGER;
+
+      const minkW = parseFloat(req.query.minkW) || 0;
+      const maxkW = parseFloat(req.query.maxkW) || Number.MAX_SAFE_INTEGER;
 
       const searchTerm = req.query.searchTerm || '';
   
@@ -244,6 +268,8 @@ export const getListing = async (req, res, next) => {
         servicebook,
         foreignplates,
         registered,
+        damaged,
+        oldtimer,
         type,
         cartype,
         brand,
@@ -254,6 +280,10 @@ export const getListing = async (req, res, next) => {
         capacity,
         transmission,
         wheeldrive,
+        interior,
+        regularPrice: { $gte: minPrice, $lte: maxPrice },
+        mileage: { $gte: minMileage, $lte: maxMileage },
+        kW: { $gte: minkW, $lte: maxkW }
         
        
         

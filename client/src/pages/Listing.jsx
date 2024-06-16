@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SellerContact from '../components/SellerContact';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
@@ -46,6 +47,7 @@ export default function Listing() {
         setError(true);
         setLoading(false);
       }
+     
     };
     fetchListing();
   }, [params.listingId]);
@@ -119,9 +121,9 @@ export default function Listing() {
   
   return (
     <main>
-      {loading && <p className='text-center my-7 text-2xl'>Loading...</p>}
+      {loading && <p className='text-center my-7 text-2xl'>Učitavanje...</p>}
       {error && (
-        <p className='text-center my-7 text-2xl'>Something went wrong!</p>
+        <p className='text-center my-7 text-2xl'>Greška na serveru!</p>
       )}
       {listing && !loading && !error && (
 
@@ -131,33 +133,41 @@ export default function Listing() {
             <div className=' w-full md:w-2/3  '>
             <p className='text-2xl sm:text-3xl font-extrabold underline text-sky-500 dark:text-amber-600 '>
               {listing.name} 
-            </p>         
+            </p>    
+               
                              
-                                
-                                  <div
-                                    className="bg-gray-100 dark:bg-gray-900 relative shadow-xl overflow-hidden hover:shadow-2xl group rounded-xl p-5 transition-all duration-500 transform max-w-80 mt-5">
-                                    <div className="flex items-center gap-4">
-                                      <img src={listing.createdBy.avatar}
-                                      className="w-32 group-hover:w-36 group-hover:h-36 h-32 object-center object-cover rounded-full transition-all duration-500 delay-500 transform"
-                                    />
-                                      <div className="w-fit transition-all transform duration-500">
-                                        <h1 className="text-gray-600 dark:text-gray-200 font-bold">
-                                          {listing.createdBy.username}
-                                        </h1>
-                                        <p className="text-gray-400">Contact seller</p>
-                                        <a
-                                          className="text-xs text-gray-500 dark:text-gray-200 group-hover:opacity-100 opacity-0 transform transition-all delay-300 duration-500">
-                                          {listing.createdBy.email}
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="absolute group-hover:bottom-1 delay-300 -bottom-16 transition-all duration-500 bg-gray-600 dark:bg-gray-100 right-1 rounded-lg">
-                                      <div className="flex justify-evenly items-center gap-2 p-1 text-2xl text-white dark:text-gray-600">
-                                       {listing.createdBy.phonenumber}
-                                      </div>
-                                    </div>
-                                  </div>
-                                                          
+          
+              <div
+                className="bg-gray-100 dark:bg-gray-900 relative shadow-xl overflow-hidden hover:shadow-2xl group rounded-xl p-5 transition-all duration-500 transform max-w-80 mt-5">
+                <div className="flex items-center gap-4">
+                  <img src={listing.createdBy.avatar}
+                  className="w-32 group-hover:w-36 group-hover:h-36 h-32 object-center object-cover rounded-full transition-all duration-500 delay-500 transform"
+                />
+                  <div className="w-fit transition-all transform duration-500">
+                    <h1 className="text-gray-600 dark:text-gray-200 font-bold">
+                      {listing.createdBy.username}
+                    </h1>
+                    <p className="text-gray-400">Kontakt</p>
+                    <a
+                      className="text-xs text-gray-500 dark:text-gray-200 group-hover:opacity-100 opacity-0 transform transition-all delay-300 duration-500">
+                      {listing.createdBy.email}
+                    </a>
+                  </div>
+                </div>
+                <div className="absolute group-hover:bottom-1 delay-300 -bottom-16 transition-all duration-500 bg-gray-600 dark:bg-gray-100 right-1 rounded-lg">
+                  <div className="flex justify-evenly items-center gap-2 p-1 text-2xl text-white dark:text-gray-600">
+                  {listing.createdBy.phonenumber}
+                  </div>
+                </div>
+              </div>
+              {currentUser && listing.userRef !== currentUser._id && !contact && ( <Link to={`/chat/${listing.createdBy._id}`}>
+                
+              <li className='relative ml-12 inline-flex items-center justify-center px-3 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white dark:bg-gray-800 rounded-lg group'>
+              <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-sky-500 dark:bg-amber-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
+              <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
+              <span class="relative">POŠALJI PORUKU KORISNIKU</span>
+              </li>
+            </Link>)}                                  
              
             <p className='flex items-center mt-3 gap-2 text-sm'>
               <FaMapMarkerAlt className='text-xl' />
@@ -169,29 +179,30 @@ export default function Listing() {
             )}
             <div className='flex gap-4 mb-2 mt-5 '>
               <p className=' w-full max-w-[200px]  text-center border-2 border-sky-500 dark:border-amber-700 p-1 rounded-md'>
-              {listing.type === 'rent' ? 'For Rent' : (listing.type === 'parts' ? 'Part' : 'For Sale')}
+              {listing.type === 'rent' ? 'Rentanje' : (listing.type === 'parts' ? 'Dijelovi' : 'Prodaja')}
               
               </p>
               <p className='text-xl '>
               {listing.regularPrice.toLocaleString('en-US')}
 
-              {listing.type === 'rent' && ' / day'}$
+              {listing.type === 'rent' && ' / dan'}$
             </p>
             </div>
               {listing.offer && (
                 <p className=' w-full max-w-[250px]  text-center p-1 rounded-md text-slate-400 underline'>
-                  Longer rent price:
-                  ${listing.discountPrice }/day 
+                  Popust :
+                  ${listing.discountPrice }/dan 
                 </p>
               )}
-              <p className='font-bold flex'>{listing.leasing && 'Leasing Possible'}</p>
+              <p className='font-bold flex'>{listing.leasing && 'Moguć lizing'}</p>
               
              
               </div>
+              
               {listing.type ==='rent' && (
               <div className='m-5 md:m-0'>
               
-              <p className='font-extralight text-sky-500 dark:text-amber-600 mb-2'>Reserved dates :</p>
+              <p className='font-extralight text-sky-500 dark:text-amber-600 mb-2'>Rezervisani datumi :</p>
               
                               
                   <Calendar
@@ -207,14 +218,14 @@ export default function Listing() {
         
             <div className=' flex font-bold text-sm items-center gap-1'>
             <GiCardboardBox/>
-                Type of part : {`${listing.cartype}`}
+                Tip : {`${listing.cartype}`}
             </div>
             )}
 
             {listing.type ==='parts'  && (
-            <h2>Parts suits best:</h2>)}
+            <h2>Odgovara za:</h2>)}
 
-            <ul className=' font-extrabold mt-8 text-sm flex flex-wrap items-center gap-x-5 sm:gap-x-16 gap-y-5'>
+            <ul className=' font-extrabold mt-8  flex flex-wrap items-center gap-x-5 sm:gap-x-10 gap-y-5'>
             
              <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl '>
               <FaCar className='text-6xl' />
@@ -224,40 +235,12 @@ export default function Listing() {
                                
               </p>
               </li>
-               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
-                <GiCarSeat className='text-6xl' />
-                {listing.seats > 1
-                  ? `${listing.seats} Seats - `
-                  : `${listing.seats} Seat - `}
-                  {`${listing.interior}`}
-              </li>
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
               <FaRegCalendarAlt className='text-6xl' />
               {`${listing.year}`}
               </li>
-              {(listing.type === 'sale' || listing.type === 'rent') && ( 
-                <>
-                <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
-                <GiCarDoor className='text-6xl' />
-                {listing.doors > 1
-                  ? `${listing.doors} Doors `
-                  : `${listing.doors} Door `}
-              </li>
-
-                        
-              <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
-                <FaRoad className='text-6xl' />
-                {`${listing.mileage} Km`}
-              </li>
-             
-              {listing.adaptedforthedisabled && (
-              <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
-                <TbDisabled  className='text-6xl' />
-                Adapted for disabled
-              </li>
-              )}
               
-              </>)}
+              
 
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl '>
                 <GiCarWheel className='text-6xl' />
@@ -293,19 +276,19 @@ export default function Listing() {
               {listing.servicebook && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <GiArchiveRegister className='text-6xl' />
-                Service book
+                Servisna knjiga
               </li>
               )}
                {listing.registered && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <FaRegistered className='text-6xl' />
-                Registered
+                Registrovan
               </li>
               )}
                 {listing.customscleared && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <GiFullFolder className='text-6xl' />
-                Customs cleared
+                Ocarinjen
               </li>
               )}
                 {listing.oldtimer && (
@@ -317,15 +300,47 @@ export default function Listing() {
                 {listing.foreignplates && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <FaRegCreditCard className='text-6xl' />
-                Foreign plates
+                Strane table
               </li>
               )}
                 {listing.damaged && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl '>
                 <FaCarCrash className='text-6xl' />
-                Car is damaged
+                Auto je oštećeno
               </li>
               )}
+              
+              {(listing.type === 'sale' || listing.type === 'rent') && ( 
+                <>
+                {(listing.interior !== '' ) &&
+               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
+                <GiCarSeat className='text-6xl' />
+                {listing.seats > 1
+                  ? `${listing.seats} Sjedišta -`
+                  : `${listing.seats} Sjedište - `}
+                   {`${listing.interior}`}
+              </li>}
+                <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
+                <GiCarDoor className='text-6xl' />
+                {listing.doors > 1
+                  ? `${listing.doors} Vrata `
+                  : `${listing.doors} Vrata `}
+              </li>
+
+                        
+              <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
+                <FaRoad className='text-6xl' />
+                {`${listing.mileage} Km`}
+              </li>
+             
+              {listing.adaptedforthedisabled && (
+              <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
+                <TbDisabled  className='text-6xl' />
+                Prilagođen invalidima
+              </li>
+              )}
+              
+              </>)}
                           
             </ul>
             
@@ -351,14 +366,14 @@ export default function Listing() {
             </p>
 
             {(listing.type ==='rent' || listing.type === 'sale') && (
-            <div className='flex gap-10 p-5 rounded-xl bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'>
-            <h1 className='font-bold '>Other:</h1>
+            <div className='flex gap-5 p-5 rounded-xl bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'>
+            <h1 className='font-bold '>Ostalo:</h1>
             <AttributeList />            
             </div>
             )}
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button onClick={()=>setContact(true)} className='bg-sky-600 dark:bg-amber-700 text-white rounded-lg uppercase hover:opacity-95 p-3 mt-10'>
-                Contact seller
+                Pošalji email upit
               </button>
             )}
             {contact && <SellerContact listing={listing}/>}

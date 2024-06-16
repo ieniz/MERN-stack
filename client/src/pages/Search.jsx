@@ -27,7 +27,15 @@ export default function Search() {
     servicebook: false,
     foreignplates: false,
     customscleared: false,
+    oldtimer:false,
+    damaged:false,
     offer: false,
+    minPrice:null,
+    maxPrice:null,
+    minMileage:null,
+    maxMileage:null,
+    minkW:null,
+    maxkW:null,
     sort: 'created_at',
     order: 'desc',
   });
@@ -56,6 +64,14 @@ export default function Search() {
     const foreignplatesFromUrl = urlParams.get('foreignplates');
     const servicebookFromUrl = urlParams.get('servicebook');
     const customsclearedFromUrl = urlParams.get('customscleared');
+    const damagedFromUrl = urlParams.get('damaged');
+    const oldtimerFromUrl = urlParams.get('oldtimer');    
+    const minPriceFromUrl = urlParams.get('minPrice');
+    const maxPriceFromUrl = urlParams.get('maxPrice');
+    const minMileageFromUrl = urlParams.get('minMileage');
+    const maxMileageFromUrl = urlParams.get('maxMileage');
+    const minkWFromUrl = urlParams.get('minkW');
+    const maxkWFromUrl = urlParams.get('maxkW');
     const offerFromUrl = urlParams.get('offer');
     const sortFromUrl = urlParams.get('sort');
     const orderFromUrl = urlParams.get('order');
@@ -78,6 +94,14 @@ export default function Search() {
       foreignplatesFromUrl ||
       servicebookFromUrl ||
       customsclearedFromUrl ||
+      damagedFromUrl ||
+      oldtimerFromUrl ||
+      minPriceFromUrl ||
+      maxPriceFromUrl ||
+      minMileageFromUrl ||
+      maxMileageFromUrl ||
+      minkWFromUrl ||
+      maxkWFromUrl ||
       offerFromUrl ||
       sortFromUrl ||
       orderFromUrl
@@ -100,6 +124,14 @@ export default function Search() {
         customscleared: customsclearedFromUrl === 'true' ? true : false,
         foreignplates: foreignplatesFromUrl === 'true' ? true : false,
         servicebook: servicebookFromUrl === 'true' ? true : false,
+        oldtimer: oldtimerFromUrl === 'true' ? true : false,
+        damaged: damagedFromUrl === 'true' ? true : false,
+        minPrice:minPriceFromUrl || '',
+        maxPrice: maxPriceFromUrl || '',
+        minMileage:minMileageFromUrl || '',
+        maxMileage: maxMileageFromUrl || '',
+        minkW:minkWFromUrl || '',
+        maxkW: maxkWFromUrl || '',        
         offer: offerFromUrl === 'true' ? true : false,
         sort: sortFromUrl || 'created_at',
         order: orderFromUrl || 'desc',
@@ -227,12 +259,23 @@ const handleCityChange = (e) => {
       e.target.id === 'foreignplates' ||
       e.target.id === 'servicebook' ||
       e.target.id === 'customscleared' ||
+      e.target.id === 'damaged' ||
+      e.target.id === 'oldtimer'||
       e.target.id === 'offer'
     ) {
       setSidebardata({
         ...sidebardata,
         [e.target.id]:
           e.target.checked || e.target.checked === 'true' ? true : false,
+      });
+    }
+    if (
+      e.target.type === 'number' 
+     
+    ) {
+      setSidebardata({
+        ...sidebardata,
+        [e.target.id]: e.target.value,
       });
     }
 
@@ -265,6 +308,14 @@ const handleCityChange = (e) => {
     urlParams.set('foreignplates', sidebardata.foreignplates);
     urlParams.set('servicebook', sidebardata.servicebook);
     urlParams.set('customscleared', sidebardata.customscleared);
+    urlParams.set('oldtimer', sidebardata.oldtimer);
+    urlParams.set('damaged', sidebardata.damaged)
+    urlParams.set('minPrice',sidebardata.minPrice);
+    urlParams.set('maxPrice',sidebardata.maxPrice);
+    urlParams.set('minMileage', sidebardata.minMileage);
+    urlParams.set('maxMileage', sidebardata.maxMileage);
+    urlParams.set('minkW',sidebardata.minkW);
+    urlParams.set('maxkW',sidebardata.maxkW);
     urlParams.set('offer', sidebardata.offer);
     urlParams.set('sort', sidebardata.sort);
     urlParams.set('order', sidebardata.order);
@@ -285,6 +336,41 @@ const handleCityChange = (e) => {
     }
     setListings([...listings, ...data]);
   };
+
+  const handleCheckboxClick = (checkboxId) => {
+    setSidebardata((prevState) => ({
+      ...prevState,
+      searchTerm: '',
+      cartype: '',
+      brand: '',
+      model: '',
+      year: '',
+      city: '',
+      engine: '',
+      capacity: '',
+      transmission: '',
+      wheeldrive: '',
+      interior: '',
+      registered: false,
+      leasing: false,
+      servicebook: false,
+      foreignplates: false,
+      customscleared: false,
+      oldtimer: false,
+      damaged: false,
+      offer: false,
+      minPrice: null,
+      maxPrice: null,
+      minMileage: null,
+      maxMileage: null,
+      minkW: null,
+      maxkW: null,
+    }));
+    setSidebardata((prevState) => ({
+      ...prevState,
+      type: prevState.type === checkboxId ? prevState.type : checkboxId,
+    }));
+  };
   
   return (
     <div className='flex flex-col md:flex-row'>
@@ -304,15 +390,15 @@ const handleCityChange = (e) => {
           
           <div>
         <input type="checkbox" id="all" value="" className="sr-only peer  border-amber-700" 
-         onChange={handleChange}
-         checked={sidebardata.type === 'all'}/>
-        <label for="all" class="inline-flex items-center justify-between w-80 p-5 text-gray-500 bg-white border-2 
+          onChange={() => handleCheckboxClick('all')}
+          checked={sidebardata.type === 'all'}/>
+        <label for="all" class="inline-flex items-center justify-between w-90  p-5 text-gray-500 bg-white border-2 
          border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600
           dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50
            dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
-            <div class="block">
-            <div className='flex gap-20'><GiCardboardBox style={{ fontSize: '2em'}}/><GiKeyCard style={{ fontSize: '2em'}}/><FaCar style={{ fontSize: '2em'}}/></div>
-                <div class=" text-center text-2xl font-bold mt-1">All categories</div>
+            <div className="block">
+            <div className='flex gap-20'><GiCardboardBox style={{ fontSize: '3em'}}/><GiKeyCard style={{ fontSize: '3em'}}/><FaCar style={{ fontSize: '3em'}}/></div>
+                <div className=" text-center text-2xl font-bold mt-1">Sve kategorije</div>
                 
             </div>
         </label>
@@ -321,30 +407,30 @@ const handleCityChange = (e) => {
            
           <div>
         <input type="checkbox" id="parts" value="" className="sr-only peer  border-amber-700" 
-         onChange={handleChange}
-         checked={sidebardata.type === 'parts'}/>
-        <label for="parts" class="inline-flex items-center justify-between  p-5 text-gray-500 bg-white border-2
+          onChange={() => handleCheckboxClick('parts')}
+          checked={sidebardata.type === 'parts'}/>
+        <label for="parts" className="inline-flex items-center justify-between  p-5 text-gray-500 bg-white border-2
          border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600
           dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50
            dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
             <div class="block">
-            <div className='flex gap-1'><GiCardboardBox style={{ fontSize: '2em'}}/><GiCarSeat style={{ fontSize: '2em'}}/><FaScrewdriverWrench style={{ fontSize: '2em'}}/></div>
-                <div class="text-center text-lg font-semibold mt-2">Parts</div>
+            <div className='flex gap-1'><GiCardboardBox style={{ fontSize: '2em'}}/><FaScrewdriverWrench style={{ fontSize: '2em'}}/></div>
+                <div className="text-center text-lg font-semibold mt-2">Dijelovi</div>
                 
             </div>
         </label>
         </div>
             <div>
         <input type="checkbox" id="rent" value="" className="sr-only peer  border-amber-700" 
-         onChange={handleChange}
+         onChange={() => handleCheckboxClick('rent')}
          checked={sidebardata.type === 'rent'}/>
-        <label for="rent" class="inline-flex items-center justify-between  p-5 text-gray-500 bg-white border-2
+        <label for="rent" className="inline-flex items-center justify-between  p-5 text-gray-500 bg-white border-2
          border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600
           dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50
            dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
-            <div class="block">
-                <GiKeyCard style={{ fontSize: '2em'}}/>
-                <div class="text-center text-lg font-semibold mt-2">Rent</div>
+            <div class="block ">
+                <GiKeyCard className='mx-auto' style={{fontSize: '2em '}}/>
+                <div className="text-center text-lg font-semibold mt-2">Rentanje</div>
                 
             </div>
         </label>
@@ -352,15 +438,15 @@ const handleCityChange = (e) => {
 
             <div>
         <input type="checkbox" id="sale" value="" className="sr-only peer  border-amber-700" 
-         onChange={handleChange}
-         checked={sidebardata.type === 'sale'}/>
+          onChange={() => handleCheckboxClick('sale')}
+          checked={sidebardata.type === 'sale'}/>
         <label for="sale" class="inline-flex items-center justify-between  p-5 text-gray-500 bg-white border-2
          border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600
           dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50
            dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
             <div class="block">
-                <FaCar style={{ fontSize: '2em'}}/>
-                <div class="text-center text-lg font-semibold mt-2">Buy</div>
+                <FaCar className='mx-auto' style={{ fontSize: '2em'}}/> 
+                <div class="text-center text-lg font-semibold mt-2">Prodaja</div>
                 
             </div>
         </label>
@@ -380,68 +466,10 @@ const handleCityChange = (e) => {
               rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
               after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
               after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Search for discount on longer rents</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Samo oglasi sa popustom na duže rentanje</span>
             </label>
             </div>)}
 
-            {sidebardata.type === 'sale' && (
-          <div className='flex gap-2 flex-wrap items-center max-w-10'>
-            <label className='font-semibold'>Legal:</label>
-            <div className='flex gap-2 items-center'>
-              <input
-                type='checkbox'
-                id='registered'
-                className='rounded-full bg-transparent'
-                onChange={handleChange}
-                checked={sidebardata.registered}
-              />
-              <span>registered</span>
-            </div>
-            <div className='flex gap-2 items-center'>
-              <input
-                type='checkbox'
-                id='leasing'
-                className='rounded-full bg-transparent'
-                onChange={handleChange}
-                checked={sidebardata.leasing}
-              />
-              <span>leasing</span>
-            </div>
-            <div className='flex gap-2 items-center '>
-              <input
-                type='checkbox'
-                id='customscleared'
-                className='rounded-full bg-transparent '
-                onChange={handleChange}
-                checked={sidebardata.customscleared}
-              />
-              <span>customscleared</span>
-              
-            </div>
-            <div className='flex gap-2 items-center '>
-              <input
-                type='checkbox'
-                id='foreignplates'
-                className='rounded-full bg-transparent '
-                onChange={handleChange}
-                checked={sidebardata.foreignplates}
-              />
-              <span>foreignplates</span>
-              
-            </div>
-            <div className='flex gap-2 items-center '>
-              <input
-                type='checkbox'
-                id='servicebook'
-                className='rounded-full bg-transparent '
-                onChange={handleChange}
-                checked={sidebardata.servicebook}
-              />
-              <span>servicebook</span>
-              
-            </div>
-          </div>
-          )}
           {sidebardata.type !== 'all' && (
           <select
             type='text'
@@ -455,6 +483,9 @@ const handleCityChange = (e) => {
 
             {sidebardata.type === 'parts' && (
               <>
+               <option value='' disabled>
+              Odaberite kategoriju
+            </option>
                 <option>Mali servis - Filteri</option>
                 <option>Kaišni prenos/ Remenje / Veliki servis</option>
                 <option>Senzori</option>
@@ -488,23 +519,26 @@ const handleCityChange = (e) => {
             )}
             {(sidebardata.type === 'sale' || sidebardata.type ==='rent') && (
               <>
-             <option >
-            Limousine
-            </option> 
-            <option >
-            Hatchback
-            </option>  
-            <option >
-            Pickup
-            </option>  
-            <option >
-            Sedan
+               <option value='' disabled>
+              Odaberite tip vozila
             </option>
-            <option >
-            SUV
-            </option>  
-            <option >
-            Station wagon
+             <option>
+                Limuzina
+            </option>
+            <option>
+                Hečbek
+            </option>
+            <option>
+                Pickup
+            </option>
+            <option>
+                Sedan
+            </option>
+            <option>
+                SUV
+            </option>
+            <option>
+                Karavan
             </option>
             </>
             )}
@@ -519,11 +553,11 @@ const handleCityChange = (e) => {
             value={sidebardata.brand}
           >
             <option value='' disabled>
-              Select Brand
+              Odaberite brend
             </option>
             {sidebardata.type ==='parts' && (
               <option>
-                Any brand
+                Svi brendovi
               </option>
             )}
             {Object.keys(brandModelData).map((brand) => (
@@ -541,11 +575,11 @@ const handleCityChange = (e) => {
             disabled={!sidebardata.brand} //This disables model dropdown if no brand is selected
           >
             <option value='' disabled>
-              {sidebardata.brand ? 'Select Model' : 'Select Brand First'}
+              {sidebardata.brand ? 'Odaberite model' : 'Odaberite prvo brend'}
             </option>
             {sidebardata.type ==='parts' && (
               <option>
-                Any model
+                Svi modeli
               </option>
             )}
             {brandModelData[sidebardata.brand] &&
@@ -564,7 +598,7 @@ const handleCityChange = (e) => {
             value={sidebardata.year}
       >
             <option  disabled>
-             Select Year
+             Godina prve registracije
             </option>
            {generateYearOptions()}
            </select>
@@ -582,48 +616,49 @@ const handleCityChange = (e) => {
                 </option>
             ))}
         </select>
+        
         <select
             type='text'
-            className='block py-2.5 px-0 max-w-36 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            className='block py-2.5 px-0 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
             dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
             id='engine'
             onChange={handleEngineTypeChange}
             value={sidebardata.engine}
           >  
-          <option value="" disabled hidden>Type of engine</option>
+          <option value="" disabled hidden>Tip motora</option>
           {sidebardata.type ==='parts' && (
               <option>
-                Any type of engine
+                Svi tipovi motora
               </option>
             )}
             <option >
               E-V
             </option>  
             <option >
-              Diesel
+              Dizel
             </option>  
             <option >
-              Petrol
+              Benzin
             </option>  
             <option >
-              Hybrid
+              Hibrid
             </option>  
           </select>
           <select
             type='text'
-            className='block py-2.5 px-0 max-w-36 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            className='block py-2.5 px-0  text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
             dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
             id='capacity'
             onChange={handleCapacityChange}
             value={sidebardata.capacity}
           >
               
-            <option >
-              Electric or pick size below
+              <option value='' disabled >
+              Zapremina motora
             </option>  
             {sidebardata.type ==='parts' && (
               <option>
-                Any engine size
+              Sve zapremine
               </option>
             )}
             {generateEngineSizeOptions()}
@@ -631,39 +666,39 @@ const handleCityChange = (e) => {
 
           <select
             type='text'
-            className='block py-2.5 px-0 max-w-36 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            className='block py-2.5 px-0  text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
             dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
             id='transmission'
             onChange={handleTransmissionChange}
             value={sidebardata.transmission}
           >
-             <option value="" disabled hidden>Select transmission</option>
+             <option value="" disabled hidden>Tip mjenjača</option>
              {sidebardata.type ==='parts' && (
               <option>
-                Any transmission
+                Svi tipovi
               </option>
             )}
             <option >
-            Automatic
+            Automatik
             </option>  
             <option >
-             Manual
+             Manuelni
             </option>  
           </select>
 
           <select
             type='text'
-            className='block py-2.5 px-0 max-w-36 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            className='block py-2.5 px-0  text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
             dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
             id='wheeldrive'
             onChange={handleWheelDriveChange}
             value={sidebardata.wheeldrive}
           >
-             <option value="" disabled hidden>Drive train</option>
+             <option value="" disabled hidden>Pogon</option>
              
              {sidebardata.type ==='parts' && (
               <option>
-                Any drive train
+                Svi pogoni
               </option>
             )}
              <option >
@@ -679,53 +714,198 @@ const handleCityChange = (e) => {
             4WD
             </option>
           </select>
-          
+          {(sidebardata.type === 'sale' || sidebardata.type === 'rent' || sidebardata.cartype === 'Unutrašnja oprema') && (
           <select
             type='text'
-            className='block py-2.5 px-0 max-w-36 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
+            className='block py-2.5 px-0  text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none
             dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer'
             id='interior'
             onChange={handleInteriorChange}
             value={sidebardata.interior}
             
           >
-             <option value="" disabled hidden>Interior type</option>
-             <option >
-            Leather
-            </option> 
-            <option >
-            Vinyl
-            </option>  
-            <option >
-            Alcantra
-            </option>  
-            <option >
-            Polyester
+             <option value="" disabled hidden>Tip interijera</option>
+             <option>
+                Koža
             </option>
-            <option >
-            Faux Leather
+            <option>
+                Vinil
+            </option>
+            <option>
+                Alkantara
+            </option>
+            <option>
+                Poliester
+            </option>
+            <option>
+                Imitacija kože
             </option> 
             
-          </select>
+          </select>)}
           
+          <div className='flex gap-6 items-center '>
+        <div className='relative '>
+            <input type="number" 
+            id='minPrice'
+            onChange={handleChange}
+            value={sidebardata.minPrice}
+            className='max-w-36 block py-2.5 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer' placeholder=""/>
+
+            <label  className=" absolute bottom-9 left-0 text-sm text-gray-500  mx-1 px-1 peer-placeholder-shown:top-3  peer-placeholder-shown:text-gray-500  peer-focus:-top-3">Cijena od[BAM]</label>
+        </div>
+        <div className='relative '>
+            <input type="number" 
+            id='maxPrice'
+            onChange={handleChange}
+            value={sidebardata.maxPrice}
+            className='max-w-36 block py-2.5 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer' placeholder=""/>
+
+            <label  className=" absolute bottom-9 left-0 text-sm text-gray-500  mx-1 px-1 peer-placeholder-shown:top-3  peer-placeholder-shown:text-gray-500  peer-focus:-top-3">Cijena do[BAM]</label>
+        </div>
+          </div>
+          {sidebardata.type ==='sale' && (
+        <div className='flex gap-6 items-center '>
+        <div className='relative '>
+            <input type="number" 
+            id='minMileage'
+            onChange={handleChange}
+            value={sidebardata.minMileage}
+            className='max-w-36 block py-2.5 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer' placeholder=""/>
+
+            <label  className=" absolute bottom-9 left-0 text-sm text-gray-500  mx-1 px-1 peer-placeholder-shown:top-3  peer-placeholder-shown:text-gray-500  peer-focus:-top-3">Kilometri od</label>
+        </div>
+        <div className='relative '>
+            <input type="number" 
+            id='maxMileage'
+            onChange={handleChange}
+            value={sidebardata.maxMileage}
+            className='max-w-36 block py-2.5 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer' placeholder=""/>
+
+            <label  className=" absolute bottom-9 left-0 text-sm text-gray-500  mx-1 px-1 peer-placeholder-shown:top-3  peer-placeholder-shown:text-gray-500  peer-focus:-top-3">Kilometri do</label>
+        </div>
+          </div>)}
+          {(sidebardata.type ==='sale' || sidebardata.type ==='rent') && (
+          <div className='flex gap-6 items-center '>
+        <div className='relative '>
+            <input type="number" 
+            id='minkW'
+            onChange={handleChange}
+            value={sidebardata.minkW}
+            className='max-w-36 block py-2.5 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer' placeholder=""/>
+
+            <label  className=" absolute bottom-9 left-0 text-sm text-gray-500  mx-1 px-1 peer-placeholder-shown:top-3  peer-placeholder-shown:text-gray-500  peer-focus:-top-3">Minimalna snaga</label>
+        </div>
+        <div className='relative '>
+            <input type="number" 
+            id='maxkW'
+            onChange={handleChange}
+            value={sidebardata.maxkW}
+            className='max-w-36 block py-2.5 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-sky-500 appearance-none dark:text-gray-400 dark:border-amber-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer' placeholder=""/>
+
+            <label  className=" absolute bottom-9 left-0 text-sm text-gray-500  mx-1 px-1 peer-placeholder-shown:top-3  peer-placeholder-shown:text-gray-500  peer-focus:-top-3">Maksimalna snaga</label>
+        </div>
+          </div>
+          )}
+          
+          {sidebardata.type === 'sale' && (
+          <div className='flex gap-2 flex-wrap max-w-56 '>
+            <label className='font-semibold'>Ostalo:</label>
+            <div className='flex gap-2 items-center'>
+              <input
+                type='checkbox'
+                id='registered'
+                className='rounded-full bg-transparent'
+                onChange={handleChange}
+                checked={sidebardata.registered}
+              />
+              <span>Registrovani automobili</span>
+            </div>
+            <div className='flex gap-2 items-center'>
+              <input
+                type='checkbox'
+                id='leasing'
+                className='rounded-full bg-transparent'
+                onChange={handleChange}
+                checked={sidebardata.leasing}
+              />
+              <span>Moguća kupovina na lizing</span>
+            </div>
+            <div className='flex gap-2 items-center '>
+              <input
+                type='checkbox'
+                id='customscleared'
+                className='rounded-full bg-transparent '
+                onChange={handleChange}
+                checked={sidebardata.customscleared}
+              />
+              <span>Ocarinjen</span>
+              
+            </div>
+            <div className='flex gap-2 items-center '>
+              <input
+                type='checkbox'
+                id='foreignplates'
+                className='rounded-full bg-transparent '
+                onChange={handleChange}
+                checked={sidebardata.foreignplates}
+              />
+              <span>Strane table</span>
+              
+            </div>
+            <div className='flex gap-2 items-center '>
+              <input
+                type='checkbox'
+                id='servicebook'
+                className='rounded-full bg-transparent '
+                onChange={handleChange}
+                checked={sidebardata.servicebook}
+              />
+              <span>Posjeduje servisnu knjigu</span>
+              
+            </div>
+            <div className='flex gap-2 items-center '>
+              <input
+                type='checkbox'
+                id='oldtimer'
+                className='rounded-full bg-transparent '
+                onChange={handleChange}
+                checked={sidebardata.olditmer}
+              />
+              <span>Oldtimer</span>
+              
+            </div>
+            <div className='flex gap-2 items-center '>
+              <input
+                type='checkbox'
+                id='damaged'
+                className='rounded-full bg-transparent '
+                onChange={handleChange}
+                checked={sidebardata.damaged}
+              />
+              <span className='flex'>Oštećeni automobil</span>
+              
+            </div>
+          </div>
+          )}
           <button className='bg-sky-500 dark:bg-amber-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
-            Search
+            Pretraži
           </button>
         </form>
       </div>
+      
       <div className='flex-1'>
         <h1 className='text-3xl font-bold border-b border-sky-500 dark:border-amber-700 p-3 dark:text-white mt-2  '>
-          Listing results:
+          Rezultati pretrage:
           <select
               onChange={handleChange}
               defaultValue={'created_at_desc'}
               id='sort_order'
               className='ml-5 border-sky-500 dark:border-amber-600 rounded-lg p-3 bg-transparent'
             >
-              <option class="bg-slate-700" value='regularPrice_desc'>Price high to low</option>
-              <option class="bg-slate-700" value='regularPrice_asc'>Price low to hight</option>
-              <option class="bg-slate-700"value='createdAt_desc'>Latest</option>
-              <option class="bg-slate-700" value='createdAt_asc'>Oldest</option>
+              <option class="bg-transparent dark:bg-slate-700" value='regularPrice_desc'>Cijena od visoke ka nižoj</option>
+              <option class="bg-transparent dark:bg-slate-700" value='regularPrice_asc'>Cijena od niže ka višoj</option>
+              <option class="bg-transparent dark:bg-slate-700" value='createdAt_desc'>Najnovije objave</option>
+              <option class="bg-transparent dark:bg-slate-700" value='createdAt_asc'>Najstarije objave</option>
             </select>
         </h1>
             
@@ -733,7 +913,7 @@ const handleCityChange = (e) => {
           
         <div className='p-7 flex flex-wrap gap-4'>
           {!loading && listings.length === 0 && (
-            <p className='text-xl text-slate-700'>No listing found!</p>
+            <p className='text-xl text-slate-700'>Nije pronađen traženi oglas!</p>
           )}
           {loading && (
             <p className='text-xl text-slate-700 text-center w-full'>
@@ -751,7 +931,7 @@ const handleCityChange = (e) => {
               onClick={onShowMoreClick}
               className='text-amber-700 hover:underline p-7 text-center w-full'
             >
-              Show more
+              Prikaži više
             </button>
           )}
         </div>

@@ -3,7 +3,7 @@
 const brandModelData = {
     Toyota: ['4Runner', 'Avalon', 'Camry', 'Corolla', 'Highlander', 'Land Cruiser', 'Prius', 'Rav4', 'Sienna', 'Tundra'],
     Honda: ['Accord', 'Civic', 'CR-V', 'Fit', 'HR-V', 'Insight', 'Odyssey', 'Pilot', 'Ridgeline'],
-    Ford: ['Bronco', 'Edge', 'Escape', 'Expedition', 'Explorer', 'F-150', 'Mustang', 'Ranger'],
+    Ford: ['Bronco','Focus', 'Edge', 'Escape', 'Expedition', 'Explorer', 'F-150', 'Mustang', 'Ranger'],
     Chevrolet: ['Blazer', 'Camaro', 'Equinox', 'Malibu', 'Silverado', 'Suburban', 'Tahoe', 'Traverse'],
     BMW: ['1 Series', '2 Series', '3 Series', '4 Series', '5 Series', '6 Series', '7 Series', 'X1', 'X3', 'X5', 'X7', 'Z4', 'i3', 'i4', 'i8'],
     Mercedes: ['A-Class', 'C-Class', 'E-Class', 'GLA', 'GLC', 'GLE', 'S-Class','CLA','CLS','D-Class'],

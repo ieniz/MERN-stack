@@ -3,12 +3,35 @@ import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
+
+import admin from 'firebase-admin'; 
+import serviceAccount from '../../mern-d450f-firebase-adminsdk-eaipl-efa0fe4cb2.json' assert { type: "json" };
+
+
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  
+  });
+}
+
+const db = admin.firestore();
+
+
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
   const hashedPassword = bcryptjs.hashSync(password, 10);
   const newUser = new User({ username, email, password: hashedPassword });
   try {
     await newUser.save();
+
+    await db.collection('users').doc(newUser._id.toString()).set({
+      username: newUser.username,
+      email: newUser.email,
+      userId: newUser._id.toString(),
+      avatar: newUser.avatar,
+      timestamp: new Date(),
+    });
     res.status(201).json('User created successfully!');
   } catch (error) {
     next(error);
@@ -57,6 +80,14 @@ export const google = async (req, res, next) => {
         avatar: req.body.photo,
       });
       await newUser.save();
+      await db.collection('users').doc(newUser._id.toString()).set({
+        username: newUser.username,
+        email: newUser.email,
+        userId: newUser._id.toString(),
+        avatar: newUser.avatar,
+        timestamp: new Date(),
+      });
+
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
       const { password: pass, ...rest } = newUser._doc;
       res

@@ -2,6 +2,19 @@ import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import { errorHandler } from '../utils/error.js';
 import Listing from '../models/listing.model.js';
+import admin from 'firebase-admin'; 
+import serviceAccount from '../../mern-d450f-firebase-adminsdk-eaipl-efa0fe4cb2.json' assert { type: "json" };
+
+// Check if Firebase app is already initialized
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    // Add other Firebase Admin SDK config options here if needed
+  });
+}
+
+const db = admin.firestore();
+
 
 export const test = (req, res) => {
   res.json({
@@ -30,6 +43,14 @@ export const updateUser = async (req, res, next) => {
       },
       { new: true }
     );
+
+    await db.collection('users').doc(updatedUser._id.toString()).update({
+      username: updatedUser.username,
+      email: updatedUser.email,
+      avatar:updatedUser.avatar,
+      
+      
+    });
 
     const { password, ...rest } = updatedUser._doc;
 

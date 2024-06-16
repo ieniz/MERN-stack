@@ -25,8 +25,8 @@ export default function SellerContact({ listing }) {
       {landlord && (
         <div className='flex flex-col gap-2'>
           <p>
-            Contact <span className='font-semibold '>{landlord.username}</span>{' '}
-            for{' '}
+            Kontaktirajte <span className='font-semibold '>{landlord.username}</span>{' '}
+            za{' '}
             <span className='font-semibold capitalize'>{listing.name.toLowerCase()}</span>
           </p>
           <textarea
@@ -35,7 +35,7 @@ export default function SellerContact({ listing }) {
             rows='2'
             value={message}
             onChange={onChange}
-            placeholder='Enter your message here...'
+            placeholder='Unesite poruku...'
             className='w-full border p-3 rounded-lg text-black'
           ></textarea>
 
@@ -43,7 +43,7 @@ export default function SellerContact({ listing }) {
           to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
           className='bg-sky-600 dark:bg-amber-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95'
           >
-            Send Message          
+            Pošaljite mail          
           </Link>
         </div>
       )}

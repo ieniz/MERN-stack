@@ -45,14 +45,14 @@ export default function SignIn() {
   };
   return (
     <div className='p-3 max-w-lg mx-auto my-10 mb-60'>
-      <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
+      <h1 className='text-3xl text-center font-semibold my-7'>Prijava</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
       
         <input
        
           type='email'
           placeholder='email'
-          className='border p-3 rounded-lg dark:bg-transparent'
+          className='border p-3 rounded-lg bg-transparent'
           id='email'
           onChange={handleChange}
           
@@ -60,7 +60,7 @@ export default function SignIn() {
         <input
           type='password'
           placeholder='password'
-          className='border p-3 rounded-lg dark:bg-transparent'
+          className='border p-3 rounded-lg bg-transparent'
           id='password'
           onChange={handleChange}
           
@@ -70,7 +70,7 @@ export default function SignIn() {
           disabled={loading}
           className='bg-sky-400 dark:bg-amber-500 text-white dark:text-black p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
         >
-          {loading ? 'Loading...' : 'Sign In'}
+          {loading ? 'Učitavanje...' : 'Prijava'}
         </button>
         <OAuth/>
       </form>
@@ -81,8 +81,8 @@ export default function SignIn() {
 <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-sky-500 dark:bg-amber-500 group-hover:translate-x-0 ease">
 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
 </span>
-<span class="absolute flex items-center justify-center w-full h-full text-sky-500 dark:text-white transition-all duration-300 transform group-hover:translate-x-full ease">Dont have an account?</span>
-<span class="relative invisible">Dont have an account?</span>
+<span class="absolute flex items-center justify-center w-full h-full text-sky-500 dark:text-white transition-all duration-300 transform group-hover:translate-x-full ease">Niste registrovani?</span>
+<span class="relative invisible">Niste registrovani?</span>
 </div>
         </Link>
       </div>
