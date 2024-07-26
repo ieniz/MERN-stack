@@ -147,7 +147,7 @@ export default function Listing() {
                     <h1 className="text-gray-600 dark:text-gray-200 font-bold">
                       {listing.createdBy.username}
                     </h1>
-                    <p className="text-gray-400">Kontakt</p>
+                    <p className="text-gray-400">Contact info</p>
                     <a
                       className="text-xs text-gray-500 dark:text-gray-200 group-hover:opacity-100 opacity-0 transform transition-all delay-300 duration-500">
                       {listing.createdBy.email}
@@ -165,7 +165,7 @@ export default function Listing() {
               <li className='relative ml-12 inline-flex items-center justify-center px-3 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white dark:bg-gray-800 rounded-lg group'>
               <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-sky-500 dark:bg-amber-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
               <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
-              <span class="relative">POŠALJI PORUKU KORISNIKU</span>
+              <span class="relative">CONTACT SELLER</span>
               </li>
             </Link>)}                                  
              
@@ -179,22 +179,22 @@ export default function Listing() {
             )}
             <div className='flex gap-4 mb-2 mt-5 '>
               <p className=' w-full max-w-[200px]  text-center border-2 border-sky-500 dark:border-amber-700 p-1 rounded-md'>
-              {listing.type === 'rent' ? 'Rentanje' : (listing.type === 'parts' ? 'Dijelovi' : 'Prodaja')}
+              {listing.type === 'rent' ? 'Rent' : (listing.type === 'parts' ? 'Parts' : 'Sell')}
               
               </p>
               <p className='text-xl '>
               {listing.regularPrice.toLocaleString('en-US')}
 
-              {listing.type === 'rent' && ' / dan'}$
+              {listing.type === 'rent' && ' / day'}$
             </p>
             </div>
               {listing.offer && (
                 <p className=' w-full max-w-[250px]  text-center p-1 rounded-md text-slate-400 underline'>
                   Popust :
-                  ${listing.discountPrice }/dan 
+                  ${listing.discountPrice }/day 
                 </p>
               )}
-              <p className='font-bold flex'>{listing.leasing && 'Moguć lizing'}</p>
+              <p className='font-bold flex'>{listing.leasing && 'Leasing possible'}</p>
               
              
               </div>
@@ -202,7 +202,7 @@ export default function Listing() {
               {listing.type ==='rent' && (
               <div className='m-5 md:m-0'>
               
-              <p className='font-extralight text-sky-500 dark:text-amber-600 mb-2'>Rezervisani datumi :</p>
+              <p className='font-extralight text-sky-500 dark:text-amber-600 mb-2'>Unavailable dates:</p>
               
                               
                   <Calendar
@@ -223,7 +223,7 @@ export default function Listing() {
             )}
 
             {listing.type ==='parts'  && (
-            <h2>Odgovara za:</h2>)}
+            <h2>Suited for:</h2>)}
 
             <ul className=' font-extrabold mt-8  flex flex-wrap items-center gap-x-5 sm:gap-x-10 gap-y-5'>
             
@@ -276,19 +276,19 @@ export default function Listing() {
               {listing.servicebook && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <GiArchiveRegister className='text-6xl' />
-                Servisna knjiga
+                Service book
               </li>
               )}
                {listing.registered && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <FaRegistered className='text-6xl' />
-                Registrovan
+                Registered
               </li>
               )}
                 {listing.customscleared && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <GiFullFolder className='text-6xl' />
-                Ocarinjen
+                Customs cleared
               </li>
               )}
                 {listing.oldtimer && (
@@ -300,13 +300,13 @@ export default function Listing() {
                 {listing.foreignplates && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <FaRegCreditCard className='text-6xl' />
-                Strane table
+                Foreign plates
               </li>
               )}
                 {listing.damaged && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl '>
                 <FaCarCrash className='text-6xl' />
-                Auto je oštećeno
+                Damaged
               </li>
               )}
               
@@ -316,15 +316,15 @@ export default function Listing() {
                <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <GiCarSeat className='text-6xl' />
                 {listing.seats > 1
-                  ? `${listing.seats} Sjedišta -`
-                  : `${listing.seats} Sjedište - `}
+                  ? `${listing.seats} Seats -`
+                  : `${listing.seats} Seat - `}
                    {`${listing.interior}`}
               </li>}
                 <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <GiCarDoor className='text-6xl' />
                 {listing.doors > 1
-                  ? `${listing.doors} Vrata `
-                  : `${listing.doors} Vrata `}
+                  ? `${listing.doors} Doors `
+                  : `${listing.doors} Door `}
               </li>
 
                         
@@ -336,7 +336,7 @@ export default function Listing() {
               {listing.adaptedforthedisabled && (
               <li className='flex font-extrabold items-center gap-1 whitespace-nowrap text-xl  '>
                 <TbDisabled  className='text-6xl' />
-                Prilagođen invalidima
+                Adapted for disabled
               </li>
               )}
               
@@ -367,13 +367,13 @@ export default function Listing() {
 
             {(listing.type ==='rent' || listing.type === 'sale') && (
             <div className='flex gap-5 p-5 rounded-xl bg-gradient-to-t from-transparent via-transparent dark:to-gray-950'>
-            <h1 className='font-bold '>Ostalo:</h1>
+            <h1 className='font-bold '>Other:</h1>
             <AttributeList />            
             </div>
             )}
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button onClick={()=>setContact(true)} className='bg-sky-600 dark:bg-amber-700 text-white rounded-lg uppercase hover:opacity-95 p-3 mt-10'>
-                Pošalji email upit
+                Send e-mail request
               </button>
             )}
             {contact && <SellerContact listing={listing}/>}

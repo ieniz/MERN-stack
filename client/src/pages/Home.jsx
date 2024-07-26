@@ -70,19 +70,19 @@ export default function Home() {
       <div
         class="block rounded-lg   bg-[hsla(0,0%,100%,0.55)] px-6 py-12 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-[hsla(0,0%,5%,0.55)] dark:shadow-black/20 md:py-16 md:px-12 mt-[-170px] backdrop-blur-[30px]">
         <h1 class="mt-2 mb-16 text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">
-          Sve na jednom mjestu <br /><span class="text-primary">za Vaš automobil</span>
+          The best offer on the market <br /><span class="text-primary">for your business</span>
         </h1>
         <a class="mb-2 inline-block rounded bg-primary px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal text-black dark:text-white shadow-[0_4px_9px_-4px_#3b71ca]  transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] md:mr-2 md:mb-0"
-          data-te-ripple-init data-te-ripple-color="light" href="/search" role="button">Započni pretragu</a>
+          data-te-ripple-init data-te-ripple-color="light" href="/search" role="button">Get started</a>
         <a class="mb-2 inline-block rounded bg-primary px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal text-black dark:text-white shadow-[0_4px_9px_-4px_#3b71ca]  transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] md:mr-2 md:mb-0"
-          data-te-ripple-init data-te-ripple-color="light" href="/about" role="button">O Nama</a>
+          data-te-ripple-init data-te-ripple-color="light" href="/about" role="button">Learn more</a>
       </div>
     </div>
   </div>
 
   <div className='flex flex-col gap-6 p-28 px-3 max-w-7xl mx-auto'>
         <h1 className='text-slate-700 font-bold text-4xl lg:text-7xl mx-auto underline'>
-          Pronađite Vaš  <span className='dark:text-amber-500 text-sky-600'>savršeni</span> automobil       
+          Find your next <span className='dark:text-amber-500 text-sky-600'>perfect</span> car       
           
         </h1>       
       
@@ -92,8 +92,8 @@ export default function Home() {
         {rentListings && rentListings.length > 0 && (
           <div className=''>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-gray-400'>Najnovije objave u kategoriji rentanje</h2>
-              <Link className='text-sm text-sky-700 dark:text-amber-600 hover:underline' to={'/search?type=rent'}>Prikaži sve automobile u ovoj kategoriji</Link>
+              <h2 className='text-2xl font-semibold text-gray-400'>Recent cars for rent</h2>
+              <Link className='text-sm text-sky-700 dark:text-amber-600 hover:underline' to={'/search?type=rent'}>Show more cars for rent</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {rentListings.map((listing) => (
@@ -105,8 +105,8 @@ export default function Home() {
          {offerListings && offerListings.length > 0 && (
           <div className=''>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-gray-400'>Ponude za rentanje na duži period</h2>
-              <Link className='text-sm text-sky-700 dark:text-amber-600 hover:underline' to={'/search?offer=true'}>Prikaži ostale automobile u ovoj kategoriji</Link>
+              <h2 className='text-2xl font-semibold text-gray-400'>Recent rent offers</h2>
+              <Link className='text-sm text-sky-700 dark:text-amber-600 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {offerListings.map((listing) => (
@@ -118,8 +118,8 @@ export default function Home() {
         {saleListings && saleListings.length > 0 && (
           <div className=''>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-gray-400'>Najnovije objave u kategoriji prodaja</h2>
-              <Link className='text-sm text-sky-700 dark:text-amber-500 hover:underline' to={'/search?type=sale'}>Prikaži ostale automobile u ovoj kategoriji</Link>
+              <h2 className='text-2xl font-semibold text-gray-400'>Recent cars for sale</h2>
+              <Link className='text-sm text-sky-700 dark:text-amber-500 hover:underline' to={'/search?type=sale'}>Show more cars for sale</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {saleListings.map((listing) => (
@@ -131,8 +131,8 @@ export default function Home() {
         {partsListings && partsListings.length > 0 && (
           <div className=''>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-gray-400'>Dijelovi za Vaš automobil</h2>
-              <Link className='text-sm text-sky-700 dark:text-amber-500 hover:underline' to={'/search?type=parts'}>Prikaži ostale ponude u ovoj kategoriji</Link>
+              <h2 className='text-2xl font-semibold text-gray-400'>Recent parts for sale</h2>
+              <Link className='text-sm text-sky-700 dark:text-amber-500 hover:underline' to={'/search?type=parts'}>Show more parts for sale</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {partsListings.map((listing) => (

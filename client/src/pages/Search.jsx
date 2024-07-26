@@ -392,13 +392,13 @@ const handleCityChange = (e) => {
         <input type="checkbox" id="all" value="" className="sr-only peer  border-amber-700" 
           onChange={() => handleCheckboxClick('all')}
           checked={sidebardata.type === 'all'}/>
-        <label for="all" class="inline-flex items-center justify-between w-90  p-5 text-gray-500 bg-white border-2 
+        <label for="all" class="inline-flex items-center justify-between w-80 p-5 text-gray-500 bg-white border-2 
          border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600
           dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50
            dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
-            <div className="block">
-            <div className='flex gap-20'><GiCardboardBox style={{ fontSize: '3em'}}/><GiKeyCard style={{ fontSize: '3em'}}/><FaCar style={{ fontSize: '3em'}}/></div>
-                <div className=" text-center text-2xl font-bold mt-1">Sve kategorije</div>
+            <div class="block">
+            <div className='flex gap-20'><GiCardboardBox style={{ fontSize: '2em'}}/><GiKeyCard style={{ fontSize: '2em'}}/><FaCar style={{ fontSize: '2em'}}/></div>
+                <div class=" text-center text-2xl font-bold mt-1">All categories</div>
                 
             </div>
         </label>
@@ -409,13 +409,13 @@ const handleCityChange = (e) => {
         <input type="checkbox" id="parts" value="" className="sr-only peer  border-amber-700" 
           onChange={() => handleCheckboxClick('parts')}
           checked={sidebardata.type === 'parts'}/>
-        <label for="parts" className="inline-flex items-center justify-between  p-5 text-gray-500 bg-white border-2
+        <label for="parts" class="inline-flex items-center justify-between  p-5 text-gray-500 bg-white border-2
          border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600
           dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50
            dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
             <div class="block">
-            <div className='flex gap-1'><GiCardboardBox style={{ fontSize: '2em'}}/><FaScrewdriverWrench style={{ fontSize: '2em'}}/></div>
-                <div className="text-center text-lg font-semibold mt-2">Dijelovi</div>
+            <div className='flex gap-1'><GiCardboardBox style={{ fontSize: '2em'}}/><GiCarSeat style={{ fontSize: '2em'}}/><FaScrewdriverWrench style={{ fontSize: '2em'}}/></div>
+                <div class="text-center text-lg font-semibold mt-2">Parts</div>
                 
             </div>
         </label>
@@ -424,13 +424,13 @@ const handleCityChange = (e) => {
         <input type="checkbox" id="rent" value="" className="sr-only peer  border-amber-700" 
          onChange={() => handleCheckboxClick('rent')}
          checked={sidebardata.type === 'rent'}/>
-        <label for="rent" className="inline-flex items-center justify-between  p-5 text-gray-500 bg-white border-2
+        <label for="rent" class="inline-flex items-center justify-between  p-5 text-gray-500 bg-white border-2
          border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600
           dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50
            dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
-            <div class="block ">
-                <GiKeyCard className='mx-auto' style={{fontSize: '2em '}}/>
-                <div className="text-center text-lg font-semibold mt-2">Rentanje</div>
+            <div class="block">
+                <GiKeyCard style={{ fontSize: '2em'}}/>
+                <div class="text-center text-lg font-semibold mt-2">Rent</div>
                 
             </div>
         </label>
@@ -445,8 +445,8 @@ const handleCityChange = (e) => {
           dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50
            dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
             <div class="block">
-                <FaCar className='mx-auto' style={{ fontSize: '2em'}}/> 
-                <div class="text-center text-lg font-semibold mt-2">Prodaja</div>
+                <FaCar style={{ fontSize: '2em'}}/>
+                <div class="text-center text-lg font-semibold mt-2">Buy</div>
                 
             </div>
         </label>
@@ -466,7 +466,7 @@ const handleCityChange = (e) => {
               rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
               after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
               after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Samo oglasi sa popustom na duže rentanje</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Search for discount on longer rents</span>
             </label>
             </div>)}
 
@@ -483,9 +483,6 @@ const handleCityChange = (e) => {
 
             {sidebardata.type === 'parts' && (
               <>
-               <option value='' disabled>
-              Odaberite kategoriju
-            </option>
                 <option>Mali servis - Filteri</option>
                 <option>Kaišni prenos/ Remenje / Veliki servis</option>
                 <option>Senzori</option>
@@ -519,26 +516,23 @@ const handleCityChange = (e) => {
             )}
             {(sidebardata.type === 'sale' || sidebardata.type ==='rent') && (
               <>
-               <option value='' disabled>
-              Odaberite tip vozila
+             <option >
+            Limousine
+            </option> 
+            <option >
+            Hatchback
+            </option>  
+            <option >
+            Pickup
+            </option>  
+            <option >
+            Sedan
             </option>
-             <option>
-                Limuzina
-            </option>
-            <option>
-                Hečbek
-            </option>
-            <option>
-                Pickup
-            </option>
-            <option>
-                Sedan
-            </option>
-            <option>
-                SUV
-            </option>
-            <option>
-                Karavan
+            <option >
+            SUV
+            </option>  
+            <option >
+            Station wagon
             </option>
             </>
             )}
@@ -553,11 +547,11 @@ const handleCityChange = (e) => {
             value={sidebardata.brand}
           >
             <option value='' disabled>
-              Odaberite brend
+              Select Brand
             </option>
             {sidebardata.type ==='parts' && (
               <option>
-                Svi brendovi
+                Any brand
               </option>
             )}
             {Object.keys(brandModelData).map((brand) => (
@@ -575,11 +569,11 @@ const handleCityChange = (e) => {
             disabled={!sidebardata.brand} //This disables model dropdown if no brand is selected
           >
             <option value='' disabled>
-              {sidebardata.brand ? 'Odaberite model' : 'Odaberite prvo brend'}
+              {sidebardata.brand ? 'Select Model' : 'Select Brand First'}
             </option>
             {sidebardata.type ==='parts' && (
               <option>
-                Svi modeli
+                Any model
               </option>
             )}
             {brandModelData[sidebardata.brand] &&
@@ -598,7 +592,7 @@ const handleCityChange = (e) => {
             value={sidebardata.year}
       >
             <option  disabled>
-             Godina prve registracije
+             Select Year
             </option>
            {generateYearOptions()}
            </select>
@@ -625,23 +619,23 @@ const handleCityChange = (e) => {
             onChange={handleEngineTypeChange}
             value={sidebardata.engine}
           >  
-          <option value="" disabled hidden>Tip motora</option>
+          <option value="" disabled hidden>Type of engine</option>
           {sidebardata.type ==='parts' && (
               <option>
-                Svi tipovi motora
+                Any type of engine
               </option>
             )}
             <option >
               E-V
             </option>  
             <option >
-              Dizel
+              Diesel
             </option>  
             <option >
-              Benzin
+              Petrol
             </option>  
             <option >
-              Hibrid
+              Hybrid
             </option>  
           </select>
           <select
@@ -653,12 +647,12 @@ const handleCityChange = (e) => {
             value={sidebardata.capacity}
           >
               
-              <option value='' disabled >
-              Zapremina motora
+            <option >
+              Electric or pick size below
             </option>  
             {sidebardata.type ==='parts' && (
               <option>
-              Sve zapremine
+                Any engine size
               </option>
             )}
             {generateEngineSizeOptions()}
@@ -672,17 +666,17 @@ const handleCityChange = (e) => {
             onChange={handleTransmissionChange}
             value={sidebardata.transmission}
           >
-             <option value="" disabled hidden>Tip mjenjača</option>
+             <option value="" disabled hidden>Select transmission</option>
              {sidebardata.type ==='parts' && (
               <option>
-                Svi tipovi
+                Any transmission
               </option>
             )}
             <option >
-            Automatik
+            Automatic
             </option>  
             <option >
-             Manuelni
+             Manual
             </option>  
           </select>
 
@@ -694,11 +688,11 @@ const handleCityChange = (e) => {
             onChange={handleWheelDriveChange}
             value={sidebardata.wheeldrive}
           >
-             <option value="" disabled hidden>Pogon</option>
+             <option value="" disabled hidden>Drive train</option>
              
              {sidebardata.type ==='parts' && (
               <option>
-                Svi pogoni
+                Any drive train
               </option>
             )}
              <option >
@@ -724,21 +718,21 @@ const handleCityChange = (e) => {
             value={sidebardata.interior}
             
           >
-             <option value="" disabled hidden>Tip interijera</option>
-             <option>
-                Koža
+             <option value="" disabled hidden>Interior type</option>
+             <option >
+            Leather
+            </option> 
+            <option >
+            Vinyl
+            </option>  
+            <option >
+            Alcantra
+            </option>  
+            <option >
+            Polyester
             </option>
-            <option>
-                Vinil
-            </option>
-            <option>
-                Alkantara
-            </option>
-            <option>
-                Poliester
-            </option>
-            <option>
-                Imitacija kože
+            <option >
+            Faux Leather
             </option> 
             
           </select>)}
@@ -808,8 +802,8 @@ const handleCityChange = (e) => {
           )}
           
           {sidebardata.type === 'sale' && (
-          <div className='flex gap-2 flex-wrap max-w-56 '>
-            <label className='font-semibold'>Ostalo:</label>
+          <div className='flex gap-2 flex-wrap items-center max-w-10'>
+            <label className='font-semibold'>Legal:</label>
             <div className='flex gap-2 items-center'>
               <input
                 type='checkbox'
@@ -818,7 +812,7 @@ const handleCityChange = (e) => {
                 onChange={handleChange}
                 checked={sidebardata.registered}
               />
-              <span>Registrovani automobili</span>
+              <span>registered</span>
             </div>
             <div className='flex gap-2 items-center'>
               <input
@@ -828,7 +822,7 @@ const handleCityChange = (e) => {
                 onChange={handleChange}
                 checked={sidebardata.leasing}
               />
-              <span>Moguća kupovina na lizing</span>
+              <span>leasing</span>
             </div>
             <div className='flex gap-2 items-center '>
               <input
@@ -838,7 +832,7 @@ const handleCityChange = (e) => {
                 onChange={handleChange}
                 checked={sidebardata.customscleared}
               />
-              <span>Ocarinjen</span>
+              <span>customscleared</span>
               
             </div>
             <div className='flex gap-2 items-center '>
@@ -849,7 +843,7 @@ const handleCityChange = (e) => {
                 onChange={handleChange}
                 checked={sidebardata.foreignplates}
               />
-              <span>Strane table</span>
+              <span>foreignplates</span>
               
             </div>
             <div className='flex gap-2 items-center '>
@@ -860,7 +854,7 @@ const handleCityChange = (e) => {
                 onChange={handleChange}
                 checked={sidebardata.servicebook}
               />
-              <span>Posjeduje servisnu knjigu</span>
+              <span>servicebook</span>
               
             </div>
             <div className='flex gap-2 items-center '>
@@ -871,7 +865,7 @@ const handleCityChange = (e) => {
                 onChange={handleChange}
                 checked={sidebardata.olditmer}
               />
-              <span>Oldtimer</span>
+              <span>oldtimer</span>
               
             </div>
             <div className='flex gap-2 items-center '>
@@ -882,30 +876,30 @@ const handleCityChange = (e) => {
                 onChange={handleChange}
                 checked={sidebardata.damaged}
               />
-              <span className='flex'>Oštećeni automobil</span>
+              <span>Damaged</span>
               
             </div>
           </div>
           )}
           <button className='bg-sky-500 dark:bg-amber-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
-            Pretraži
+            Search
           </button>
         </form>
       </div>
       
       <div className='flex-1'>
         <h1 className='text-3xl font-bold border-b border-sky-500 dark:border-amber-700 p-3 dark:text-white mt-2  '>
-          Rezultati pretrage:
+          Listing results:
           <select
               onChange={handleChange}
               defaultValue={'created_at_desc'}
               id='sort_order'
               className='ml-5 border-sky-500 dark:border-amber-600 rounded-lg p-3 bg-transparent'
             >
-              <option class="bg-transparent dark:bg-slate-700" value='regularPrice_desc'>Cijena od visoke ka nižoj</option>
-              <option class="bg-transparent dark:bg-slate-700" value='regularPrice_asc'>Cijena od niže ka višoj</option>
-              <option class="bg-transparent dark:bg-slate-700" value='createdAt_desc'>Najnovije objave</option>
-              <option class="bg-transparent dark:bg-slate-700" value='createdAt_asc'>Najstarije objave</option>
+              <option class="bg-slate-700" value='regularPrice_desc'>Price high to low</option>
+              <option class="bg-slate-700" value='regularPrice_asc'>Price low to hight</option>
+              <option class="bg-slate-700"value='createdAt_desc'>Latest</option>
+              <option class="bg-slate-700" value='createdAt_asc'>Oldest</option>
             </select>
         </h1>
             
@@ -913,7 +907,7 @@ const handleCityChange = (e) => {
           
         <div className='p-7 flex flex-wrap gap-4'>
           {!loading && listings.length === 0 && (
-            <p className='text-xl text-slate-700'>Nije pronađen traženi oglas!</p>
+            <p className='text-xl text-slate-700'>No listing found!</p>
           )}
           {loading && (
             <p className='text-xl text-slate-700 text-center w-full'>
@@ -931,7 +925,7 @@ const handleCityChange = (e) => {
               onClick={onShowMoreClick}
               className='text-amber-700 hover:underline p-7 text-center w-full'
             >
-              Prikaži više
+              Show more
             </button>
           )}
         </div>

@@ -363,9 +363,9 @@ const handleCityChange = (e) => {
     e.preventDefault();
     try {
       if (formData.imageUrls.length < 1)
-        return setError('Objavite sliku oglasa');
+        return setError('You must upload at least one image');
       if (+formData.regularPrice < +formData.discountPrice)
-        return setError('Cijena sa popustom mora biti niža od redovne cijene');
+        return setError('Discount price must be lower than regular price');
      
       setLoading(true);
       setError(false);
@@ -395,11 +395,11 @@ const handleCityChange = (e) => {
     
     <main className='p-3 max-w-4xl mx-auto my-20'>
       <h1 className='text-3xl font-extrabold text-center my-7'>
-        Ažuriranje oglasa
+        Update your listing
       </h1>
       
       
-
+<h3 class="mb-5 text-lg font-mono font-medium text-gray-900 dark:text-white">Choose type of your listing</h3>
 
 <ul onSubmit={handleSubmit} class="grid w-full gap-6 md:grid-cols-3 mb-5">
     <li>
@@ -409,8 +409,8 @@ const handleCityChange = (e) => {
         <label for="sale" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
             <div class="block">
                 <FaCar style={{ fontSize: '2em'}}/>
-                <div class="w-full text-lg font-semibold mt-1">Prodaja</div>
-                <div class="w-full text-sm">Objavite Vaš automobil</div>
+                <div class="w-full text-lg font-semibold mt-1">Sell</div>
+                <div class="w-full text-sm">Sell your car</div>
             </div>
         </label>
     </li>
@@ -421,8 +421,8 @@ const handleCityChange = (e) => {
         <label for="rent" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 dark:peer-checked:border-amber-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
             <div class="block">
             <GiKeyCard style={{ fontSize: '2em'}}/>
-                <div class="w-full text-lg font-semibold mt-1">Rentanje</div>
-                <div class="w-full text-sm">Rentanje Vašeg automobila</div>
+                <div class="w-full text-lg font-semibold mt-1">Rent</div>
+                <div class="w-full text-sm">Rent your car</div>
             </div>
         </label>
     </li>
@@ -434,8 +434,8 @@ const handleCityChange = (e) => {
             <div class="block">
               <div className='flex gap-7'><GiCardboardBox style={{ fontSize: '2em'}}/><GiCarSeat style={{ fontSize: '2em'}}/><FaScrewdriverWrench style={{ fontSize: '2em'}}/></div>
             
-                <div class="w-full text-lg font-semibold mt-1">Dijelovi</div>
-                <div class="w-full text-sm"> Dijelovi automobila i ostalo </div>
+                <div class="w-full text-lg font-semibold mt-1">Part</div>
+                <div class="w-full text-sm">Sell accessories and parts of your car</div>
             </div>
         </label>
     </li>
@@ -455,7 +455,7 @@ const handleCityChange = (e) => {
             onChange={handleCarTypeChange}
             value={formData.cartype}
           >
-            <option value="" disabled hidden>Odaberite tip</option>
+            <option value="" disabled hidden>Select type</option>
             {formData.type === 'parts' && (
               <>
                 <option>Mali servis - Filteri</option>
@@ -491,23 +491,23 @@ const handleCityChange = (e) => {
             )}
             {(formData.type === 'sale' || formData.type ==='rent') && (
               <>
-            <option>
-                Limuzina
+             <option >
+            Limousine
+            </option> 
+            <option >
+            Hatchback
+            </option>  
+            <option >
+            Pickup
+            </option>  
+            <option >
+            Sedan
             </option>
-            <option>
-                Hečbek
-            </option>
-            <option>
-                Pickup
-            </option>
-            <option>
-                Sedan
-            </option>
-            <option>
-                SUV
-            </option>
-            <option>
-                Karavan
+            <option >
+            SUV
+            </option>  
+            <option >
+            Station wagon
             </option>
             </>
             )}
@@ -522,11 +522,11 @@ const handleCityChange = (e) => {
             value={formData.brand}
           >
             <option value='' disabled>
-              Odaberite brend
+              Select Brand
             </option>
             {formData.type ==='parts' && (
               <option>
-                Svi brendovi
+                Any brand
               </option>
             )}
             {Object.keys(brandModelData).map((brand) => (
@@ -545,11 +545,11 @@ const handleCityChange = (e) => {
             disabled={!formData.brand} //This disables model dropdown if no brand is selected
           >
             <option value='' disabled>
-              {formData.brand ? 'Odaberite model' : 'Odaberite brend'}
+              {formData.brand ? 'Select Model' : 'Select Brand First'}
             </option>
             {formData.type ==='parts' && (
               <option>
-                Svi modeli
+                Any model
               </option>
             )}
             {brandModelData[formData.brand] &&
@@ -568,24 +568,24 @@ const handleCityChange = (e) => {
             onChange={handleEngineTypeChange}
             value={formData.engine}
           >  
-          <option value="" disabled hidden>Tip motora</option>
+          <option value="" disabled hidden>Type of engine</option>
           {formData.type ==='parts' && (
               <option>
-                Svi tipovi motora
+                Any type of engine
               </option>
             )}
             <option >
               E-V
             </option>  
             <option >
-              Dizel
+              Diesel
             </option>  
             <option >
-              Benzin
+              Petrol
             </option>  
             <option >
-              Hibrid
-            </option> 
+              Hybrid
+            </option>  
           </select>
           <select
             type='number'        
@@ -597,7 +597,7 @@ const handleCityChange = (e) => {
             value={formData.year}
       >
             <option value='' disabled>
-             Godište
+             Select Year
             </option>
            {generateYearOptions()}
            </select>
@@ -618,11 +618,11 @@ const handleCityChange = (e) => {
           >
               
             <option value='' disabled >
-              Zapremina motora
+              Engine size
             </option>  
             {formData.type ==='parts' && (
               <option>
-                Sve zapremine
+                Any engine size
               </option>
             )}
             {generateEngineSizeOptions()}
@@ -637,17 +637,17 @@ const handleCityChange = (e) => {
             onChange={handleTransmissionChange}
             value={formData.transmission}
           >
-             <option value="" disabled hidden>Tip mjenjača</option>
+             <option value="" disabled hidden>Select transmission</option>
              {formData.type ==='parts' && (
               <option>
-                Svi tipovi
+                Any transmission
               </option>
             )}
             <option >
-            Automatik
+            Automatic
             </option>  
             <option >
-             Manuelni
+             Manual
             </option>  
           </select>
           <select
@@ -659,10 +659,10 @@ const handleCityChange = (e) => {
             onChange={handleWheelDriveChange}
             value={formData.wheeldrive}
           >
-             <option value="" disabled hidden>Pogon</option>
+             <option value="" disabled hidden>Drive train</option>
              {formData.type ==='parts' && (
               <option>
-                Svi pogoni
+                Any drive train
               </option>
             )}
              <option >
@@ -690,7 +690,7 @@ const handleCityChange = (e) => {
             value={formData.emission}
           >
            
-             <option value="" disabled hidden>Emisioni standard</option>
+             <option value="" disabled hidden>Emission standard</option>
              
              <option >
             Euro 1
@@ -721,21 +721,21 @@ const handleCityChange = (e) => {
             onChange={handleInteriorChange}
             value={formData.interiortype}
           >
-             <option value="" disabled hidden>Tip interijera</option>
-             <option>
-                Koža
+             <option value="" disabled hidden>Interior type</option>
+             <option >
+            Leather
+            </option> 
+            <option >
+            Vinyl
+            </option>  
+            <option >
+            Alcantra
+            </option>  
+            <option >
+            Polyester
             </option>
-            <option>
-                Vinil
-            </option>
-            <option>
-                Alkantara
-            </option>
-            <option>
-                Poliester
-            </option>
-            <option>
-                Imitacija kože
+            <option >
+            Faux Leather
             </option>  
             
           </select>
@@ -759,12 +759,11 @@ const handleCityChange = (e) => {
           <textarea
             type='text'
             placeholder='Description'
-            className='border p-3 rounded-lg  border-sky-500 dark:border-amber-600 dark:bg-transparent dark:text-white whitespace-pre '
+            className='border p-3 rounded-lg  border-sky-500 dark:border-amber-600 dark:bg-transparent dark:text-white'
             id='description'
             required
             onChange={handleChange}
             value={formData.description}
-            
           />
           <input
             type='text'
@@ -812,8 +811,8 @@ const handleCityChange = (e) => {
         rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
         after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
         after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-        <span class="ms-3 flex-wrap text-sm font-mono text-gray-700 dark:text-gray-300 mr-10">Popust na duže rentanje</span>
-        <p className=' font-mono text-gray-700 dark:text-gray-300 mr-5'>Odaberite koji datumi nisu dostupni:</p>
+        <span class="ms-3 flex-wrap text-sm font-mono text-gray-700 dark:text-gray-300 mr-10">Discount on longer rents</span>
+        <p className=' font-mono text-gray-700 dark:text-gray-300 mr-5'>Choose which dates are not available:</p>
         </label>
         
         <DatePicker 
@@ -848,7 +847,7 @@ const handleCityChange = (e) => {
                 onChange={handleChange}
                 value={formData.seats}
               />
-              <p>Sjedišta</p>
+              <p>Seats</p>
             </div>
             <div className='flex items-center gap-2'>
               <input
@@ -861,7 +860,7 @@ const handleCityChange = (e) => {
                 value={formData.doors}
               />
               <div className='flex flex-col items-center'>
-                <p>Vrata</p>                             
+                <p>Doors</p>                             
               
               </div>
               
@@ -889,7 +888,7 @@ const handleCityChange = (e) => {
                 value={formData.mileage}
               />
               <div className='flex flex-col items-center'>
-                <p>Kilometraža</p>                             
+                <p>Mileage</p>                             
               
               </div>
              
@@ -907,9 +906,9 @@ const handleCityChange = (e) => {
                 value={formData.regularPrice}
               />
               <div className='flex flex-col items-center'>
-                <p>Cijena</p>
+                <p>Price</p>
                 {formData.type === 'rent' && (
-                  <span className='text-xs'>($ / dan)</span>
+                  <span className='text-xs'>($ / day)</span>
                 )}
               </div>
               
@@ -927,9 +926,9 @@ const handleCityChange = (e) => {
                 value={formData.discountPrice}
               />
               <div className='flex flex-col items-center'>
-                <p>Popust</p>
+                <p>Discount</p>
                 {formData.type === 'rent' && (
-                    <span className='text-xs'>($ / dan)</span>
+                    <span className='text-xs'>($ / day)</span>
                   )}
               </div>
             </div>
@@ -938,7 +937,7 @@ const handleCityChange = (e) => {
           </div>
           {(formData.type ==='rent' || formData.type === 'sale') && (
             <>
-          <h2 className='font-mono text-gray-500 dark:text-zinc-300 '>Legalno:</h2>
+          <h2 className='font-mono text-gray-500 dark:text-zinc-300 '>Legal:</h2>
          
           <div className='flex-wrap sm:flex gap-7 border-2 border-sky-500 dark:border-amber-700 rounded-md p-2  '>
             <div>
@@ -952,7 +951,7 @@ const handleCityChange = (e) => {
             rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
             after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
             after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Registrovan</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Registered</span>
             </label>
             </div>
 {/* Customs cleared */}
@@ -966,7 +965,7 @@ const handleCityChange = (e) => {
             rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
             after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
             after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Ocarinjen</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Customs cleared</span>
             </label>
             </div>
 {/* Foreign plates */}
@@ -980,7 +979,7 @@ const handleCityChange = (e) => {
             rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
             after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
             after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Strane table</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Foreign plates</span>
             </label>
             </div>
 {/* Leasing */}
@@ -994,7 +993,7 @@ const handleCityChange = (e) => {
             rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
             after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
             after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Lizing</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Leasing</span>
             </label>
             </div>
 {/* Service book */}
@@ -1008,13 +1007,13 @@ const handleCityChange = (e) => {
             rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
             after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
             after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Servisna knjiga</span>
+            <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Service book</span>
             </label>
             </div>
             </div>
 
 
-            <h2 className='font-mono text-gray-500 dark:text-zinc-300 '>Ostalo:</h2>
+            <h2 className='font-mono text-gray-500 dark:text-zinc-300 '>Other:</h2>
 
  <div className='flex-wrap sm:flex gap-16 border-2 border-sky-500 dark:border-amber-700 rounded-lg p-8 '>
 
@@ -1031,7 +1030,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Klima</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Airconditioner</span>
   </label>
 </div>
 
@@ -1046,7 +1045,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Metalik</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Metallic</span>
   </label>
 </div>
 
@@ -1061,7 +1060,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Alu felge</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Alloy wheels</span>
   </label>
 </div>
 
@@ -1076,7 +1075,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Digitalna klima</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Digital air conditioner</span>
   </label>
 </div>
          
@@ -1091,7 +1090,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Komande na volanu</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Steering wheel controls</span>
   </label>
 </div>
 
@@ -1107,7 +1106,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Navigacija</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Navigation</span>
   </label>
 </div>
 
@@ -1137,7 +1136,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Head-up displej</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Head up display</span>
   </label>
 </div>
  
@@ -1167,7 +1166,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Tempomat</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Cruise Control</span>
   </label>
 </div>
 
@@ -1211,7 +1210,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Senzor kiše</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Rain Sensor</span>
   </label>
 </div>
 
@@ -1241,7 +1240,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Senzor auto svijetla</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Light Sensor</span>
   </label>
 </div>
 </div>  
@@ -1256,7 +1255,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Senzor mrtvog ugla</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Blind Spot Sensor</span>
   </label>
 </div>
 
@@ -1271,7 +1270,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Start-Stop Sistem</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Start-Stop System</span>
   </label>
 </div>
 
@@ -1301,7 +1300,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Memorija sjedišta</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Seat Memory</span>
   </label>
 </div>
 
@@ -1316,7 +1315,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Masaža sjedišta</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Seat Massage</span>
   </label>
 </div>
 
@@ -1331,7 +1330,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Grijanje siceva</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Seat Heating</span>
   </label>
 </div>
 
@@ -1346,7 +1345,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Hlađenje siceva</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Seat Cooling</span>
   </label>
 </div>
 
@@ -1360,7 +1359,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">El. podizači stakala</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Power Windows</span>
   </label>
 </div>
 
@@ -1375,7 +1374,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">El. pomjeranje sjedišta</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Power Seat Adjustment</span>
   </label>
 </div>
 
@@ -1390,7 +1389,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Naslon za ruku</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Armrest</span>
   </label>
 </div>
 
@@ -1404,7 +1403,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Šiber</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Panoramic Roof</span>
   </label>
 </div>
 
@@ -1418,7 +1417,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Panorama krov</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Sunroof</span>
   </label>
 </div>
 
@@ -1432,7 +1431,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Maglenke</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Fog Lights</span>
   </label>
 </div>
 
@@ -1446,7 +1445,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Električni retrovizori</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Electric Mirrors</span>
   </label>
 </div>
 
@@ -1475,7 +1474,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Centralna brava</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Central Locking</span>
   </label>
 </div>
 
@@ -1489,7 +1488,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Daljinsko otključavanje</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Remote Unlocking</span>
   </label>
 </div>
 <div>
@@ -1558,7 +1557,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Servo volan</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Power Steering</span>
   </label>
 </div>
 
@@ -1600,7 +1599,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Kuka</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Tow Bar</span>
   </label>
 </div>
 
@@ -1614,7 +1613,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Oštećen</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Damaged</span>
   </label>
 </div>
 
@@ -1628,7 +1627,7 @@ const handleCityChange = (e) => {
       rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
       after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
       after:transition-all dark:border-gray-600 peer-checked:bg-sky-600 dark:peer-checked:bg-amber-500"></div>
-    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Prilagođen invalidima</span>
+    <span class="ms-3 text-sm font-mono text-gray-700 dark:text-gray-300">Adapted for the</span>
   </label>
 </div>
 
@@ -1657,8 +1656,8 @@ const handleCityChange = (e) => {
       </form>
       <form onSubmit={handleSubmit} className='mt-5'>
       <div className="flex flex-col flex-1 gap-4">
-          <p className='font-semibold'>Slike:
-          <span className='font-normal text-gray-600 ml-2'>Prva slika je naslovna (max 6)</span>
+          <p className='font-semibold'>Images:
+          <span className='font-normal text-gray-600 ml-2'>The first image will be the cover (max 6)</span>
           </p>
                 
             <input 
@@ -1669,7 +1668,6 @@ const handleCityChange = (e) => {
               id="images" 
               accept='image/*' 
               multiple
-              placeholder='lkasdj'
              />
 
             <button 
@@ -1678,7 +1676,7 @@ const handleCityChange = (e) => {
              onClick={handleImageSubmit}
              className='p-3 text-sky-700 border border-sky-700 rounded uppercase hover:shadow-lg disabled:opacity-80 dark:border-amber-400 dark:text-amber-700'
              
-             >{uploading ? 'Postavljanje...' : 'Postavi'}
+             >{uploading ? 'Uploading...' : 'Upload'}
              
               
               </button>
@@ -1701,7 +1699,7 @@ const handleCityChange = (e) => {
                   onClick={() => handleRemoveImage(index)}
                   className='p-3 text-red-700 rounded-lg uppercase hover:opacity-75'
                 >
-                  Obriši
+                  Delete
                 </button>
               </div>
             ))}
@@ -1709,7 +1707,7 @@ const handleCityChange = (e) => {
          disabled={loading || uploading}
          className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
           
-          {loading ? 'Ažuriranje...' : 'Ažuriraj'}</button>
+          {loading ? 'Updating...' : 'Update'}</button>
           {error && <p className='text-red-500 text-sm'>{error}</p>}
           
         </div>

@@ -35,11 +35,11 @@ export default function ListingItem({ listing }) {
             
             {
               listing.regularPrice.toLocaleString('en-US')
-              } KM
-            {listing.type === 'rent' && ' / dan'} 
+              }
+            {listing.type === 'rent' && ' / day'}$
             
           </p>
-          <p className='font-extralight'>{listing.offer && ' (Popust na duže rentanje)'}</p>
+          <p className='font-extralight'>{listing.offer && ' (Listing has discount on longer rents)'}</p>
           {(listing.type ==='rent' || listing.type === 'sale') && (<>
           <div className='text-slate-700  dark:text-white flex gap-4'>
           
@@ -85,11 +85,11 @@ export default function ListingItem({ listing }) {
         <>
             <div className=' flex font-bold text-sm items-center gap-1'>
             <GiCardboardBox/>
-                Tip : {`${listing.cartype}`}
+                Type of part : {`${listing.cartype}`}
             </div>
             <div className=' flex font-bold text-sm items-center gap-1'>
             <FaCar/>
-                Za: {`${listing.brand}`}-{`${listing.model}`}/{`${listing.year}`}
+                For: {`${listing.brand}`}-{`${listing.model}`}/{`${listing.year}`}
             </div>
         </>
             )}

@@ -189,7 +189,7 @@ export default function Chat() {
                 <div className="flex items-center justify-between p-4 ">
                     <h4 className="font-bold">{user?.username}</h4>
                     <Link to="/profile" className="text-gray-800 border px-2 hover:bg-sky-300 hover:dark:bg-amber-600 rounded-2xl dark:text-white cursor-pointer font-bold">
-                        Moj profil
+                        My profile
                     </Link>
                 </div>
                 <Divider />

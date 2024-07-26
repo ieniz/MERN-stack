@@ -68,7 +68,7 @@ export default function Header() {
             </div>
             <span 
                 class="relative font-bold  inline-flex items-center justify-center px-2.5 py-0.5 text-lg  text-white  bg-sky-400  dark:bg-amber-600 dark:text-black transition-all duration-200  font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-                role="button">Kupovina&Prodaja
+                role="button">Rent&Sell
             </span>
         </div></h1>
         </Link>
@@ -107,7 +107,7 @@ export default function Header() {
             <li className='relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white dark:bg-gray-800 rounded-lg group'>
             <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-sky-500 dark:bg-amber-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
 <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
-<span class="relative">Početna</span>
+<span class="relative">Home</span>
             </li>
           </Link>
          
@@ -115,7 +115,7 @@ export default function Header() {
           <li className='relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white dark:bg-gray-800 rounded-lg group'>
             <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-sky-500 dark:bg-amber-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
 <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
-<span class="relative">O nama</span>
+<span class="relative">About</span>
             </li>
           </Link>
           
@@ -134,18 +134,18 @@ export default function Header() {
                 <span className="block text-sm">{currentUser.username}</span>
                 <span className="block truncate text-sm font-medium">{currentUser.email}</span>
               </Dropdown.Header>
-              <Link to='/profile'><Dropdown.Item>Moj Profil </Dropdown.Item></Link>
-              <Link to='/chat/1'><Dropdown.Item>Poruke</Dropdown.Item></Link>
+              <Link to='/profile'><Dropdown.Item>My profile</Dropdown.Item></Link>
+              <Link to='/chat/1'><Dropdown.Item>Messages</Dropdown.Item></Link>
               
               <Dropdown.Divider />
-              <Dropdown.Item onClick={handleSignOut} >Odjavi se</Dropdown.Item>
+              <Dropdown.Item onClick={handleSignOut} >Sign out</Dropdown.Item>
             </Dropdown>
             ) : (
             <Link to='/sign-in'>
               <li className='relative inline-flex items-center justify-center px-2 py-2 overflow-hidden font-mono font-bold tracking-tighter text-sky-700 hover:text-white dark:text-white dark:bg-gray-800 rounded-lg group'>
               <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-sky-500 dark:bg-amber-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
               <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
-              <span class="relative">Prijava</span>
+              <span class="relative">Sign in</span>
               </li></Link>
             )}
             

@@ -131,7 +131,7 @@ export const getListing = async (req, res, next) => {
   
       if (cartype === '' || cartype === undefined) {
         cartype = { $in: [ 
-        'SUV', 'Hečbek', 'Limuzina', 'Pickup', 'Karavan', 'Sedan',
+        'SUV' ,'Hatchback','Limousine','Pickup','Station wagon','Sedan',
         'Mali servis - Filteri',
         'Kaišni prenos/ Remenje / Veliki servis',
         'Senzori',
@@ -164,17 +164,17 @@ export const getListing = async (req, res, next) => {
       let brand = req.query.brand;
       let model = req.query.model;
 
-      if (!brand || brand === 'Svi brendovi') {
+      if (!brand || brand === 'Any brand') {
         // If brand is not provided or "Any brand" is selected
-        brand = ['Svi brendovi', ...Object.keys(brandModelData)];
+        brand = ['Any brand', ...Object.keys(brandModelData)];
       } else {
         // Splitting brand string by comma and trim whitespace
         brand = brand.split(',').map(item => item.trim());
       }
 
-      if (!model || model === 'Svi modeli') {
+      if (!model || model === 'Any model') {
         // If model is not provided or "Any model" is selected
-        model = ['Svi modeli', ...Object.values(brandModelData).flat()];
+        model = ['Any model', ...Object.values(brandModelData).flat()];
       } else {
         // Splitting model string by comma and trim whitespace
         model = model.split(',').map(item => item.trim());
@@ -204,14 +204,14 @@ export const getListing = async (req, res, next) => {
       let engine = req.query.engine;
   
       if (engine === undefined || engine === '') {
-        engine = { $in: ['E-V', 'Dizel', 'Benzin','Hibrid','Svi tipovi motora'] };
+        engine = { $in: ['E-V', 'Diesel', 'Petrol','Hybrid','Any type of engine'] };
       }
     
 
       const startSize = 0.6;
       const endSize = 7.5;
       const increment = 0.1;
-      const enginesizes = ['Sve zapremine'];
+      const enginesizes = ['Any engine size'];
       
       for (let i = startSize; i <= endSize; i += increment) {
           enginesizes.push(i.toFixed(1));
@@ -227,13 +227,13 @@ export const getListing = async (req, res, next) => {
       let transmission = req.query.transmission;
   
       if (transmission === undefined || transmission === '') {
-        transmission = { $in: ['Automatik', 'Manuelni','Svi tipovi'] };
+        transmission = { $in: ['Automatic', 'Manual','Any transmission'] };
       }
 
       let wheeldrive = req.query.wheeldrive;
   
       if (wheeldrive=== undefined || wheeldrive === '') {
-        wheeldrive = { $in: ['AWD', '4WD', 'RWD','FWD','Svi pogoni'] };
+        wheeldrive = { $in: ['AWD', '4WD', 'RWD','FWD','Any drive train'] };
       }
 
       let interior = req.query.interior;
@@ -241,7 +241,7 @@ export const getListing = async (req, res, next) => {
       if (interior === undefined || interior === '') {
         interior = { $exists: true }; // Include listings where the interior is defined
       } else {
-        interior = { $in: ['Alkantara', 'Poliester', 'Imitacija kože', 'Vinil', 'Koža'] };
+        interior = { $in: ['Alcantra', 'Polyester', 'Faux Leather','Vinyl','Leather'] };
       }
      
      
